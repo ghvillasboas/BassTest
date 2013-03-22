@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "bass.h"
 #import "bassenc.h"
+#import "bassmix.h"
 
 @interface PlayerViewController : UIViewController
 @property HSTREAM channel;
-@property HENCODE encode;
 @property NSString *mp3;
+@property (nonatomic) BOOL tocando;
 @property (weak, nonatomic) IBOutlet UITextView *loggerTime;
 @property (weak, nonatomic) IBOutlet UITextView *loggerInfo;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
