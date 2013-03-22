@@ -102,7 +102,7 @@
 {
     if (BASS_Encode_IsActive(self.encode) == BASS_ACTIVE_PLAYING) {
         BASS_Encode_Stop(self.encode);
-        BASS_ChannelStop(self.channel);
+//        BASS_ChannelStop(self.channel);
     }
     else {
         
@@ -114,7 +114,7 @@
             NSLog(@"%@", @"Erro");
         }
         else {
-            BASS_ChannelPlay(self.channel, 0);
+//            BASS_ChannelPlay(self.channel, 0);
             [self updateLog];
         }
     }

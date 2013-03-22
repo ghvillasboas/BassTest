@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PlayerViewController.h"
+#import "bassenc.h"
 
 @interface BassTestViewController : UIViewController
+@property HENCODE encode;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer1;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;
 @property (strong, nonatomic) PlayerViewController *player1;
