@@ -28,6 +28,7 @@
 		5E89A5FF16FBAEC400EBA1F0 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */; };
 		5E89A60516FBB00300EBA1F0 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */; };
 		5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */; };
+		C20C3E7816FC905400CF4AF9 /* libbassenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C3E7716FC905400CF4AF9 /* libbassenc.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BassTestViewController.h; sourceTree = "<group>"; };
 		5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BassTestViewController.m; sourceTree = "<group>"; };
+		C20C3E7616FC8FF700CF4AF9 /* bassenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassenc.h; sourceTree = "<group>"; };
+		C20C3E7716FC905400CF4AF9 /* libbassenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassenc.a; path = BassTest/libbassenc.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20C3E7816FC905400CF4AF9 /* libbassenc.a in Frameworks */,
 				5E529BBB16FBB4FE001ABCF9 /* libbass.a in Frameworks */,
 				5E89A5FF16FBAEC400EBA1F0 /* CoreMIDI.framework in Frameworks */,
 				5E89A5FD16FBAEBA00EBA1F0 /* Accelerate.framework in Frameworks */,
@@ -122,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				5E529BBA16FBB4FE001ABCF9 /* libbass.a */,
+				C20C3E7716FC905400CF4AF9 /* libbassenc.a */,
 				5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */,
 				5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */,
 				5E89A5FA16FBAEB400EBA1F0 /* CFNetwork.framework */,
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				5E529BBC16FBB845001ABCF9 /* bass.h */,
+				C20C3E7616FC8FF700CF4AF9 /* bassenc.h */,
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
