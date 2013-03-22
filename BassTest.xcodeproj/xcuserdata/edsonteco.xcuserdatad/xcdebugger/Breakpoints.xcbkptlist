@@ -32,11 +32,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/PlayerViewController.m"
-         timestampString = "385670339.48112"
+         timestampString = "385672473.603985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "105"
-         endingLineNumber = "105"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-stop:"
          landmarkType = "5">
       </FileBreakpoint>

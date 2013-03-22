@@ -53,24 +53,12 @@
 
 - (void)tocarCanal:(HSTREAM)canal
 {
-    //Adiciona o canal no mixer e já é executado
-    if (BASS_Mixer_StreamAddChannel(self.stream, canal, 0)) {
-        NSLog(@"%@", @"Canal adicionado");
-    }
-    else {
-        [self.trataErros ocorreuErro];
-    }
+    [self adicionarCanal:canal autoPlay:YES];
 }
 
 - (void)pausarCanal:(HSTREAM)canal
 {
-    //Remove o canal do mixer sem resetar a posição
-    if (BASS_Mixer_ChannelRemove(canal)) {
-        NSLog(@"%@", @"Canal pausado (removido)");
-    }
-    else {
-        [self.trataErros ocorreuErro];
-    }
+    [self removerCanal:canal];
 }
 
 - (void)resumirCanal:(HSTREAM)canal
@@ -81,20 +69,15 @@
 
 - (void)pararCanal:(HSTREAM)canal
 {
-    //Adiciona antes (com opção de PAUSE) para poder posicionar ao início antes de remover
-    if (BASS_Mixer_StreamAddChannel(self.stream, canal, BASS_MIXER_PAUSE)) {
-        NSLog(@"%@", @"Canal adicionado");
-    }
-    else {
-        [self.trataErros ocorreuErro];
-    }
-    
+    //Adiciona antes (sem tocar) para poder posicionar ao início antes de remover
+    [self adicionarCanal:canal autoPlay:NO];
+
     //Posiciona para o início
     BASS_Mixer_ChannelSetPosition(canal, 0, BASS_POS_BYTE);
     if (![self.trataErros ocorreuErro]) {
         NSLog(@"%@", @"Canal reiniciado");
         
-        [self pausarCanal:canal];
+        [self removerCanal:canal];
     }
 }
 
@@ -115,6 +98,43 @@
 
 #pragma mark -
 #pragma mark Metodos privados
+
+- (void)adicionarCanal:(HSTREAM)canal autoPlay:(BOOL)autoPlay
+{
+    DWORD flag = 0;
+    if (!autoPlay) flag = BASS_MIXER_PAUSE;
+    
+    //Verifica se o canal já está conectado ao mixer
+    if (![self canalJaAdicionado:canal]) {
+        //Adiciona o canal no mixer
+        if (BASS_Mixer_StreamAddChannel(self.stream, canal, flag)) {
+            NSLog(@"%@", @"Canal adicionado");
+        }
+        else {
+            [self.trataErros ocorreuErro];
+        }
+    }
+    else {
+        // Toca caso esteja pausado
+        if (autoPlay) BASS_Mixer_ChannelFlags(canal, 0, BASS_MIXER_PAUSE);
+    }
+}
+
+- (void)removerCanal:(HSTREAM)canal
+{
+    //Remove o canal do mixer sem resetar a posição
+    if (BASS_Mixer_ChannelRemove(canal)) {
+        NSLog(@"%@", @"Canal pausado (removido)");
+    }
+    else {
+        [self.trataErros ocorreuErro];
+    }
+}
+
+- (BOOL)canalJaAdicionado:(HSTREAM)canal
+{
+    return (self.stream == BASS_Mixer_ChannelGetMixer(canal));
+}
 
 #pragma mark -
 #pragma mark ViewController life cycle
