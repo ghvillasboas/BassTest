@@ -11,6 +11,16 @@
 #import "bassenc.h"
 #import "bassmix.h"
 
+@class PlayerViewController;
+
+@protocol PlayerDelegate <NSObject>
+
+- (void)tocar:(PlayerViewController*)requestor;
+- (void)pausar:(PlayerViewController *)requestor;
+- (void)parar:(PlayerViewController*)requestor;
+
+@end
+
 @interface PlayerViewController : UIViewController
 @property HSTREAM channel;
 @property NSString *mp3;
@@ -21,4 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UIButton *recButton;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
+
+@property (nonatomic, weak) id<PlayerDelegate> delegate;
+
 @end

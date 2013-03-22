@@ -7,22 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "bass.h"
-#import "bassenc.h"
-#import "bassmix.h"
+#import "Mixer.h"
 #import "PlayerViewController.h"
 #import "bassenc.h"
 
-@interface BassTestViewController : UIViewController
-@property HENCODE encode;
+
+@interface BassTestViewController : UIViewController <PlayerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer1;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;
 @property (strong, nonatomic) PlayerViewController *player1;
 @property (strong, nonatomic) PlayerViewController *player2;
 @property (weak, nonatomic) IBOutlet UIButton *recGeralButton;
 
-@property HSTREAM streamGeral;
-@property HENCODE encode;
-
+@property (strong, nonatomic) Mixer *mixer;
 
 @end
