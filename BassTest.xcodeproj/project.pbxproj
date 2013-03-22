@@ -30,6 +30,8 @@
 		5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */; };
 		C20C3E7B16FCA65400CF4AF9 /* libbassmix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C3E7A16FCA65400CF4AF9 /* libbassmix.a */; };
 		C20C3E7D16FCA69C00CF4AF9 /* libbassenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C20C3E7C16FCA69C00CF4AF9 /* libbassenc.a */; };
+		C20C3E8016FCBEF600CF4AF9 /* Mixer.m in Sources */ = {isa = PBXBuildFile; fileRef = C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */; };
+		C20C3E8316FCC9C000CF4AF9 /* TrataErros.m in Sources */ = {isa = PBXBuildFile; fileRef = C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,10 @@
 		C20C3E7916FCA5BD00CF4AF9 /* bassmix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassmix.h; sourceTree = "<group>"; };
 		C20C3E7A16FCA65400CF4AF9 /* libbassmix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassmix.a; path = BassTest/libbassmix.a; sourceTree = "<group>"; };
 		C20C3E7C16FCA69C00CF4AF9 /* libbassenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassenc.a; path = BassTest/libbassenc.a; sourceTree = "<group>"; };
+		C20C3E7E16FCBEF600CF4AF9 /* Mixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixer.h; sourceTree = "<group>"; };
+		C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mixer.m; sourceTree = "<group>"; };
+		C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrataErros.h; sourceTree = "<group>"; };
+		C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrataErros.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,11 +159,15 @@
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
-				5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */,
-				5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */,
 				5E328ED216FC8E70003F80A4 /* PlayerViewController.h */,
 				5E328ED316FC8E70003F80A4 /* PlayerViewController.m */,
 				5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */,
+				5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */,
+				5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */,
+				C20C3E7E16FCBEF600CF4AF9 /* Mixer.h */,
+				C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */,
+				C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */,
+				C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */,
 			);
 			path = BassTest;
 			sourceTree = "<group>";
@@ -251,6 +261,8 @@
 				5E89A5EA16FBAE0200EBA1F0 /* BassTestAppDelegate.m in Sources */,
 				5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */,
 				5E328ED516FC8E70003F80A4 /* PlayerViewController.m in Sources */,
+				C20C3E8016FCBEF600CF4AF9 /* Mixer.m in Sources */,
+				C20C3E8316FCC9C000CF4AF9 /* TrataErros.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
