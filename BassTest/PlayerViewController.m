@@ -62,6 +62,7 @@
     self.loggerInfo.text = @"";
     
     [self.loggerUpdaterTimer invalidate];
+    self.loggerUpdaterTimer = nil;
     self.loggerTime.text = @"";
 }
 
@@ -70,7 +71,7 @@
     QWORD pos=BASS_ChannelGetPosition(self.channel, BASS_POS_BYTE);
     int time=BASS_ChannelBytes2Seconds(self.channel, pos);
     
-    self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u", pos, time/60, time%60];
+    self.loggerTime.text = [NSString stringWithFormat:@"%@\nLido: %llu bytes\nTempo total: %u:%02u", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60];
 }
 
 - (IBAction)play:(id)sender
