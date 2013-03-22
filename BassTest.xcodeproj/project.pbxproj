@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E328ED116FC8AF3003F80A4 /* audio2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E328ED016FC8AF3003F80A4 /* audio2.mp3 */; };
+		5E328ED516FC8E70003F80A4 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E328ED316FC8E70003F80A4 /* PlayerViewController.m */; };
+		5E328ED616FC8E70003F80A4 /* PlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */; };
 		5E529BBB16FBB4FE001ABCF9 /* libbass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E529BBA16FBB4FE001ABCF9 /* libbass.a */; };
 		5E529BC016FBB9DE001ABCF9 /* audio1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */; };
 		5E89A5DA16FBAE0200EBA1F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5D916FBAE0200EBA1F0 /* UIKit.framework */; };
@@ -28,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E328ED016FC8AF3003F80A4 /* audio2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio2.mp3; sourceTree = "<group>"; };
+		5E328ED216FC8E70003F80A4 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		5E328ED316FC8E70003F80A4 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewController.xib; sourceTree = "<group>"; };
 		5E529BBA16FBB4FE001ABCF9 /* libbass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass.a; path = BassTest/libbass.a; sourceTree = "<group>"; };
 		5E529BBC16FBB845001ABCF9 /* bass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass.h; sourceTree = "<group>"; };
 		5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio1.mp3; sourceTree = "<group>"; };
@@ -86,6 +93,7 @@
 		5E529BBE16FBB971001ABCF9 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				5E328ED016FC8AF3003F80A4 /* audio2.mp3 */,
 				5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */,
 			);
 			name = Audio;
@@ -135,6 +143,9 @@
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
 				5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */,
 				5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */,
+				5E328ED216FC8E70003F80A4 /* PlayerViewController.h */,
+				5E328ED316FC8E70003F80A4 /* PlayerViewController.m */,
+				5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */,
 			);
 			path = BassTest;
 			sourceTree = "<group>";
@@ -212,6 +223,8 @@
 				5E89A5F016FBAE0200EBA1F0 /* Default-568h@2x.png in Resources */,
 				5E89A60516FBB00300EBA1F0 /* MainStoryboard.storyboard in Resources */,
 				5E529BC016FBB9DE001ABCF9 /* audio1.mp3 in Resources */,
+				5E328ED116FC8AF3003F80A4 /* audio2.mp3 in Resources */,
+				5E328ED616FC8E70003F80A4 /* PlayerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +238,7 @@
 				5E89A5E616FBAE0200EBA1F0 /* main.m in Sources */,
 				5E89A5EA16FBAE0200EBA1F0 /* BassTestAppDelegate.m in Sources */,
 				5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */,
+				5E328ED516FC8E70003F80A4 /* PlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
