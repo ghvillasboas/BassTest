@@ -47,7 +47,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjV-IG-YmF">
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="AV6-rg-5LJ"/>
+                                    <constraint firstAttribute="height" constant="169" id="z3O-ym-UL1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -55,11 +55,16 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nC8-uQ-jX1">
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="0er-9U-sZW"/>
+                                    <constraint firstAttribute="height" constant="61" id="nz6-pW-qbs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="LyR-qC-sNs">
+                                <connections>
+                                    <action selector="setVolume:" destination="T4B-B6-nHV" eventType="valueChanged" id="Ujc-il-rhy"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -68,16 +73,20 @@
                             <constraint firstItem="nC8-uQ-jX1" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8Ye-HL-kDo"/>
                             <constraint firstAttribute="trailing" secondItem="nC8-uQ-jX1" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="8k6-vK-5Lv"/>
                             <constraint firstAttribute="trailing" secondItem="bjV-IG-YmF" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="DIi-P1-jFp"/>
+                            <constraint firstAttribute="bottom" secondItem="LyR-qC-sNs" secondAttribute="bottom" constant="32" id="Q0D-eI-BSq"/>
                             <constraint firstItem="bjV-IG-YmF" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="20" symbolic="YES" type="default" id="XX5-xe-rsT"/>
                             <constraint firstItem="bjV-IG-YmF" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bQm-cl-LF3"/>
-                            <constraint firstAttribute="bottom" secondItem="nj4-m0-ZT0" secondAttribute="bottom" constant="54" id="brd-zC-Hgs"/>
-                            <constraint firstItem="nC8-uQ-jX1" firstAttribute="top" secondItem="bjV-IG-YmF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="elt-WH-vDN"/>
+                            <constraint firstItem="LyR-qC-sNs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="gAq-wr-2Gd"/>
+                            <constraint firstAttribute="trailing" secondItem="LyR-qC-sNs" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="h5y-Lu-Yj0"/>
                             <constraint firstItem="bKn-gc-A0y" firstAttribute="baseline" secondItem="nj4-m0-ZT0" secondAttribute="baseline" type="default" id="msn-ez-Y7y"/>
+                            <constraint firstAttribute="bottom" secondItem="nj4-m0-ZT0" secondAttribute="bottom" constant="67" id="sRf-4T-2J2"/>
+                            <constraint firstItem="nC8-uQ-jX1" firstAttribute="top" secondItem="bjV-IG-YmF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="vQg-3b-epG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="logger" destination="bjV-IG-YmF" id="cBZ-JR-twY"/>
                         <outlet property="logger2" destination="nC8-uQ-jX1" id="T7p-0R-fXo"/>
+                        <outlet property="volumeSlider" destination="LyR-qC-sNs" id="3Sm-Hr-23d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMP-jb-hoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -85,6 +94,22 @@
             <point key="canvasLocation" x="19" y="35"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="BassTestViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BassTestViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="play:"/>
+                <relationship kind="action" name="setVolume:" candidateClass="UISlider"/>
+                <relationship kind="action" name="stop:"/>
+                <relationship kind="outlet" name="logger" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="logger2" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="volumeSlider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

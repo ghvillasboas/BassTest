@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *logger;
 @property (weak, nonatomic) IBOutlet UITextView *logger2;
 @property (strong, nonatomic) NSTimer *loggerUpdaterTimer;
+
+@property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @end
 
 @implementation BassTestViewController
@@ -29,6 +31,7 @@
     
     NSString *file = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
     self.channel = BASS_StreamCreateFile(FALSE, [file cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_LOOP);
+    BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL,self.volumeSlider.value);
     
 }
 
@@ -36,16 +39,28 @@
 {
     TAG_ID3 *id3 = (TAG_ID3*)BASS_ChannelGetTags(self.channel, BASS_TAG_ID3);
     QWORD pos = BASS_ChannelGetLength(self.channel, BASS_POS_BYTE);
+    
+    // A funcao BASS_ChannelGetAttribute retorna BOOL.
+    // Entao passamos apenas um ponteiro para que a funcao
+    // preencha o valor da variavel, certamente por ser executada
+    // em thread paralela
+    float volume;
+    BASS_ChannelGetAttribute(self.channel, BASS_ATTRIB_VOL, &volume);
+    
     int time = BASS_ChannelBytes2Seconds(self.channel, pos);
-    NSString *log = [NSString stringWithFormat:@"TAGs ID3\nMusica: %s\nArtista: %s\n\n Tamanho: %llu bytes\nTempo total: %u:%02u", id3->title, id3->artist, pos, time/60, time%60];
+    NSString *log = [NSString stringWithFormat:@"TAGs ID3\nMusica: %s\nArtista: %s\n\nTamanho: %llu bytes\nTempo total: %u:%02u\n\nVolume: %.2f", id3->title, id3->artist, pos, time/60, time%60, volume];
 
     self.logger.text = log;
     
-    self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                     target:self
-                                   selector:@selector(updateTimer:)
-                                   userInfo:nil
-                                    repeats:YES];
+    if (!self.loggerUpdaterTimer) {
+        // apenas para evitar que seja chamada multiplas vezes
+        self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                                   target:self
+                                                                 selector:@selector(updateTimer:)
+                                                                 userInfo:nil
+                                                                  repeats:YES];
+    }
+
     
 }
 
@@ -81,4 +96,12 @@
     [self clearLog];
 }
 
+- (IBAction)setVolume:(UISlider *)sender
+{
+    if (sender == self.volumeSlider) {
+        BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL,sender.value);
+    }
+    
+    [self updateLog];
+}
 @end
