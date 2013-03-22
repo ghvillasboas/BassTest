@@ -33,4 +33,9 @@
     [self.holderPlayer2 addSubview:self.player2.view];
     [self.player2 didMoveToParentViewController:self];
 }
+
+- (IBAction)recGeral:(id)sender
+{
+}
+
 @end

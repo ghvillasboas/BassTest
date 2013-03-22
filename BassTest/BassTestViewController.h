@@ -14,4 +14,5 @@
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;
 @property (strong, nonatomic) PlayerViewController *player1;
 @property (strong, nonatomic) PlayerViewController *player2;
+@property (weak, nonatomic) IBOutlet UIButton *recGeralButton;
 @end

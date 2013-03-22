@@ -24,22 +24,43 @@
                                     <constraint firstAttribute="width" constant="320" type="user" id="uDr-ZY-Aw6"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBQ-4y-lo6">
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="122" id="Fik-mT-1AC"/>
+                                    <constraint firstAttribute="height" constant="73" id="ypz-Ss-Ebj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="REC">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recGeral:" destination="T4B-B6-nHV" eventType="touchUpInside" id="Rgm-Zv-gL1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="user" id="040-8V-Wtf"/>
-                            <constraint firstItem="4u9-ow-jby" firstAttribute="bottom" secondItem="PEs-h9-oNV" secondAttribute="bottom" type="default" id="9MJ-39-yg3"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="user" id="M2N-Zz-J4s"/>
+                            <constraint firstAttribute="bottom" secondItem="4u9-ow-jby" secondAttribute="bottom" constant="172" id="T63-f9-ro9"/>
+                            <constraint firstItem="WBQ-4y-lo6" firstAttribute="centerX" secondItem="4u9-ow-jby" secondAttribute="centerX" type="default" id="VXD-If-Eoz"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="user" id="Wsb-8h-DJV"/>
-                            <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="288" id="XUK-cu-FC8"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" type="default" id="Xn2-eY-Glf"/>
-                            <constraint firstItem="4u9-ow-jby" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="288" id="aSE-ym-PtY"/>
+                            <constraint firstItem="4u9-ow-jby" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="190" id="bvc-WH-WVL"/>
+                            <constraint firstAttribute="bottom" secondItem="WBQ-4y-lo6" secondAttribute="bottom" constant="49" id="f1i-oq-D3T"/>
+                            <constraint firstItem="4u9-ow-jby" firstAttribute="top" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="gMS-eL-Dd5"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="user" id="sUe-5T-tFt"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="holderPlayer1" destination="X6S-Ui-hGs" id="6a7-6Z-Dsz"/>
                         <outlet property="holderPlayer2" destination="4u9-ow-jby" id="tA3-Ls-QED"/>
+                        <outlet property="recGeralButton" destination="WBQ-4y-lo6" id="usO-BN-gKH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMP-jb-hoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -51,8 +72,10 @@
         <class className="BassTestViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BassTestViewController.h"/>
             <relationships>
+                <relationship kind="action" name="recGeral:"/>
                 <relationship kind="outlet" name="holderPlayer1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="holderPlayer2" candidateClass="UIView"/>
+                <relationship kind="outlet" name="recGeralButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
