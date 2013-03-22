@@ -7,18 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E529BBB16FBB4FE001ABCF9 /* libbass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E529BBA16FBB4FE001ABCF9 /* libbass.a */; };
+		5E529BC016FBB9DE001ABCF9 /* audio1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */; };
 		5E89A5DA16FBAE0200EBA1F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5D916FBAE0200EBA1F0 /* UIKit.framework */; };
 		5E89A5DC16FBAE0200EBA1F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5DB16FBAE0200EBA1F0 /* Foundation.framework */; };
 		5E89A5DE16FBAE0200EBA1F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5DD16FBAE0200EBA1F0 /* CoreGraphics.framework */; };
 		5E89A5E416FBAE0200EBA1F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A5E216FBAE0200EBA1F0 /* InfoPlist.strings */; };
 		5E89A5E616FBAE0200EBA1F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A5E516FBAE0200EBA1F0 /* main.m */; };
-		5E89A5EA16FBAE0200EBA1F0 /* BassTEstAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A5E916FBAE0200EBA1F0 /* BassTEstAppDelegate.m */; };
+		5E89A5EA16FBAE0200EBA1F0 /* BassTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */; };
 		5E89A5EC16FBAE0200EBA1F0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A5EB16FBAE0200EBA1F0 /* Default.png */; };
 		5E89A5EE16FBAE0200EBA1F0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A5ED16FBAE0200EBA1F0 /* Default@2x.png */; };
 		5E89A5F016FBAE0200EBA1F0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A5EF16FBAE0200EBA1F0 /* Default-568h@2x.png */; };
+		5E89A5F716FBAE4000EBA1F0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5F616FBAE4000EBA1F0 /* AudioToolbox.framework */; };
+		5E89A5F916FBAEA900EBA1F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5F816FBAEA900EBA1F0 /* SystemConfiguration.framework */; };
+		5E89A5FB16FBAEB400EBA1F0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5FA16FBAEB400EBA1F0 /* CFNetwork.framework */; };
+		5E89A5FD16FBAEBA00EBA1F0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */; };
+		5E89A5FF16FBAEC400EBA1F0 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */; };
+		5E89A60516FBB00300EBA1F0 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */; };
+		5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E529BBA16FBB4FE001ABCF9 /* libbass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass.a; path = BassTest/libbass.a; sourceTree = "<group>"; };
+		5E529BBC16FBB845001ABCF9 /* bass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass.h; sourceTree = "<group>"; };
+		5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio1.mp3; sourceTree = "<group>"; };
 		5E89A5D616FBAE0200EBA1F0 /* BassTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BassTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E89A5D916FBAE0200EBA1F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5E89A5DB16FBAE0200EBA1F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -27,11 +39,19 @@
 		5E89A5E316FBAE0200EBA1F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E89A5E516FBAE0200EBA1F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E89A5E716FBAE0200EBA1F0 /* BassTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BassTest-Prefix.pch"; sourceTree = "<group>"; };
-		5E89A5E816FBAE0200EBA1F0 /* BassTEstAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BassTEstAppDelegate.h; sourceTree = "<group>"; };
-		5E89A5E916FBAE0200EBA1F0 /* BassTEstAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BassTEstAppDelegate.m; sourceTree = "<group>"; };
+		5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BassTestAppDelegate.h; sourceTree = "<group>"; };
+		5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BassTestAppDelegate.m; sourceTree = "<group>"; };
 		5E89A5EB16FBAE0200EBA1F0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5E89A5ED16FBAE0200EBA1F0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		5E89A5EF16FBAE0200EBA1F0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5E89A5F616FBAE4000EBA1F0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5E89A5F816FBAEA900EBA1F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5E89A5FA16FBAEB400EBA1F0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BassTestViewController.h; sourceTree = "<group>"; };
+		5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BassTestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +59,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E529BBB16FBB4FE001ABCF9 /* libbass.a in Frameworks */,
+				5E89A5FF16FBAEC400EBA1F0 /* CoreMIDI.framework in Frameworks */,
+				5E89A5FD16FBAEBA00EBA1F0 /* Accelerate.framework in Frameworks */,
+				5E89A5FB16FBAEB400EBA1F0 /* CFNetwork.framework in Frameworks */,
+				5E89A5F916FBAEA900EBA1F0 /* SystemConfiguration.framework in Frameworks */,
+				5E89A5F716FBAE4000EBA1F0 /* AudioToolbox.framework in Frameworks */,
 				5E89A5DA16FBAE0200EBA1F0 /* UIKit.framework in Frameworks */,
 				5E89A5DC16FBAE0200EBA1F0 /* Foundation.framework in Frameworks */,
 				5E89A5DE16FBAE0200EBA1F0 /* CoreGraphics.framework in Frameworks */,
@@ -48,10 +74,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E529BBD16FBB952001ABCF9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5E529BBE16FBB971001ABCF9 /* Audio */,
+			);
+			name = Resources;
+			path = BassTest;
+			sourceTree = "<group>";
+		};
+		5E529BBE16FBB971001ABCF9 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		5E89A5CD16FBAE0200EBA1F0 = {
 			isa = PBXGroup;
 			children = (
 				5E89A5DF16FBAE0200EBA1F0 /* BassTest */,
+				5E89A5E016FBAE0200EBA1F0 /* Supporting Files */,
+				5E529BBD16FBB952001ABCF9 /* Resources */,
 				5E89A5D816FBAE0200EBA1F0 /* Frameworks */,
 				5E89A5D716FBAE0200EBA1F0 /* Products */,
 			);
@@ -68,6 +113,12 @@
 		5E89A5D816FBAE0200EBA1F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E529BBA16FBB4FE001ABCF9 /* libbass.a */,
+				5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */,
+				5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */,
+				5E89A5FA16FBAEB400EBA1F0 /* CFNetwork.framework */,
+				5E89A5F816FBAEA900EBA1F0 /* SystemConfiguration.framework */,
+				5E89A5F616FBAE4000EBA1F0 /* AudioToolbox.framework */,
 				5E89A5D916FBAE0200EBA1F0 /* UIKit.framework */,
 				5E89A5DB16FBAE0200EBA1F0 /* Foundation.framework */,
 				5E89A5DD16FBAE0200EBA1F0 /* CoreGraphics.framework */,
@@ -78,9 +129,12 @@
 		5E89A5DF16FBAE0200EBA1F0 /* BassTest */ = {
 			isa = PBXGroup;
 			children = (
-				5E89A5E816FBAE0200EBA1F0 /* BassTEstAppDelegate.h */,
-				5E89A5E916FBAE0200EBA1F0 /* BassTEstAppDelegate.m */,
-				5E89A5E016FBAE0200EBA1F0 /* Supporting Files */,
+				5E529BBC16FBB845001ABCF9 /* bass.h */,
+				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
+				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
+				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
+				5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */,
+				5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */,
 			);
 			path = BassTest;
 			sourceTree = "<group>";
@@ -97,6 +151,7 @@
 				5E89A5EF16FBAE0200EBA1F0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = BassTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +210,8 @@
 				5E89A5EC16FBAE0200EBA1F0 /* Default.png in Resources */,
 				5E89A5EE16FBAE0200EBA1F0 /* Default@2x.png in Resources */,
 				5E89A5F016FBAE0200EBA1F0 /* Default-568h@2x.png in Resources */,
+				5E89A60516FBB00300EBA1F0 /* MainStoryboard.storyboard in Resources */,
+				5E529BC016FBB9DE001ABCF9 /* audio1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E89A5E616FBAE0200EBA1F0 /* main.m in Sources */,
-				5E89A5EA16FBAE0200EBA1F0 /* BassTEstAppDelegate.m in Sources */,
+				5E89A5EA16FBAE0200EBA1F0 /* BassTestAppDelegate.m in Sources */,
+				5E89A60816FBB04000EBA1F0 /* BassTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +304,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BassTest/BassTest-Prefix.pch";
 				INFOPLIST_FILE = "BassTest/BassTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
+					"\"$(SRCROOT)/BassTest\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -257,6 +320,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BassTest/BassTest-Prefix.pch";
 				INFOPLIST_FILE = "BassTest/BassTest-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
+					"\"$(SRCROOT)/BassTest\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -281,6 +349,7 @@
 				5E89A5F516FBAE0200EBA1F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

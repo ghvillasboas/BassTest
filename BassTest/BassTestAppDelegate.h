@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BassTEstAppDelegate : UIResponder <UIApplicationDelegate>
+@interface BassTestAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

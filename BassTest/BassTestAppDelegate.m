@@ -6,16 +6,13 @@
 //  Copyright (c) 2013 George Henrique Villasboas. All rights reserved.
 //
 
-#import "BassTEstAppDelegate.h"
+#import "BassTestAppDelegate.h"
 
-@implementation BassTEstAppDelegate
+@implementation BassTestAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
