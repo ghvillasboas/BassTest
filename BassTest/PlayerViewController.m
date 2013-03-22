@@ -24,8 +24,9 @@
         if (!BASS_Init(-1,44100,0,0,NULL))
             NSLog(@"Não foi possivel inicializar o BASS: %@", self.mp3);
     
-    // Inicializa player 1
-    self.channel = BASS_StreamCreateFile(FALSE, [self.mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_LOOP);
+    // Inicializa player
+    // IMPORTANTE: Para mixar, o stream DEVE ser do tipo DECODE. Isso porque o Mixer usa o GetData para obter o audio
+    self.channel = BASS_StreamCreateFile(FALSE, [self.mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
     BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL,self.volumeSlider.value);
 }
 
@@ -78,6 +79,7 @@
     // o stream continua de onde parou, funcionando como um pause. Se TRUE, o comportamento e o esperado.
     // Ou seja, se o usuario parar o stream e tocar em play, ele reinicia.
     BASS_ChannelPlay(self.channel, TRUE);
+    self.tocando = YES;
     
     [self updateLog];
 }
@@ -85,6 +87,7 @@
 - (IBAction)stop:(id)sender
 {
     BASS_ChannelStop(self.channel);
+    self.tocando = NO;
     
     [self clearLog];
 }
@@ -97,27 +100,4 @@
     
     [self updateLog];
 }
-
-- (IBAction)record:(id)sender
-{
-    if (BASS_Encode_IsActive(self.encode) == BASS_ACTIVE_PLAYING) {
-        BASS_Encode_Stop(self.encode);
-//        BASS_ChannelStop(self.channel);
-    }
-    else {
-        
-        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *file = [documentsDirectory stringByAppendingPathComponent:@"output.m4a"];
-        NSLog(@"%@", file);
-        self.encode = BASS_Encode_StartCAFile(self.channel, 'm4af', 'alac', BASS_ENCODE_FP_16BIT, 0, [file cStringUsingEncoding:NSUTF8StringEncoding]);
-        if (self.encode == 0) {
-            NSLog(@"%@", @"Erro");
-        }
-        else {
-//            BASS_ChannelPlay(self.channel, 0);
-            [self updateLog];
-        }
-    }
-}
-
 @end

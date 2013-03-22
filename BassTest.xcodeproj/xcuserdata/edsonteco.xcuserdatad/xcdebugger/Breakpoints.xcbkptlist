@@ -8,13 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/BassTestViewController.m"
-         timestampString = "385651812.256894"
+         timestampString = "385658069.857903"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "88"
-         endingLineNumber = "88"
-         landmarkName = "-record:"
-         landmarkType = "5">
+         startingLineNumber = "125"
+         endingLineNumber = "125">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
