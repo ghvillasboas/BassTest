@@ -10,6 +10,7 @@
 		5E328ED116FC8AF3003F80A4 /* audio2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E328ED016FC8AF3003F80A4 /* audio2.mp3 */; };
 		5E328ED516FC8E70003F80A4 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E328ED316FC8E70003F80A4 /* PlayerViewController.m */; };
 		5E328ED616FC8E70003F80A4 /* PlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */; };
+		5E328ED916FC9C27003F80A4 /* libbassenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E328ED816FC9C27003F80A4 /* libbassenc.a */; };
 		5E529BBB16FBB4FE001ABCF9 /* libbass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E529BBA16FBB4FE001ABCF9 /* libbass.a */; };
 		5E529BC016FBB9DE001ABCF9 /* audio1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */; };
 		5E89A5DA16FBAE0200EBA1F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E89A5D916FBAE0200EBA1F0 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 		5E328ED216FC8E70003F80A4 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		5E328ED316FC8E70003F80A4 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
 		5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewController.xib; sourceTree = "<group>"; };
+		5E328ED716FC9BEA003F80A4 /* bassenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassenc.h; sourceTree = "<group>"; };
+		5E328ED816FC9C27003F80A4 /* libbassenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbassenc.a; sourceTree = "<group>"; };
 		5E529BBA16FBB4FE001ABCF9 /* libbass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass.a; path = BassTest/libbass.a; sourceTree = "<group>"; };
 		5E529BBC16FBB845001ABCF9 /* bass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass.h; sourceTree = "<group>"; };
 		5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio1.mp3; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 				5E89A5DA16FBAE0200EBA1F0 /* UIKit.framework in Frameworks */,
 				5E89A5DC16FBAE0200EBA1F0 /* Foundation.framework in Frameworks */,
 				5E89A5DE16FBAE0200EBA1F0 /* CoreGraphics.framework in Frameworks */,
+				5E328ED916FC9C27003F80A4 /* libbassenc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +125,7 @@
 		5E89A5D816FBAE0200EBA1F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E328ED816FC9C27003F80A4 /* libbassenc.a */,
 				5E529BBA16FBB4FE001ABCF9 /* libbass.a */,
 				5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */,
 				5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */,
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				5E529BBC16FBB845001ABCF9 /* bass.h */,
+				5E328ED716FC9BEA003F80A4 /* bassenc.h */,
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
@@ -322,6 +328,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
 					"\"$(SRCROOT)/BassTest\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -338,6 +345,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
 					"\"$(SRCROOT)/BassTest\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

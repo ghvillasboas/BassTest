@@ -98,4 +98,26 @@
     [self updateLog];
 }
 
+- (IBAction)record:(id)sender
+{
+    if (BASS_Encode_IsActive(self.encode) == BASS_ACTIVE_PLAYING) {
+        BASS_Encode_Stop(self.encode);
+        BASS_ChannelStop(self.channel);
+    }
+    else {
+        
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *file = [documentsDirectory stringByAppendingPathComponent:@"output.m4a"];
+        NSLog(@"%@", file);
+        self.encode = BASS_Encode_StartCAFile(self.channel, 'm4af', 'alac', BASS_ENCODE_FP_16BIT, 0, [file cStringUsingEncoding:NSUTF8StringEncoding]);
+        if (self.encode == 0) {
+            NSLog(@"%@", @"Erro");
+        }
+        else {
+            BASS_ChannelPlay(self.channel, 0);
+            [self updateLog];
+        }
+    }
+}
+
 @end
