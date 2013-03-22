@@ -19,8 +19,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-	if (!BASS_Init(-1,44100,0,0,NULL))
-        NSLog(@"Não foi possivel inicializar o BASS");
+    BASS_INFO info;
+    if (!BASS_GetInfo(&info))
+        if (!BASS_Init(-1,44100,0,0,NULL))
+            NSLog(@"Não foi possivel inicializar o BASS: %@", self.mp3);
     
     // Inicializa player 1
     self.channel = BASS_StreamCreateFile(FALSE, [self.mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_LOOP);
