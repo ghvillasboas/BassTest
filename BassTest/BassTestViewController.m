@@ -36,6 +36,10 @@
     [self.holderPlayer2 addSubview:self.player2.view];
     [self.player2 didMoveToParentViewController:self];
     
+    self.vinil = [[AudioScratchDemoViewController alloc] initWithNibName:@"AudioScratchDemoViewController" bundle:nil];
+    [self addChildViewController:self.vinil];
+    [self.view addSubview:self.vinil.view];
+    
     self.mixer = [[Mixer alloc] init];
 
 }
