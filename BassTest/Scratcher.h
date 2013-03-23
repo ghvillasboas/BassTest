@@ -45,4 +45,6 @@
 
 - (double)getSeconds;
 
+- (void)setVolume:(float)volume;
+
 @end

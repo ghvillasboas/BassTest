@@ -27,6 +27,11 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 #pragma mark -
 #pragma mark Setters overriders
 
+- (void)setVolume:(float)volume
+{
+    BASS_ChannelSetAttribute(self.soundTrackScratchStreamHandle, BASS_ATTRIB_VOL, volume);
+}
+
 #pragma mark -
 #pragma mark Designated initializers
 
@@ -48,10 +53,10 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
         self.buffer = NULL;
         
         // init stream that will be played when scratching
-        self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY, 2, BASS_SAMPLE_FLOAT, &WriteScratchStream, (__bridge void *)(self));
+        self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY, 2, BASS_STREAM_DECODE|BASS_SAMPLE_FLOAT, &WriteScratchStream, (__bridge void *)(self));
         
         // play scratch stream
-        BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
+        //BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
     }
     
     return self;

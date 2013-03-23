@@ -138,6 +138,7 @@ struct Info
     BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 5);
     
     self.scratcher = [[Scratcher alloc] init];
+    self.tocando = NO;
 }
 
 /*!
@@ -246,6 +247,43 @@ void* Unpack(void* arg)
 
 #pragma mark -
 #pragma mark Target/Actions
+
+- (IBAction)setVolume:(UISlider *)sender
+{
+    if (sender == self.volumeSlider) {
+        [self.scratcher setVolume:sender.value];
+    }
+}
+
+-(IBAction)play:(id)sender
+{
+    if (self.tocando) {
+        if ([self.delegate respondsToSelector:@selector(pausarScratcher:)]) {
+            [self.delegate pausarScratcher:self];
+            [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
+        }
+    }
+    else {
+        
+        [self setVolume:self.volumeSlider];
+        
+        if ([self.delegate respondsToSelector:@selector(tocarScratcher:)]) {
+            [self.delegate tocarScratcher:self];
+            [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
+        }
+    }
+    
+    self.tocando = !self.tocando;
+}
+
+-(IBAction)stop:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(pararScratcher:)]) {
+        [self.delegate pararScratcher:self];
+        [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
+        self.tocando = NO;
+    }
+}
 
 #pragma mark -
 #pragma mark Delegates

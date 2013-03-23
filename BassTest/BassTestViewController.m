@@ -20,26 +20,19 @@
 	// Do any additional setup after loading the view.
     
     self.player1 = [[PlayerViewController alloc] init];
-//    self.player2 = [[PlayerViewController alloc] init];
-    
     self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
-//    self.player2.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
-
     self.player1.delegate = self;
-//    self.player2.delegate = self;
     
     [self addChildViewController:self.player1];
     [self.holderPlayer1 addSubview:self.player1.view];
     [self.player1 didMoveToParentViewController:self];
     
-//    [self addChildViewController:self.player2];
-//    [self.holderPlayer2 addSubview:self.player2.view];
-//    [self.player2 didMoveToParentViewController:self];
-    
     self.vinil = [[ScratcherViewController alloc] init];
     self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
     [self addChildViewController:self.vinil];
     [self.holderPlayer2 addSubview:self.vinil.view];
+    
+    self.vinil.delegate = self;
     
     self.mixer = [[Mixer alloc] init];
 
@@ -69,6 +62,28 @@
 }
 
 - (void)parar:(PlayerViewController *)requestor
+{
+    [self.mixer pararCanal:requestor.channel];
+}
+
+//----------
+
+- (void)tocarScratcher:(ScratcherViewController*)requestor
+{
+    [self.mixer tocarCanal:requestor.channel];
+}
+
+- (void)pausarScratcher:(ScratcherViewController *)requestor
+{
+    if (requestor.tocando) {
+        [self.mixer pausarCanal:requestor.channel];
+    }
+    else {
+        [self.mixer resumirCanal:requestor.channel];
+    }
+}
+
+- (void)pararScratcher:(ScratcherViewController*)requestor
 {
     [self.mixer pararCanal:requestor.channel];
 }

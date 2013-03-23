@@ -83,6 +83,7 @@
 		C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrataErros.h; sourceTree = "<group>"; };
 		C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrataErros.m; sourceTree = "<group>"; };
 		C20C3E8D16FCEA4700CF4AF9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C20C3E9116FDEAD800CF4AF9 /* PlayerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,11 +192,12 @@
 				C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */,
 				C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */,
 				C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */,
-				5E328EEF16FD5F7A003F80A4 /* ScratcherViewController.xib */,
 				5E328EF016FD5F7A003F80A4 /* ScratcherViewController.h */,
 				5E328EF116FD5F7A003F80A4 /* ScratcherViewController.m */,
+				5E328EEF16FD5F7A003F80A4 /* ScratcherViewController.xib */,
 				5E328EF216FD5F7A003F80A4 /* Scratcher.h */,
 				5E328EF316FD5F7B003F80A4 /* Scratcher.m */,
+				C20C3E9116FDEAD800CF4AF9 /* PlayerProtocol.h */,
 			);
 			path = BassTest;
 			sourceTree = "<group>";
