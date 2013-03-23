@@ -20,25 +20,26 @@
 	// Do any additional setup after loading the view.
     
     self.player1 = [[PlayerViewController alloc] init];
-    self.player2 = [[PlayerViewController alloc] init];
+//    self.player2 = [[PlayerViewController alloc] init];
     
     self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
-    self.player2.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
+//    self.player2.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
 
     self.player1.delegate = self;
-    self.player2.delegate = self;
+//    self.player2.delegate = self;
     
     [self addChildViewController:self.player1];
     [self.holderPlayer1 addSubview:self.player1.view];
     [self.player1 didMoveToParentViewController:self];
     
-    [self addChildViewController:self.player2];
-    [self.holderPlayer2 addSubview:self.player2.view];
-    [self.player2 didMoveToParentViewController:self];
+//    [self addChildViewController:self.player2];
+//    [self.holderPlayer2 addSubview:self.player2.view];
+//    [self.player2 didMoveToParentViewController:self];
     
-    self.vinil = [[AudioScratchDemoViewController alloc] initWithNibName:@"AudioScratchDemoViewController" bundle:nil];
+    self.vinil = [[ScratcherViewController alloc] init];
+    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
     [self addChildViewController:self.vinil];
-    [self.view addSubview:self.vinil.view];
+    [self.holderPlayer2 addSubview:self.vinil.view];
     
     self.mixer = [[Mixer alloc] init];
 
