@@ -29,7 +29,7 @@
     //[self.player1 didMoveToParentViewController:self];
     
     self.vinil = [[ScratcherViewController alloc] init];
-    //self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"Chained" ofType:@"mp4"];
+    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
     [self addChildViewController:self.vinil];
     [self.holderPlayer2 addSubview:self.vinil.view];
     
