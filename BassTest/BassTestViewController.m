@@ -30,7 +30,7 @@
     
     self.vinil = [[ScratcherViewController alloc] init];
 //    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio4" ofType:@"m4a"];
-    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
+//    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
     [self addChildViewController:self.vinil];
     [self.holderPlayer2 addSubview:self.vinil.view];
     
@@ -184,7 +184,7 @@
             
         case kAudioFormatMPEGLayer3:
             fileType = @"com.apple.quicktime-movie";
-            ex = @"mp3";
+            ex = @"mov";
             break;
             
         case kAudioFormatMPEG4AAC:
@@ -218,6 +218,8 @@
     
     NSLog(@"filePath = %@", filePath);
     
+    
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         //        //NSLog(@"file exist::::::::::==============>>>>>>>>>>>>>>>>>");
         //        counterIpod--;
@@ -231,7 +233,7 @@
         //        [lbl performSelectorOnMainThread:@selector(setText:) withObject:str waitUntilDone:NO];
         //        //NSLog(@"loading string : %@", str);
         
-        //[self.vinil setMp3:filePath];
+        [self.vinil setMp3:filePath];
         [self.player1 setMp3:filePath];
         return;
     }
@@ -258,7 +260,7 @@
         if (exportSession.status == AVAssetExportSessionStatusCompleted) {
             NSLog(@"export session completed");
             
-            //[self.vinil setMp3:filePath];
+            [self.vinil setMp3:filePath];
             [self.player1 setMp3:filePath];
             
             //            counterIpod--;
@@ -275,6 +277,10 @@
             //            }
         } else {
             NSLog(@"export session error");
+            
+            if (exportSession.status == AVAssetExportSessionStatusFailed) {
+                NSLog(@"%@", exportSession.error.localizedDescription);
+            }
             
             //            counterIpod--;
             //            NSString *str = [NSString stringWithFormat:@"Loading %d of %d Beats", totalcollection - counterIpod ,totalcollection];

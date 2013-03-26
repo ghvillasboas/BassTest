@@ -6,6 +6,7 @@
 //  Copyright 2010 Jan Kalis Glow Interactive. All rights reserved.
 //
 #import "ScratcherViewController.h"
+#import "TrataErros.h"
 #import <sys/stat.h>
 #import <sys/mman.h>
 #import <fcntl.h>
@@ -85,9 +86,9 @@ struct Info
      
      */
     
-    
-    
-    self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE);
+    // The exact length of a stream will be returned once the whole file has been streamed, but until then it is not always possible to 100% accurately estimate the length. The length is always exact for MP3/MP2/MP1 files when the BASS_STREAM_PRESCAN flag is used in the BASS_StreamCreateFile call, otherwise it is an (usually accurate) estimation based on the file size. The length returned for OGG files will usually be exact (assuming the file is not corrupt), but when streaming from the internet (or "buffered" user file), it can be a very rough estimation until the whole file has been downloaded. It will also be an estimate for chained OGG files that are not pre-scanned.
+    // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
+    self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + 400000;
     
     self.mappedFile = tmpfile();
     int fd = fileno(self.mappedFile);
@@ -96,7 +97,7 @@ struct Info
     
     self.mappedMemory = mmap(
                              NULL,                    /* No preferred address. */
-                             self.mappedMemorySize,                /* Size of mapped space. */
+                             self.mappedMemorySize,   /* Size of mapped space. */
                              PROT_READ | PROT_WRITE,  /* Read/write access. */
                              MAP_FILE | MAP_SHARED,   /* Map from file (default) and map as shared (see above.) */
                              fd,                      /* The file descriptor. */
@@ -176,9 +177,7 @@ void* Unpack(void* arg)
 {
     HSTREAM decoder = info.decoder;
     char* output = (char*)info.data;
-    
-    NSLog(@"%s", output);
-    
+
     // buffer size per step for normalization
     float buf[10000];
     
@@ -188,8 +187,9 @@ void* Unpack(void* arg)
     
     while (BASS_ChannelIsActive(decoder))
     {
-        DWORD c = BASS_ChannelGetData(decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
+        NSLog(@"Loop: %d", pos);
         
+        DWORD c = BASS_ChannelGetData(decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
         memcpy(output + pos, buf, c);
         pos += c;
     }
