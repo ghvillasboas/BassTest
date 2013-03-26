@@ -62,6 +62,8 @@ struct Info
 
 - (void)setMp3:(NSString *)mp3
 {
+    NSLog(@"%@", mp3);
+    
     _mp3 = mp3;
     
     self.decoder = BASS_StreamCreateFile(FALSE, [_mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_FLOAT|BASS_STREAM_PRESCAN|BASS_STREAM_DECODE);
@@ -174,6 +176,8 @@ void* Unpack(void* arg)
 {
     HSTREAM decoder = info.decoder;
     char* output = (char*)info.data;
+    
+    NSLog(@"%s", output);
     
     // buffer size per step for normalization
     float buf[10000];

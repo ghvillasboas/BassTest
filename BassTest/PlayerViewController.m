@@ -40,7 +40,7 @@
 
 - (void)updateLog
 {
-    TAG_ID3 *id3 = (TAG_ID3*)BASS_ChannelGetTags(self.channel, BASS_TAG_ID3);
+//    TAG_ID3 *id3 = (TAG_ID3*)BASS_ChannelGetTags(self.channel, BASS_TAG_ID3);
     QWORD pos = BASS_ChannelGetLength(self.channel, BASS_POS_BYTE);
     
     // A funcao BASS_ChannelGetAttribute retorna BOOL.
@@ -51,7 +51,7 @@
     BASS_ChannelGetAttribute(self.channel, BASS_ATTRIB_VOL, &volume);
     
     int time = BASS_ChannelBytes2Seconds(self.channel, pos);
-    NSString *log = [NSString stringWithFormat:@"%@\nTAGs ID3\nMusica: %s\nArtista: %s\n\nTamanho: %llu bytes\nTempo total: %u:%02u\n\nVolume: %.2f", self.tocando?@"PLAY":@"PAUSE", id3->title, id3->artist, pos, time/60, time%60, volume];
+    NSString *log = [NSString stringWithFormat:@"%@\nTAGs ID3\nMusica: \nArtista: \n\nTamanho: %llu bytes\nTempo total: %u:%02u\n\nVolume: %.2f", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60, volume];
     
     self.loggerInfo.text = log;
     
@@ -87,7 +87,8 @@
     // Importante o segundo argumento. Se FALSE e o usuario parar o stream e tocar em play novamente,
     // o stream continua de onde parou, funcionando como um pause. Se TRUE, o comportamento e o esperado.
     // Ou seja, se o usuario parar o stream e tocar em play, ele reinicia.
-    //BASS_ChannelPlay(self.channel, TRUE);
+//    BASS_ChannelPlay(self.channel, TRUE);
+//    return;
     
     if (self.tocando) {
         if ([self.delegate respondsToSelector:@selector(pausar:)]) {

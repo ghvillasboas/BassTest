@@ -20,8 +20,8 @@
 	// Do any additional setup after loading the view.
     
     self.player1 = [[PlayerViewController alloc] init];
-    self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
-    //self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"Chained" ofType:@"m4a"];
+    //self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
+    self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
     self.player1.delegate = self;
     
     [self addChildViewController:self.player1];
@@ -230,6 +230,7 @@
         //        [lbl performSelectorOnMainThread:@selector(setText:) withObject:str waitUntilDone:NO];
         //        //NSLog(@"loading string : %@", str);
         
+        [self.vinil setMp3:filePath];
         return;
     }
     
@@ -255,7 +256,7 @@
         if (exportSession.status == AVAssetExportSessionStatusCompleted) {
             NSLog(@"export session completed");
             
-            [self.vinil setMp3:fileName];
+            [self.vinil setMp3:filePath];
             
             //            counterIpod--;
             //

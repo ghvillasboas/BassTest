@@ -103,7 +103,7 @@
 - (void)adicionarCanal:(HSTREAM)canal autoPlay:(BOOL)autoPlay
 {
     DWORD flag = 0;
-    if (!autoPlay) flag = BASS_MIXER_PAUSE;
+    if (!autoPlay) flag = BASS_MIXER_PAUSE|BASS_MIXER_DOWNMIX;
     
     //Verifica se o canal já está conectado ao mixer
     if (![self canalJaAdicionado:canal]) {
