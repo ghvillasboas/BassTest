@@ -17,17 +17,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.trataErros = [[TrataErros alloc] init];
     
     BASS_INFO info;
     if (!BASS_GetInfo(&info))
         if (!BASS_Init(-1,44100,0,0,NULL))
             NSLog(@"Não foi possivel inicializar o BASS: %@", self.mp3);
     
+    
+    BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
+    
     // Inicializa player
+    NSLog(@"%@", self.mp3);
     // IMPORTANTE: Para mixar, o stream DEVE ser do tipo DECODE. Isso porque o Mixer usa o GetData para obter o audio
     self.channel = BASS_StreamCreateFile(FALSE, [self.mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
-    BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL,self.volumeSlider.value);
+    if (![self.trataErros ocorreuErro]) {
+        BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL, self.volumeSlider.value);
+    }
+
 }
 
 - (void)updateLog
@@ -71,7 +79,7 @@
     QWORD pos=BASS_ChannelGetPosition(self.channel, BASS_POS_BYTE);
     int time=BASS_ChannelBytes2Seconds(self.channel, pos);
     
-    self.loggerTime.text = [NSString stringWithFormat:@"%@\nLido: %llu bytes\nTempo total: %u:%02u", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60];
+    self.loggerTime.text = [NSString stringWithFormat:@"%@\nLido: %llu bytes\nTempo total: %u:%02u CPU: %.2f", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60, BASS_GetCPU()];
 }
 
 - (IBAction)play:(id)sender
@@ -85,6 +93,12 @@
         if ([self.delegate respondsToSelector:@selector(pausar:)]) {
             [self.delegate pausar:self];
             [self.playButton setTitle:@"Resumir" forState:UIControlStateNormal];
+            
+//            float fft[8192]; // fft data buffer
+//            BASS_ChannelGetData(self.channel, fft, BASS_DATA_FFT16384);
+//            for (int a=0; a<8192; a++)
+//                printf("%d: %f\n", a, fft[a]);
+            
         }
     }
     else {
