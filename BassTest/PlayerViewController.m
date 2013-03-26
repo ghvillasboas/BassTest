@@ -28,14 +28,20 @@
     
     BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
+}
+
+- (void)setMp3:(NSString *)mp3
+{
+    
+    _mp3 = mp3;
+    
     // Inicializa player
-    NSLog(@"%@", self.mp3);
+    NSLog(@"%@", mp3);
     // IMPORTANTE: Para mixar, o stream DEVE ser do tipo DECODE. Isso porque o Mixer usa o GetData para obter o audio
-    self.channel = BASS_StreamCreateFile(FALSE, [self.mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
+    self.channel = BASS_StreamCreateFile(FALSE, [mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
     if (![self.trataErros ocorreuErro]) {
         BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL, self.volumeSlider.value);
     }
-
 }
 
 - (void)updateLog

@@ -40,7 +40,7 @@
 		C27E65E51700F04C00CEB57D /* libbassenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65E21700F04C00CEB57D /* libbassenc.a */; };
 		C27E65E61700F04C00CEB57D /* libbassmix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65E31700F04C00CEB57D /* libbassmix.a */; };
 		C27E65E81700F21900CEB57D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65E71700F21900CEB57D /* CoreMedia.framework */; };
-		C27E65EA1700F6CA00CEB57D /* Chained.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C27E65E91700F6CA00CEB57D /* Chained.m4a */; };
+		C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C27E65E91700F6CA00CEB57D /* audio4.m4a */; };
 		C27E65ED1701C98700CEB57D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65EC1701C98700CEB57D /* CoreAudio.framework */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 /* End PBXBuildFile section */
@@ -93,7 +93,7 @@
 		C27E65E21700F04C00CEB57D /* libbassenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassenc.a; path = BassTest/libbassenc.a; sourceTree = "<group>"; };
 		C27E65E31700F04C00CEB57D /* libbassmix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbassmix.a; path = BassTest/libbassmix.a; sourceTree = "<group>"; };
 		C27E65E71700F21900CEB57D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		C27E65E91700F6CA00CEB57D /* Chained.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chained.m4a; sourceTree = "<group>"; };
+		C27E65E91700F6CA00CEB57D /* audio4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio4.m4a; sourceTree = "<group>"; };
 		C27E65EB1700FBF600CEB57D /* bassaac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassaac.h; sourceTree = "<group>"; };
 		C27E65EC1701C98700CEB57D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				C2CD169A1702214E00B68B0F /* audio3.m4a */,
-				C27E65E91700F6CA00CEB57D /* Chained.m4a */,
+				C27E65E91700F6CA00CEB57D /* audio4.m4a */,
 				5E328ED016FC8AF3003F80A4 /* audio2.mp3 */,
 				5E529BBF16FBB9DE001ABCF9 /* audio1.mp3 */,
 			);
@@ -303,7 +303,7 @@
 				5E328ED616FC8E70003F80A4 /* PlayerViewController.xib in Resources */,
 				5E328EF416FD5F7B003F80A4 /* ScratcherViewController.xib in Resources */,
 				5E328EF916FD5FA2003F80A4 /* vinyl.png in Resources */,
-				C27E65EA1700F6CA00CEB57D /* Chained.m4a in Resources */,
+				C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */,
 				C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

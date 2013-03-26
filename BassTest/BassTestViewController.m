@@ -20,8 +20,8 @@
 	// Do any additional setup after loading the view.
     
     self.player1 = [[PlayerViewController alloc] init];
-    //self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
-    self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
+    self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
+    //self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
     self.player1.delegate = self;
     
     [self addChildViewController:self.player1];
@@ -29,7 +29,8 @@
     //[self.player1 didMoveToParentViewController:self];
     
     self.vinil = [[ScratcherViewController alloc] init];
-    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
+//    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio4" ofType:@"m4a"];
+    self.vinil.mp3 = [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"];
     [self addChildViewController:self.vinil];
     [self.holderPlayer2 addSubview:self.vinil.view];
     
@@ -230,7 +231,8 @@
         //        [lbl performSelectorOnMainThread:@selector(setText:) withObject:str waitUntilDone:NO];
         //        //NSLog(@"loading string : %@", str);
         
-        [self.vinil setMp3:filePath];
+        //[self.vinil setMp3:filePath];
+        [self.player1 setMp3:filePath];
         return;
     }
     
@@ -256,7 +258,8 @@
         if (exportSession.status == AVAssetExportSessionStatusCompleted) {
             NSLog(@"export session completed");
             
-            [self.vinil setMp3:filePath];
+            //[self.vinil setMp3:filePath];
+            [self.player1 setMp3:filePath];
             
             //            counterIpod--;
             //

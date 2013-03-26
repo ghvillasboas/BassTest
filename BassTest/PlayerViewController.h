@@ -24,7 +24,7 @@
 
 @interface PlayerViewController : UIViewController
 @property HSTREAM channel;
-@property NSString *mp3;
+@property (nonatomic, strong) NSString *mp3;
 @property (nonatomic) BOOL tocando;
 @property (nonatomic, strong) TrataErros *trataErros;
 @property (weak, nonatomic) IBOutlet UITextView *loggerTime;
