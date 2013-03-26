@@ -20,7 +20,7 @@
 
 @end
 
-@interface ScratcherViewController : UIViewController
+@interface ScratcherViewController : UIViewController 
 
 @property (strong, nonatomic) IBOutlet UIImageView* vinyl;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TrataErros.h"
 #import "bass.h"
 #import "bassenc.h"
 #import "bassmix.h"
@@ -25,6 +26,7 @@
 @property HSTREAM channel;
 @property NSString *mp3;
 @property (nonatomic) BOOL tocando;
+@property (nonatomic, strong) TrataErros *trataErros;
 @property (weak, nonatomic) IBOutlet UITextView *loggerTime;
 @property (weak, nonatomic) IBOutlet UITextView *loggerInfo;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;

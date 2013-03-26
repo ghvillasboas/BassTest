@@ -89,7 +89,8 @@
     }
     else {
         
-        self.encode = BASS_Encode_StartCAFile(self.stream, 'm4af', 'alac', BASS_ENCODE_FP_16BIT, 0, [endereco cStringUsingEncoding:NSUTF8StringEncoding]);
+//        self.encode = BASS_Encode_StartCAFile(self.stream, 'm4af', 'alac', BASS_ENCODE_FP_16BIT, 0, [endereco cStringUsingEncoding:NSUTF8StringEncoding]);
+        self.encode = BASS_Encode_StartCAFile(self.stream, 'm4af', 'aac ', BASS_ENCODE_FP_16BIT, 0, [endereco cStringUsingEncoding:NSUTF8StringEncoding]);
         if (![self.trataErros ocorreuErro]) {
             NSLog(@"%@ -> %@", @"Gravação iniciada em", endereco);
         }

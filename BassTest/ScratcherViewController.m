@@ -66,6 +66,25 @@ struct Info
     
     self.decoder = BASS_StreamCreateFile(FALSE, [_mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_FLOAT|BASS_STREAM_PRESCAN|BASS_STREAM_DECODE);
     
+    
+    /*
+     
+     float playBackDuration=BASS_ChannelBytes2Seconds(mainStream, BASS_ChannelGetLength(mainStream, BASS_POS_BYTE));
+     NSLog(@"Play back duration is %f",playBackDuration);
+     HSTREAM bpmStream=BASS_StreamCreateFile(FALSE, [respath UTF8String], 0, 0, BASS_STREAM_PRESCAN|BASS_SAMPLE_FLOAT|BASS_STREAM_DECODE);
+     //BASS_ChannelPlay(bpmStream,FALSE);
+     BpmValue= BASS_FX_BPM_DecodeGet(bpmStream,0.0,
+     playBackDuration,
+     MAKELONG(45,256),
+     BASS_FX_BPM_MULT2| BASS_FX_BPM_MULT2 | BASS_FX_FREESOURCE,
+     (BPMPROCESSPROC*)proc);
+     
+     textView.text = [NSString stringWithFormat:@"%@  %f",textView.text,BpmValue];
+     
+     */
+    
+    
+    
     self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE);
     
     self.mappedFile = tmpfile();
@@ -136,6 +155,7 @@ struct Info
     BASS_SetConfig(BASS_CONFIG_BUFFER, 5);
     BASS_SetConfig(BASS_CONFIG_UPDATETHREADS, 1);
     BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 5);
+    BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
     self.scratcher = [[Scratcher alloc] init];
     self.tocando = NO;

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <CoreMedia/CoreMedia.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "Mixer.h"
 #import "PlayerViewController.h"
 #import "ScratcherViewController.h"
 
-@interface BassTestViewController : UIViewController <PlayerDelegate, ScratcherDelegate>
+@interface BassTestViewController : UIViewController <PlayerDelegate, ScratcherDelegate, MPMediaPickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer1;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;
@@ -19,6 +22,7 @@
 @property (strong, nonatomic) PlayerViewController *player2;
 
 @property (weak, nonatomic) IBOutlet UIButton *recGeralButton;
+@property (weak, nonatomic) IBOutlet UIButton *SelectButton;
 
 @property (strong, nonatomic) ScratcherViewController *vinil;
 
