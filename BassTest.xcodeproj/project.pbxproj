@@ -162,14 +162,6 @@
 		5E89A5CD16FBAE0200EBA1F0 = {
 			isa = PBXGroup;
 			children = (
-				C2AE5C98170324890068D52F /* libbass_fx.a */,
-				C27E65EC1701C98700CEB57D /* CoreAudio.framework */,
-				C27E65E71700F21900CEB57D /* CoreMedia.framework */,
-				C27E65E11700F04C00CEB57D /* libbass.a */,
-				C27E65E21700F04C00CEB57D /* libbassenc.a */,
-				C27E65E31700F04C00CEB57D /* libbassmix.a */,
-				C27E65DF1700EE0F00CEB57D /* AVFoundation.framework */,
-				C27E65DD1700E4CD00CEB57D /* MediaPlayer.framework */,
 				5E89A5DF16FBAE0200EBA1F0 /* BassTest */,
 				5E89A5E016FBAE0200EBA1F0 /* Supporting Files */,
 				5E529BBD16FBB952001ABCF9 /* Resources */,
@@ -189,6 +181,14 @@
 		5E89A5D816FBAE0200EBA1F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2AE5C98170324890068D52F /* libbass_fx.a */,
+				C27E65EC1701C98700CEB57D /* CoreAudio.framework */,
+				C27E65E71700F21900CEB57D /* CoreMedia.framework */,
+				C27E65E11700F04C00CEB57D /* libbass.a */,
+				C27E65E21700F04C00CEB57D /* libbassenc.a */,
+				C27E65E31700F04C00CEB57D /* libbassmix.a */,
+				C27E65DF1700EE0F00CEB57D /* AVFoundation.framework */,
+				C27E65DD1700E4CD00CEB57D /* MediaPlayer.framework */,
 				C20C3E8D16FCEA4700CF4AF9 /* QuartzCore.framework */,
 				5E89A5FE16FBAEC400EBA1F0 /* CoreMIDI.framework */,
 				5E89A5FC16FBAEBA00EBA1F0 /* Accelerate.framework */,
@@ -205,11 +205,6 @@
 		5E89A5DF16FBAE0200EBA1F0 /* BassTest */ = {
 			isa = PBXGroup;
 			children = (
-				5E529BBC16FBB845001ABCF9 /* bass.h */,
-				C20C3E7616FC8FF700CF4AF9 /* bassenc.h */,
-				C20C3E7916FCA5BD00CF4AF9 /* bassmix.h */,
-				C27E65EB1700FBF600CEB57D /* bassaac.h */,
-				C2AE5C9517031F2E0068D52F /* bass_fx.h */,
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
@@ -235,6 +230,11 @@
 		5E89A5E016FBAE0200EBA1F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5E529BBC16FBB845001ABCF9 /* bass.h */,
+				C20C3E7616FC8FF700CF4AF9 /* bassenc.h */,
+				C20C3E7916FCA5BD00CF4AF9 /* bassmix.h */,
+				C27E65EB1700FBF600CEB57D /* bassaac.h */,
+				C2AE5C9517031F2E0068D52F /* bass_fx.h */,
 				5E89A5E116FBAE0200EBA1F0 /* BassTest-Info.plist */,
 				5E89A5E216FBAE0200EBA1F0 /* InfoPlist.strings */,
 				5E89A5E516FBAE0200EBA1F0 /* main.m */,

@@ -356,23 +356,6 @@ void* Unpack(void* arg)
 #pragma mark -
 #pragma mark Delegates
 
-#pragma mark - PlayerDelegate
-
--(void)play:(id<PlayerDataSource>)player
-{
-    
-}
-
--(void)pause:(id<PlayerDataSource>)player
-{
-    
-}
-
--(void)stop:(id<PlayerDataSource>)player
-{
-    
-}
-
 #pragma mark - Touch delegates
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

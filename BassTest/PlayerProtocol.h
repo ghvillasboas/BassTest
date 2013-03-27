@@ -11,12 +11,17 @@
 
 @protocol PlayerDataSource <NSObject>
 
-@optional
+@required
 
 - (HSTREAM)channel;
+- (NSString*)pathToAudio;
 - (void)setPathToAudio:(NSString*)pathToAudio;
-- (float)bpm;
 - (BOOL)isPlaying;
+
+@optional
+
+- (float)bpm;
+- (void)setChannel:(HSTREAM)channel;
 
 @end
 
@@ -34,8 +39,6 @@
 
 - (void)playerWillStop:(id<PlayerDataSource>)player;
 - (void)playerDidStop:(id<PlayerDataSource>)player;
-
-@required
 
 - (void)play:(id<PlayerDataSource>)player;
 - (void)pause:(id<PlayerDataSource>)player;

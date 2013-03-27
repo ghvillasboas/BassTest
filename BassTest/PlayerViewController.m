@@ -23,24 +23,35 @@
     BASS_INFO info;
     if (!BASS_GetInfo(&info))
         if (!BASS_Init(-1,44100,0,0,NULL))
-            NSLog(@"Não foi possivel inicializar o BASS: %@", self.mp3);
+            NSLog(@"Não foi possivel inicializar o BASS: %@", self.pathToAudio);
     
     
     BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
+    [self.playButton setEnabled:NO];
+    [self.stopButton setEnabled:NO];
+    [self.volumeSlider setEnabled:NO];
+    
 }
 
-- (void)setMp3:(NSString *)mp3
+- (void)setPathToAudio:(NSString *)pathToAudio
 {
-    
-    _mp3 = mp3;
+    _pathToAudio = pathToAudio;
     
     // Inicializa player
-    NSLog(@"%@", mp3);
     // IMPORTANTE: Para mixar, o stream DEVE ser do tipo DECODE. Isso porque o Mixer usa o GetData para obter o audio
-    self.channel = BASS_StreamCreateFile(FALSE, [mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
+    self.channel = BASS_StreamCreateFile(FALSE, [_pathToAudio cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_STREAM_DECODE|BASS_SAMPLE_LOOP);
     if (![self.trataErros ocorreuErro]) {
         BASS_ChannelSetAttribute(self.channel, BASS_ATTRIB_VOL, self.volumeSlider.value);
+        
+        if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
+            [self.delegate playerIsReady:self];
+            
+            [self.playButton setEnabled:YES];
+            [self.stopButton setEnabled:YES];
+            [self.volumeSlider setEnabled:YES];
+            
+        }
     }
 }
 
@@ -57,7 +68,7 @@
     BASS_ChannelGetAttribute(self.channel, BASS_ATTRIB_VOL, &volume);
     
     int time = BASS_ChannelBytes2Seconds(self.channel, pos);
-    NSString *log = [NSString stringWithFormat:@"%@\nTAGs ID3\nMusica: \nArtista: \n\nTamanho: %llu bytes\nTempo total: %u:%02u\n\nVolume: %.2f", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60, volume];
+    NSString *log = [NSString stringWithFormat:@"%@\nTAGs ID3\nMusica: \nArtista: \n\nTamanho: %llu bytes\nTempo total: %u:%02u\n\nVolume: %.2f", _isPlaying?@"PLAY":@"PAUSE", pos, time/60, time%60, volume];
     
     self.loggerInfo.text = log;
     
@@ -85,48 +96,54 @@
     QWORD pos=BASS_ChannelGetPosition(self.channel, BASS_POS_BYTE);
     int time=BASS_ChannelBytes2Seconds(self.channel, pos);
     
-    self.loggerTime.text = [NSString stringWithFormat:@"%@\nLido: %llu bytes\nTempo total: %u:%02u CPU: %.2f", self.tocando?@"PLAY":@"PAUSE", pos, time/60, time%60, BASS_GetCPU()];
+    self.loggerTime.text = [NSString stringWithFormat:@"%@\nLido: %llu bytes\nTempo total: %u:%02u CPU: %.2f", _isPlaying?@"PLAY":@"PAUSE", pos, time/60, time%60, BASS_GetCPU()];
 }
 
-- (IBAction)play:(id)sender
+- (IBAction)tocar:(id)sender
 {
-    // Importante o segundo argumento. Se FALSE e o usuario parar o stream e tocar em play novamente,
-    // o stream continua de onde parou, funcionando como um pause. Se TRUE, o comportamento e o esperado.
-    // Ou seja, se o usuario parar o stream e tocar em play, ele reinicia.
-//    BASS_ChannelPlay(self.channel, TRUE);
-//    return;
     
-    if (self.tocando) {
-        if ([self.delegate respondsToSelector:@selector(pausar:)]) {
-            [self.delegate pausar:self];
+    if (_isPlaying) {
+        
+        if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
+            [self.delegate playerWillPause:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(pause:)]) {
+            [self.delegate pause:self];
+            _isPlaying = NO;
             [self.playButton setTitle:@"Resumir" forState:UIControlStateNormal];
             
-//            float fft[8192]; // fft data buffer
-//            BASS_ChannelGetData(self.channel, fft, BASS_DATA_FFT16384);
-//            for (int a=0; a<8192; a++)
-//                printf("%d: %f\n", a, fft[a]);
-            
+            if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
+                [self.delegate playerDidPause:self];
+            }
         }
     }
     else {
-        if ([self.delegate respondsToSelector:@selector(tocar:)]) {
-            [self.delegate tocar:self];
+        
+        [self setVolume:self.volumeSlider];
+        
+        if ([self.delegate respondsToSelector:@selector(playerWillPlay:)]) {
+            [self.delegate playerWillPlay:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(play:)]) {
+            [self.delegate play:self];
+            _isPlaying = YES;
             [self.playButton setTitle:@"Pause" forState:UIControlStateNormal];
+            
+            if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
+                [self.delegate playerDidPlay:self];
+            }
         }
     }
-    
-    self.tocando = !self.tocando;
     
     [self updateLog];
 }
 
-- (IBAction)stop:(id)sender
+- (IBAction)parar:(id)sender
 {
-    //BASS_ChannelStop(self.channel);
-    if ([self.delegate respondsToSelector:@selector(parar:)]) {
-        [self.delegate parar:self];
+    if ([self.delegate respondsToSelector:@selector(stop:)]) {
+        [self.delegate stop:self];
         [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
-        self.tocando = NO;
+        _isPlaying = NO;
     }
     
     [self clearLog];

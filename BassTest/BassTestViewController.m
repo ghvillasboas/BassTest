@@ -121,7 +121,7 @@
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         [self.vinil setPathToAudio:filePath];
-        [self.player1 setMp3:filePath];
+        [self.player1 setPathToAudio:filePath];
         return;
     }
     else {
@@ -135,7 +135,7 @@
                 NSLog(@"export session completed");
                 
                 [self.vinil setPathToAudio:filePath];
-                [self.player1 setMp3:filePath];
+                [self.player1 setPathToAudio:filePath];
             } else {
                 NSLog(@"export session error");
                 
@@ -170,8 +170,6 @@ void myDeleteFile (NSString* path) {
     [self.recGeralButton setEnabled:NO];
     
     self.player1 = [[PlayerViewController alloc] init];
-    self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"];
-    //self.player1.mp3 = [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"];
     self.player1.delegate = self;
     
     [self addChildViewController:self.player1];
@@ -254,28 +252,6 @@ void myDeleteFile (NSString* path) {
 -(void)stop:(id<PlayerDataSource>)player
 {
     [self.mixer pararCanal:player.channel];
-}
-
-#pragma mark PlayerDelegate
-
-- (void)tocar:(PlayerViewController *)requestor
-{
-    [self.mixer tocarCanal:requestor.channel];
-}
-
-- (void)pausar:(PlayerViewController *)requestor
-{
-    if (requestor.tocando) {
-        [self.mixer pausarCanal:requestor.channel];
-    }
-    else {
-        [self.mixer resumirCanal:requestor.channel];
-    }
-}
-
-- (void)parar:(PlayerViewController *)requestor
-{
-    [self.mixer pararCanal:requestor.channel];
 }
 
 @end

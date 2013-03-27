@@ -11,29 +11,24 @@
 #import "bass.h"
 #import "bassenc.h"
 #import "bassmix.h"
+#import "PlayerProtocol.h"
 
 @class PlayerViewController;
 
-@protocol Player1Delegate <NSObject>
+@interface PlayerViewController : UIViewController <PlayerDataSource, PlayerDelegate>
 
-- (void)tocar:(PlayerViewController*)requestor;
-- (void)pausar:(PlayerViewController *)requestor;
-- (void)parar:(PlayerViewController*)requestor;
-
-@end
-
-@interface PlayerViewController : UIViewController
-@property HSTREAM channel;
-@property (nonatomic, strong) NSString *mp3;
-@property (nonatomic) BOOL tocando;
 @property (nonatomic, strong) TrataErros *trataErros;
+@property (weak, nonatomic) UITextView *loggerInfo;
 @property (weak, nonatomic) IBOutlet UITextView *loggerTime;
-@property (weak, nonatomic) IBOutlet UITextView *loggerInfo;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
-@property (weak, nonatomic) IBOutlet UIButton *recButton;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 
-@property (nonatomic, weak) id<Player1Delegate> delegate;
+@property (nonatomic, weak) id<PlayerDelegate> delegate;
+
+@property (nonatomic) HSTREAM channel;
+@property (nonatomic, strong) NSString* pathToAudio;
+@property (nonatomic, readonly) float bpm;
+@property (nonatomic, readonly) BOOL isPlaying;
 
 @end
