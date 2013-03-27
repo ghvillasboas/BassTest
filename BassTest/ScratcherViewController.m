@@ -18,6 +18,11 @@
 
 #define BYTE_POSITION_TO_PIXELS 0.00001f
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define kAJUSTE_MEMORIA_ADICIONAL 400000
+
+#define kSTREAM_FROM_MEMORY FALSE
+#define kOFFSET_DO_INICIO 0
+#define kTAMANHO_DOS_DADOS 0
 
 struct Info
 {
@@ -35,7 +40,7 @@ struct Info
 @property HSTREAM decoder;
 @property FILE* mappedFile;
 @property void* mappedMemory;
-@property int mappedMemorySize;
+@property QWORD mappedMemorySize;
 @property double firstGetSeconds;
 @end
 
@@ -58,43 +63,49 @@ struct Info
     return self.scratcher.soundTrackScratchStreamHandle;
 }
 
+-(float)bpm
+{
+    // Obtem o BPM
+    if (![_pathToAudio isEqualToString:@""]) {
+        float playBackDuration = BASS_ChannelBytes2Seconds(self.decoder,
+                                                           BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE));
+        float BpmValue = BASS_FX_BPM_DecodeGet(self.decoder,
+                                               kOFFSET_DO_INICIO,
+                                               playBackDuration,
+                                               MAKELONG(45,256),
+                                               BASS_FX_BPM_MULT2|BASS_FX_BPM_MULT2|BASS_FX_FREESOURCE,
+                                               NULL,
+                                               NULL);
+        return BpmValue;
+    }
+    return 0;
+}
+
 #pragma mark -
 #pragma mark Setters overriders
 
-- (void)setMp3:(NSString *)mp3
+- (void)setPathToAudio:(NSString *)pathToAudio
 {
-    NSLog(@"%@", mp3);
+    _pathToAudio = pathToAudio;
     
-    _mp3 = mp3;
+    DWORD flags = 0;
+    flags = BASS_SAMPLE_FLOAT|BASS_STREAM_PRESCAN|BASS_STREAM_DECODE;
     
-    self.decoder = BASS_StreamCreateFile(FALSE, [_mp3 cStringUsingEncoding:NSUTF8StringEncoding], 0, 0, BASS_SAMPLE_FLOAT|BASS_STREAM_PRESCAN|BASS_STREAM_DECODE);
-    
-    
-    /*
-     
-     float playBackDuration=BASS_ChannelBytes2Seconds(mainStream, BASS_ChannelGetLength(mainStream, BASS_POS_BYTE));
-     NSLog(@"Play back duration is %f",playBackDuration);
-     HSTREAM bpmStream=BASS_StreamCreateFile(FALSE, [respath UTF8String], 0, 0, BASS_STREAM_PRESCAN|BASS_SAMPLE_FLOAT|BASS_STREAM_DECODE);
-     //BASS_ChannelPlay(bpmStream,FALSE);
-     BpmValue= BASS_FX_BPM_DecodeGet(bpmStream,0.0,
-     playBackDuration,
-     MAKELONG(45,256),
-     BASS_FX_BPM_MULT2| BASS_FX_BPM_MULT2 | BASS_FX_FREESOURCE,
-     (BPMPROCESSPROC*)proc);
-     
-     textView.text = [NSString stringWithFormat:@"%@  %f",textView.text,BpmValue];
-     
-     */
+    self.decoder = BASS_StreamCreateFile(kSTREAM_FROM_MEMORY,
+                                         [_pathToAudio cStringUsingEncoding:NSUTF8StringEncoding],
+                                         kOFFSET_DO_INICIO,
+                                         kTAMANHO_DOS_DADOS,
+                                         flags);
     
     // The exact length of a stream will be returned once the whole file has been streamed, but until then it is not always possible to 100% accurately estimate the length. The length is always exact for MP3/MP2/MP1 files when the BASS_STREAM_PRESCAN flag is used in the BASS_StreamCreateFile call, otherwise it is an (usually accurate) estimation based on the file size. The length returned for OGG files will usually be exact (assuming the file is not corrupt), but when streaming from the internet (or "buffered" user file), it can be a very rough estimation until the whole file has been downloaded. It will also be an estimate for chained OGG files that are not pre-scanned.
     // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
-    self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + 400000;
+    self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + kAJUSTE_MEMORIA_ADICIONAL;
+    
+     NSLog(@"Play back duration is %lld", self.mappedMemorySize);
     
     self.mappedFile = tmpfile();
     int fd = fileno(self.mappedFile);
-    
     ftruncate(fd, self.mappedMemorySize);
-    
     self.mappedMemory = mmap(
                              NULL,                    /* No preferred address. */
                              self.mappedMemorySize,   /* Size of mapped space. */
@@ -116,6 +127,15 @@ struct Info
     
     self.updateTimer = nil;
     self.prevAngle = NAN;
+    
+    if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
+        [self.delegate playerIsReady:self];
+        
+        [self.PlayButton setEnabled:YES];
+        [self.StopButton setEnabled:YES];
+        [self.volumeSlider setEnabled:YES];
+        
+    }
 }
 
 #pragma mark -
@@ -161,7 +181,7 @@ struct Info
     BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
     self.scratcher = [[Scratcher alloc] init];
-    self.tocando = NO;
+    _isPlaying = NO;
 }
 
 /*!
@@ -187,8 +207,6 @@ void* Unpack(void* arg)
     
     while (BASS_ChannelIsActive(decoder))
     {
-        NSLog(@"Loop: %d", pos);
-        
         DWORD c = BASS_ChannelGetData(decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
         memcpy(output + pos, buf, c);
         pos += c;
@@ -262,8 +280,12 @@ void* Unpack(void* arg)
 	// init timer
 	[self.updateTimer invalidate];
 	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
-    
     [super viewDidLoad];
+    
+    [self.PlayButton setEnabled:NO];
+    [self.StopButton setEnabled:NO];
+    [self.volumeSlider setEnabled:NO];
+
 }
 
 #pragma mark -
@@ -279,33 +301,55 @@ void* Unpack(void* arg)
     }
 }
 
--(IBAction)play:(id)sender
+-(IBAction)tocar:(id)sender
 {
-    if (self.tocando) {
-        if ([self.delegate respondsToSelector:@selector(pausarScratcher:)]) {
-            [self.delegate pausarScratcher:self];
+    if (_isPlaying) {
+        
+        if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
+            [self.delegate playerWillPause:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(pause:)]) {
+            [self.delegate pause:self];
+            _isPlaying = NO;
             [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
+            
+            if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
+                [self.delegate playerDidPause:self];
+            }
         }
     }
     else {
         
         [self setVolume:self.volumeSlider];
         
-        if ([self.delegate respondsToSelector:@selector(tocarScratcher:)]) {
-            [self.delegate tocarScratcher:self];
+        if ([self.delegate respondsToSelector:@selector(playerWillPlay:)]) {
+            [self.delegate playerWillPlay:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(play:)]) {
+            [self.delegate play:self];
+            _isPlaying = YES;
             [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
+            
+            if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
+                [self.delegate playerDidPlay:self];
+            }
         }
     }
-    
-    self.tocando = !self.tocando;
 }
 
--(IBAction)stop:(id)sender
+-(IBAction)parar:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(pararScratcher:)]) {
-        [self.delegate pararScratcher:self];
+    if ([self.delegate respondsToSelector:@selector(playerWillStop:)]) {
+        [self.delegate playerWillStop:self];
+    }
+    if ([self.delegate respondsToSelector:@selector(stop:)]) {
+        [self.delegate stop:self];
+        _isPlaying = NO;
         [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
-        self.tocando = NO;
+        
+        if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
+            [self.delegate playerDidStop:self];
+        }
     }
 }
 

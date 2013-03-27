@@ -32,19 +32,12 @@
 @property double firstGetSeconds;
 
 - (void)update;
-
 - (void)setBuffer:(float *)buffer size:(int)size;
-
 - (void)setByteOffset:(float)byteOffset;
-
 - (float)getByteOffset;
-
 - (void)beganScratching;
-
 - (void)endedScratching;
-
 - (double)getSeconds;
-
 - (void)setVolume:(float)volume;
 
 @end

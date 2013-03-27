@@ -8,31 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "bass.h"
+#import "bass_fx.h"
 #import "Scratcher.h"
+#import "PlayerProtocol.h"
 
-@class ScratcherViewController;
-
-@protocol ScratcherDelegate <NSObject>
-
-- (void)tocarScratcher:(ScratcherViewController*)requestor;
-- (void)pausarScratcher:(ScratcherViewController *)requestor;
-- (void)pararScratcher:(ScratcherViewController*)requestor;
-
-@end
-
-@interface ScratcherViewController : UIViewController 
+@interface ScratcherViewController : UIViewController <PlayerProtocol>
 
 @property (strong, nonatomic) IBOutlet UIImageView* vinyl;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *StopButton;
 
-@property (strong, nonatomic) NSString *mp3;
-@property (readonly, nonatomic) HSTREAM channel;
-@property (nonatomic) BOOL tocando;
-@property (nonatomic, weak) id<ScratcherDelegate> delegate;
+@property (nonatomic, weak) id<PlayerProtocol> delegate;
 
-
+@property (nonatomic, readonly) HSTREAM channel;
+@property (nonatomic, strong) NSString* pathToAudio;
+@property (nonatomic, readonly) float bpm;
+@property (nonatomic, readonly) BOOL isPlaying;
 
 @end
 

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386024953.850866"
+         timestampString = "386086899.876724"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "377"
-         endingLineNumber = "377">
+         startingLineNumber = "331"
+         endingLineNumber = "331">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -31,105 +31,53 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BassTest/Scratcher.m"
-         timestampString = "385741835.609252"
+         filePath = "BassTest/ScratcherViewController.m"
+         timestampString = "386086751.459115"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "32"
-         endingLineNumber = "32"
-         landmarkName = "-setVolume:"
-         landmarkType = "5">
+         startingLineNumber = "213"
+         endingLineNumber = "213"
+         landmarkName = "Unpack()"
+         landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386022431.352057"
+         timestampString = "386087016.539541"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "70"
-         endingLineNumber = "70"
-         landmarkName = "-setMp3:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386025094.089854"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "89"
-         endingLineNumber = "89"
-         landmarkName = "-setMp3:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386024953.850866"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "263"
-         endingLineNumber = "263"
-         landmarkName = "-exportAssetAsSourceFormat:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386024953.850866"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "256"
-         endingLineNumber = "256"
-         landmarkName = "-exportAssetAsSourceFormat:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386018953.206739"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
-         landmarkName = "-exportAssetAsSourceFormat:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386020325.633997"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "168"
-         endingLineNumber = "168"
-         landmarkName = "-exportAssetAsSourceFormat:"
+         startingLineNumber = "134"
+         endingLineNumber = "134"
+         landmarkName = "-setPathToAudio:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386025094.089854"
+         filePath = "BassTest/BassTestViewController.m"
+         timestampString = "386087083.323687"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "195"
-         endingLineNumber = "195"
-         landmarkName = "Unpack()"
-         landmarkType = "7">
+         startingLineNumber = "169"
+         endingLineNumber = "169"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BassTest/BassTestViewController.m"
+         timestampString = "386087095.589141"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "235"
+         endingLineNumber = "235"
+         landmarkName = "-playerIsReady:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>

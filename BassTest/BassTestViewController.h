@@ -13,8 +13,9 @@
 #import "Mixer.h"
 #import "PlayerViewController.h"
 #import "ScratcherViewController.h"
+#import "PlayerProtocol.h"
 
-@interface BassTestViewController : UIViewController <PlayerDelegate, ScratcherDelegate, MPMediaPickerControllerDelegate>
+@interface BassTestViewController : UIViewController <PlayerProtocol, PlayerDelegate, MPMediaPickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer1;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;

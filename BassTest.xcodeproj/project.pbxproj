@@ -42,6 +42,7 @@
 		C27E65E81700F21900CEB57D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65E71700F21900CEB57D /* CoreMedia.framework */; };
 		C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C27E65E91700F6CA00CEB57D /* audio4.m4a */; };
 		C27E65ED1701C98700CEB57D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65EC1701C98700CEB57D /* CoreAudio.framework */; };
+		C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE5C98170324890068D52F /* libbass_fx.a */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,8 @@
 		C27E65E91700F6CA00CEB57D /* audio4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio4.m4a; sourceTree = "<group>"; };
 		C27E65EB1700FBF600CEB57D /* bassaac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassaac.h; sourceTree = "<group>"; };
 		C27E65EC1701C98700CEB57D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		C2AE5C9517031F2E0068D52F /* bass_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass_fx.h; sourceTree = "<group>"; };
+		C2AE5C98170324890068D52F /* libbass_fx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass_fx.a; path = BassTest/libbass_fx.a; sourceTree = "<group>"; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */,
 				C27E65ED1701C98700CEB57D /* CoreAudio.framework in Frameworks */,
 				C27E65E81700F21900CEB57D /* CoreMedia.framework in Frameworks */,
 				C27E65E41700F04C00CEB57D /* libbass.a in Frameworks */,
@@ -158,6 +162,7 @@
 		5E89A5CD16FBAE0200EBA1F0 = {
 			isa = PBXGroup;
 			children = (
+				C2AE5C98170324890068D52F /* libbass_fx.a */,
 				C27E65EC1701C98700CEB57D /* CoreAudio.framework */,
 				C27E65E71700F21900CEB57D /* CoreMedia.framework */,
 				C27E65E11700F04C00CEB57D /* libbass.a */,
@@ -204,6 +209,7 @@
 				C20C3E7616FC8FF700CF4AF9 /* bassenc.h */,
 				C20C3E7916FCA5BD00CF4AF9 /* bassmix.h */,
 				C27E65EB1700FBF600CEB57D /* bassaac.h */,
+				C2AE5C9517031F2E0068D52F /* bass_fx.h */,
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
@@ -410,11 +416,10 @@
 				INFOPLIST_FILE = "BassTest/BassTest-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
 					"\"$(SRCROOT)/BassTest\"",
 					"\"$(SRCROOT)\"",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -429,11 +434,10 @@
 				INFOPLIST_FILE = "BassTest/BassTest-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../Downloads/bass24-iphone (1)\"",
 					"\"$(SRCROOT)/BassTest\"",
 					"\"$(SRCROOT)\"",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

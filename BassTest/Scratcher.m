@@ -14,6 +14,7 @@
 
 #define BASE_PLAYBACK_FREQUENCY 44100.0f
 #define AUDIO_SAMPLE_SIZE (sizeof(float) * 2)
+#define kNUM_CANAIS 2
 
 @interface Scratcher()
 static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWORD length, void* user);
@@ -22,14 +23,13 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 @implementation Scratcher
 
 #pragma mark -
-#pragma mark Getters overriders
-
-#pragma mark -
 #pragma mark Setters overriders
 
 - (void)setVolume:(float)volume
 {
-    BASS_ChannelSetAttribute(self.soundTrackScratchStreamHandle, BASS_ATTRIB_VOL, volume);
+    BASS_ChannelSetAttribute(self.soundTrackScratchStreamHandle,
+                             BASS_ATTRIB_VOL,
+                             volume);
 }
 
 #pragma mark -
@@ -53,8 +53,11 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
         self.buffer = NULL;
         
         // init stream that will be played when scratching
-        self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY, 2, BASS_STREAM_DECODE|BASS_SAMPLE_FLOAT, &WriteScratchStream, (__bridge void *)(self));
-        
+        self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY,
+                                                               kNUM_CANAIS,
+                                                               BASS_STREAM_DECODE|BASS_SAMPLE_FLOAT,
+                                                               &WriteScratchStream,
+                                                               (__bridge void *)(self));
         // play scratch stream
         //BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
     }
@@ -164,7 +167,6 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
     struct timeval now;
     gettimeofday(&now, NULL);
     
-    
     double time = now.tv_sec + now.tv_usec / 1000000.0;
     
     if (self.firstGetSeconds < 0.0) self.firstGetSeconds = time;
@@ -183,28 +185,20 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 {
 	float time = [self getSeconds];
     
-	if (self.isScratching == false)
-	{
+	if (self.isScratching == false) {
 		self.scratchingPositionVelocity = BASE_PLAYBACK_FREQUENCY;
 	}
-	else
-	{
-		
-		if (isnan(self.previousPositionOffset))
-		{
+	else {
+		if (isnan(self.previousPositionOffset)) {
 			self.scratchingPositionVelocity = 0.0f;
 		}
-		else
-		{
+		else {
 			// calculate position speed (= dPosition / dTime)
 			self.scratchingPositionVelocity = (self.positionOffset - self.previousPositionOffset) / (time - self.previousTime);
-            
 			if (isnan(self.scratchingPositionVelocity) || isinf(self.scratchingPositionVelocity)) self.scratchingPositionVelocity = 0.0f;
 		}
-        
 		self.previousPositionOffset = self.positionOffset;
 	}
-	
 	self.previousTime = time;
 }
 
@@ -354,8 +348,5 @@ DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWORD lengt
     
 	return length;
 }
-
-#pragma mark -
-#pragma mark Notification center
 
 @end
