@@ -15,7 +15,7 @@
 #import "ScratcherViewController.h"
 #import "PlayerProtocol.h"
 
-@interface BassTestViewController : UIViewController <PlayerProtocol, PlayerDelegate, MPMediaPickerControllerDelegate>
+@interface BassTestViewController : UIViewController <Player1Delegate, PlayerDelegate, MPMediaPickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer1;
 @property (weak, nonatomic) IBOutlet UIView *holderPlayer2;

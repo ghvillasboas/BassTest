@@ -41,6 +41,7 @@
             //MPMediaItemPropertyArtwork
             
             NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+            NSLog(@"%@", url);
             
             //            AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:url];
             //            AVMutableAudioMix *fadeMix = [AVMutableAudioMix audioMix];
@@ -230,17 +231,17 @@ void myDeleteFile (NSString* path) {
 
 #pragma mark PlayerProtocol
 
--(void)playerIsReady:(id<PlayerProtocol>)player
+-(void)playerIsReady:(id<PlayerDataSource>)player
 {
     [self.recGeralButton setEnabled:YES];
 }
 
--(void)play:(id<PlayerProtocol>)player
+-(void)play:(id<PlayerDataSource>)player
 {
     [self.mixer tocarCanal:player.channel];
 }
 
--(void)pause:(id<PlayerProtocol>)player
+-(void)pause:(id<PlayerDataSource>)player
 {
     if (player.isPlaying) {
         [self.mixer pausarCanal:player.channel];
@@ -250,7 +251,7 @@ void myDeleteFile (NSString* path) {
     }
 }
 
--(void)stop:(id<PlayerProtocol>)player
+-(void)stop:(id<PlayerDataSource>)player
 {
     [self.mixer pararCanal:player.channel];
 }

@@ -9,30 +9,36 @@
 #import <Foundation/Foundation.h>
 #import "bass.h"
 
-@protocol PlayerProtocol <NSObject>
+@protocol PlayerDataSource <NSObject>
 
 @optional
 
-- (void)playerIsReady:(id<PlayerProtocol>)player;
+- (HSTREAM)channel;
+- (void)setPathToAudio:(NSString*)pathToAudio;
+- (float)bpm;
+- (BOOL)isPlaying;
 
-- (void)playerWillPlay:(id<PlayerProtocol>)player;
-- (void)playerDidPlay:(id<PlayerProtocol>)player;
+@end
 
-- (void)playerWillPause:(id<PlayerProtocol>)player;
-- (void)playerDidPause:(id<PlayerProtocol>)player;
+@protocol PlayerDelegate <NSObject>
 
-- (void)playerWillStop:(id<PlayerProtocol>)player;
-- (void)playerDidStop:(id<PlayerProtocol>)player;
+@optional
+
+- (void)playerIsReady:(id<PlayerDataSource>)player;
+
+- (void)playerWillPlay:(id<PlayerDataSource>)player;
+- (void)playerDidPlay:(id<PlayerDataSource>)player;
+
+- (void)playerWillPause:(id<PlayerDataSource>)player;
+- (void)playerDidPause:(id<PlayerDataSource>)player;
+
+- (void)playerWillStop:(id<PlayerDataSource>)player;
+- (void)playerDidStop:(id<PlayerDataSource>)player;
 
 @required
 
-- (void)play:(id<PlayerProtocol>)player;
-- (void)pause:(id<PlayerProtocol>)player;
-- (void)stop:(id<PlayerProtocol>)player;
-
-@property (nonatomic, readonly) HSTREAM channel;
-@property (nonatomic, strong) NSString* pathToAudio;
-@property (nonatomic, readonly) float bpm;
-@property (nonatomic, readonly) BOOL isPlaying;
+- (void)play:(id<PlayerDataSource>)player;
+- (void)pause:(id<PlayerDataSource>)player;
+- (void)stop:(id<PlayerDataSource>)player;
 
 @end

@@ -14,7 +14,7 @@
 
 @class PlayerViewController;
 
-@protocol PlayerDelegate <NSObject>
+@protocol Player1Delegate <NSObject>
 
 - (void)tocar:(PlayerViewController*)requestor;
 - (void)pausar:(PlayerViewController *)requestor;
@@ -34,6 +34,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *recButton;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 
-@property (nonatomic, weak) id<PlayerDelegate> delegate;
+@property (nonatomic, weak) id<Player1Delegate> delegate;
 
 @end

@@ -12,14 +12,14 @@
 #import "Scratcher.h"
 #import "PlayerProtocol.h"
 
-@interface ScratcherViewController : UIViewController <PlayerProtocol>
+@interface ScratcherViewController : UIViewController <PlayerDelegate, PlayerDataSource>
 
 @property (strong, nonatomic) IBOutlet UIImageView* vinyl;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *StopButton;
 
-@property (nonatomic, weak) id<PlayerProtocol> delegate;
+@property (nonatomic, weak) id<PlayerDelegate> delegate;
 
 @property (nonatomic, readonly) HSTREAM channel;
 @property (nonatomic, strong) NSString* pathToAudio;
