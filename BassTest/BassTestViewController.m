@@ -147,8 +147,8 @@
     }
 }
 
-void myDeleteFile (NSString* path) {
-    //  NSLog(@"file path delete file :::::::::: %@", path);
+void myDeleteFile (NSString* path)
+{
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *deleteErr = nil;
         [[NSFileManager defaultManager] removeItemAtPath:path error:&deleteErr];
@@ -193,6 +193,7 @@ void myDeleteFile (NSString* path) {
 
 - (IBAction)showMediaPicker:(id)sender
 {
+    
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
     
     [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];

@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/BassTestViewController.m"
-         timestampString = "386097325.598132"
+         timestampString = "386110992.082371"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "307"
-         endingLineNumber = "307">
+         startingLineNumber = "310"
+         endingLineNumber = "310">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -32,11 +32,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386086751.459115"
+         timestampString = "386110992.082371"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "213"
-         endingLineNumber = "213"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
          landmarkName = "Unpack()"
          landmarkType = "7">
       </FileBreakpoint>
@@ -45,11 +45,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386087016.539541"
+         timestampString = "386110992.082371"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-setPathToAudio:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -64,6 +64,19 @@
          startingLineNumber = "169"
          endingLineNumber = "169"
          landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BassTest/ScratcherViewController.m"
+         timestampString = "386110992.082371"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "342"
+         endingLineNumber = "342"
+         landmarkName = "-tocar:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

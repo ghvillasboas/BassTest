@@ -63,16 +63,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="user" id="040-8V-Wtf"/>
+                            <constraint firstAttribute="bottom" secondItem="WBQ-4y-lo6" secondAttribute="bottom" constant="9" id="BJb-XO-wQv"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="user" id="M2N-Zz-J4s"/>
-                            <constraint firstAttribute="bottom" secondItem="4u9-ow-jby" secondAttribute="bottom" constant="172" id="T63-f9-ro9"/>
                             <constraint firstItem="WBQ-4y-lo6" firstAttribute="centerX" secondItem="4u9-ow-jby" secondAttribute="centerX" type="default" id="VXD-If-Eoz"/>
+                            <constraint firstAttribute="bottom" secondItem="4u9-ow-jby" secondAttribute="bottom" constant="171" id="WXC-64-ceU"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="user" id="Wsb-8h-DJV"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" type="default" id="Xn2-eY-Glf"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="190" id="bvc-WH-WVL"/>
                             <constraint firstItem="wi2-bf-NVP" firstAttribute="baseline" secondItem="WBQ-4y-lo6" secondAttribute="baseline" type="default" id="dLf-bw-1sT"/>
-                            <constraint firstAttribute="bottom" secondItem="WBQ-4y-lo6" secondAttribute="bottom" constant="49" id="f1i-oq-D3T"/>
                             <constraint firstItem="4u9-ow-jby" firstAttribute="top" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="gMS-eL-Dd5"/>
-                            <constraint firstItem="wi2-bf-NVP" firstAttribute="centerY" secondItem="WBQ-4y-lo6" secondAttribute="centerY" type="default" id="gWJ-Ni-OaW"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="user" id="sUe-5T-tFt"/>
                             <constraint firstItem="WBQ-4y-lo6" firstAttribute="leading" secondItem="wi2-bf-NVP" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="uIf-jK-LAs"/>
                         </constraints>

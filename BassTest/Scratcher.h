@@ -39,5 +39,7 @@
 - (void)endedScratching;
 - (double)getSeconds;
 - (void)setVolume:(float)volume;
+- (void)freeScratch;
+- (void)stop;
 
 @end

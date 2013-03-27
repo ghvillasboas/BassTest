@@ -40,17 +40,7 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
     self = [super init];
     if (self) {
         
-        self.firstGetSeconds = -1.0;
-        
-        self.isScratching = false;
-        self.scratchingPositionVelocity = BASE_PLAYBACK_FREQUENCY;
-        self.scratchingPositionSmoothedVelocity = BASE_PLAYBACK_FREQUENCY;
-        
-        self.smoothBufferPosition = 0;
-        for (unsigned int i = 0; i < smoothBufferSize; ++i)
-            self.smoothBuffer[i] = (float)BASE_PLAYBACK_FREQUENCY / smoothBufferSize;
-        
-        self.buffer = NULL;
+        [self freeScratch];
         
         // init stream that will be played when scratching
         self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY,
@@ -67,6 +57,13 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 
 #pragma mark -
 #pragma mark Metodos publicos
+
+- (void)stop
+{
+    self.scratchingPositionOffset = fmodf(0, self.size);
+    if (self.scratchingPositionOffset < 0.0f)
+        self.scratchingPositionOffset += self.size;
+}
 
 /*!
  * Buffer suavizado
@@ -202,6 +199,21 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 	self.previousTime = time;
 }
 
+- (void)freeScratch
+{
+    self.firstGetSeconds = -1.0;
+    
+    self.isScratching = false;
+    self.scratchingPositionVelocity = BASE_PLAYBACK_FREQUENCY;
+    self.scratchingPositionSmoothedVelocity = BASE_PLAYBACK_FREQUENCY;
+    
+    self.smoothBufferPosition = 0;
+    for (unsigned int i = 0; i < smoothBufferSize; ++i)
+        self.smoothBuffer[i] = (float)BASE_PLAYBACK_FREQUENCY / smoothBufferSize;
+    
+    self.buffer = NULL;
+}
+
 #pragma mark -
 #pragma mark Metodos privados
 
@@ -224,18 +236,12 @@ static float wave_interpolator(float x, float y[6])
 	float even2 = y[offset+2]+y[offset+-1], odd2 = y[offset+2]-y[offset+-1];
 	float even3 = y[offset+3]+y[offset+-2], odd3 = y[offset+3]-y[offset+-2];
 	
-	float c0 = even1*0.42685983409379380 + even2*0.07238123511170030
-	+ even3*0.00075893079450573;
-	float c1 = odd1*0.35831772348893259 + odd2*0.20451644554758297
-	+ odd3*0.00562658797241955;
-	float c2 = even1*-0.217009177221292431 + even2*0.20051376594086157
-	+ even3*0.01649541128040211;
-	float c3 = odd1*-0.25112715343740988 + odd2*0.04223025992200458
-	+ odd3*0.02488727472995134;
-	float c4 = even1*0.04166946673533273 + even2*-0.06250420114356986
-	+ even3*0.02083473440841799;
-	float c5 = odd1*0.08349799235675044 + odd2*-0.04174912841630993
-	+ odd3*0.00834987866042734;
+	float c0 = even1*0.42685983409379380 + even2*0.07238123511170030 + even3*0.00075893079450573;
+	float c1 = odd1*0.35831772348893259 + odd2*0.20451644554758297 + odd3*0.00562658797241955;
+	float c2 = even1*-0.217009177221292431 + even2*0.20051376594086157 + even3*0.01649541128040211;
+	float c3 = odd1*-0.25112715343740988 + odd2*0.04223025992200458 + odd3*0.02488727472995134;
+	float c4 = even1*0.04166946673533273 + even2*-0.06250420114356986 + even3*0.02083473440841799;
+	float c5 = odd1*0.08349799235675044 + odd2*-0.04174912841630993 + odd3*0.00834987866042734;
 	
 	return ((((c5*z+c4)*z+c3)*z+c2)*z+c1)*z+c0;
 }

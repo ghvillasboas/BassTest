@@ -42,6 +42,7 @@ struct Info
 @property void* mappedMemory;
 @property QWORD mappedMemorySize;
 @property double firstGetSeconds;
+@property (strong, nonatomic) NSTimer *loggerUpdaterTimer;
 @end
 
 @implementation ScratcherViewController
@@ -115,8 +116,6 @@ struct Info
                              0                        /* Offset from start of file. */
                              );
     
-    
-    
     [self.scratcher setBuffer:(float *)self.mappedMemory size:self.mappedMemorySize];
     
     info.decoder = self.decoder;
@@ -134,7 +133,6 @@ struct Info
         [self.PlayButton setEnabled:YES];
         [self.StopButton setEnabled:YES];
         [self.volumeSlider setEnabled:YES];
-        
     }
 }
 
@@ -182,6 +180,15 @@ struct Info
     
     self.scratcher = [[Scratcher alloc] init];
     _isPlaying = NO;
+    
+    if (!self.loggerUpdaterTimer) {
+        // apenas para evitar que seja chamada multiplas vezes
+        self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                                   target:self
+                                                                 selector:@selector(updateTimer:)
+                                                                 userInfo:nil
+                                                                  repeats:YES];
+    }
 }
 
 /*!
@@ -254,23 +261,23 @@ void* Unpack(void* arg)
  */
 - (void)update:(NSTimer*)timer
 {
-	const double now = [self.scratcher getSeconds];
-	static double lastTime = NAN;
-	if (isnan(lastTime)) lastTime = now;
-	lastTime = now;
-	
     [self.scratcher update];
 	float offset = BYTE_POSITION_TO_PIXELS * [self.scratcher getByteOffset];
 	
 	CGAffineTransform t = CGAffineTransformIdentity;
-	
-    //	t = CGAffineTransformTranslate(t, -160.0f, -160.0f);
-    //	t = CGAffineTransformTranslate(t, 160.0f, 160.0f);
-	t = CGAffineTransformRotate(t, offset);
-	
+    t = CGAffineTransformRotate(t, offset);
 	self.vinyl.transform = t;
 }
 
+- (void)updateTimer:(NSTimer *)timer
+{
+    [self.scratcher update];
+    QWORD pos = [self.scratcher getByteOffset];
+    int time = BASS_ChannelBytes2Seconds(self.channel, pos);
+    
+    self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u CPU: %.2f",
+                            pos, time/60, time%60, BASS_GetCPU()];
+}
 
 #pragma mark -
 #pragma mark ViewController life cycle
@@ -297,7 +304,9 @@ void* Unpack(void* arg)
 - (IBAction)setVolume:(UISlider *)sender
 {
     if (sender == self.volumeSlider) {
-        [self.scratcher setVolume:sender.value];
+        if (self.scratcher) {
+            [self.scratcher setVolume:sender.value];
+        }
     }
 }
 
@@ -327,6 +336,7 @@ void* Unpack(void* arg)
         }
         if ([self.delegate respondsToSelector:@selector(play:)]) {
             [self.delegate play:self];
+            
             _isPlaying = YES;
             [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
             
@@ -344,6 +354,9 @@ void* Unpack(void* arg)
     }
     if ([self.delegate respondsToSelector:@selector(stop:)]) {
         [self.delegate stop:self];
+        
+        [self.scratcher stop];
+
         _isPlaying = NO;
         [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
         

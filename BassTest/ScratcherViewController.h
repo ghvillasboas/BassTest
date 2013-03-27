@@ -18,11 +18,13 @@
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *StopButton;
+@property (weak, nonatomic) IBOutlet UITextView *loggerTime;
 
 @property (nonatomic, weak) id<PlayerDelegate> delegate;
 
 @property (nonatomic, readonly) HSTREAM channel;
 @property (nonatomic, strong) NSString* pathToAudio;
+@property (nonatomic, strong) NSString* pathToAudioStop;
 @property (nonatomic, readonly) float bpm;
 @property (nonatomic, readonly) BOOL isPlaying;
 
