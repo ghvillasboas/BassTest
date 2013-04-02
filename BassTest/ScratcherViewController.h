@@ -15,6 +15,7 @@
 @interface ScratcherViewController : UIViewController <PlayerDelegate, PlayerDataSource>
 
 @property (strong, nonatomic) IBOutlet UIImageView* vinyl;
+@property (strong, nonatomic) IBOutlet UIImageView* imgBrilho;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *StopButton;

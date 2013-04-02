@@ -42,6 +42,36 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUIImageView" id="655515704">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">288</int>
+						<string key="NSFrameSize">{320, 320}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="845153484"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">pickupBaseFixaDeck@2x.png</string>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="845153484">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">288</int>
+						<string key="NSFrameSize">{320, 320}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="22918554"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">pickupDisco@2x.png</string>
+						</object>
+					</object>
 					<object class="IBUIImageView" id="105496020">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">288</int>
@@ -54,7 +84,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">vinyl.png</string>
+							<string key="NSResourceName">pickupBaseGiratoriaDeck@2x.png</string>
 						</object>
 					</object>
 					<object class="IBUISlider" id="65122784">
@@ -77,7 +107,7 @@
 						<string key="NSFrame">{{247, 20}, {64, 33}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="22918554"/>
+						<reference key="NSNextKeyView" ref="655515704"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -137,7 +167,6 @@
 						<string key="NSFrame">{{20, 200}, {280, 61}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="51913859">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
@@ -226,6 +255,14 @@
 					<int key="connectionID">41</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imgBrilho</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="845153484"/>
+					</object>
+					<int key="connectionID">44</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">setVolume:</string>
 						<reference key="source" ref="65122784"/>
@@ -280,11 +317,13 @@
 						<reference key="object" ref="774585933"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="105496020"/>
 							<reference ref="1060755317"/>
 							<reference ref="22918554"/>
 							<reference ref="65122784"/>
 							<reference ref="649357631"/>
+							<reference ref="655515704"/>
+							<reference ref="105496020"/>
+							<reference ref="845153484"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -313,6 +352,16 @@
 						<reference key="object" ref="649357631"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">42</int>
+						<reference key="object" ref="655515704"/>
+						<reference key="parent" ref="774585933"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">43</int>
+						<reference key="object" ref="845153484"/>
+						<reference key="parent" ref="774585933"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -330,6 +379,8 @@
 					<string>40.IBPluginDependency</string>
 					<string>40.IBUserGuides</string>
 					<string>40.showNotes</string>
+					<string>42.IBPluginDependency</string>
+					<string>43.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 				</object>
 				<object class="NSArray" key="dict.values">
@@ -346,6 +397,8 @@
 					<reference ref="0"/>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -360,7 +413,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">44</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -413,6 +466,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>PlayButton</string>
 							<string>StopButton</string>
+							<string>imgBrilho</string>
 							<string>loggerTime</string>
 							<string>vinyl</string>
 							<string>volumeSlider</string>
@@ -421,6 +475,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIImageView</string>
 							<string>UITextView</string>
 							<string>UIImageView</string>
 							<string>UISlider</string>
@@ -432,6 +487,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>PlayButton</string>
 							<string>StopButton</string>
+							<string>imgBrilho</string>
 							<string>loggerTime</string>
 							<string>vinyl</string>
 							<string>volumeSlider</string>
@@ -445,6 +501,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">StopButton</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imgBrilho</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">loggerTime</string>
@@ -476,8 +536,19 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">vinyl.png</string>
-			<string key="NS.object.0">{512, 512}</string>
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>pickupBaseFixaDeck@2x.png</string>
+				<string>pickupBaseGiratoriaDeck@2x.png</string>
+				<string>pickupDisco@2x.png</string>
+			</object>
+			<object class="NSArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{440, 440}</string>
+				<string>{440, 440}</string>
+				<string>{440, 440}</string>
+			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

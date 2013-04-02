@@ -43,6 +43,11 @@
 		C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C27E65E91700F6CA00CEB57D /* audio4.m4a */; };
 		C27E65ED1701C98700CEB57D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65EC1701C98700CEB57D /* CoreAudio.framework */; };
 		C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE5C98170324890068D52F /* libbass_fx.a */; };
+		C2AE5CA1170B26F90068D52F /* pickupDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE5C9F170B26F90068D52F /* pickupDeck@2x.png */; };
+		C2AE5CA2170B26F90068D52F /* pickupDeck.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE5CA0170B26F90068D52F /* pickupDeck.png */; };
+		C2AE5CA8170B2D220068D52F /* pickupBaseFixaDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE5CA5170B2D210068D52F /* pickupBaseFixaDeck@2x.png */; };
+		C2AE5CAA170B2DE60068D52F /* pickupBaseGiratoriaDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE5CA9170B2DE60068D52F /* pickupBaseGiratoriaDeck@2x.png */; };
+		C2AE5CAE170B2E710068D52F /* pickupDisco@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AE5CAD170B2E710068D52F /* pickupDisco@2x.png */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +104,11 @@
 		C27E65EC1701C98700CEB57D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C2AE5C9517031F2E0068D52F /* bass_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass_fx.h; sourceTree = "<group>"; };
 		C2AE5C98170324890068D52F /* libbass_fx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass_fx.a; path = BassTest/libbass_fx.a; sourceTree = "<group>"; };
+		C2AE5C9F170B26F90068D52F /* pickupDeck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupDeck@2x.png"; sourceTree = "<group>"; };
+		C2AE5CA0170B26F90068D52F /* pickupDeck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupDeck.png; sourceTree = "<group>"; };
+		C2AE5CA5170B2D210068D52F /* pickupBaseFixaDeck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBaseFixaDeck@2x.png"; sourceTree = "<group>"; };
+		C2AE5CA9170B2DE60068D52F /* pickupBaseGiratoriaDeck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBaseGiratoriaDeck@2x.png"; sourceTree = "<group>"; };
+		C2AE5CAD170B2E710068D52F /* pickupDisco@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupDisco@2x.png"; sourceTree = "<group>"; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +143,11 @@
 		5E328EF716FD5F99003F80A4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2AE5CAD170B2E710068D52F /* pickupDisco@2x.png */,
+				C2AE5CA9170B2DE60068D52F /* pickupBaseGiratoriaDeck@2x.png */,
+				C2AE5CA5170B2D210068D52F /* pickupBaseFixaDeck@2x.png */,
+				C2AE5C9F170B26F90068D52F /* pickupDeck@2x.png */,
+				C2AE5CA0170B26F90068D52F /* pickupDeck.png */,
 				5E328EF816FD5FA2003F80A4 /* vinyl.png */,
 			);
 			name = Images;
@@ -311,6 +326,11 @@
 				5E328EF916FD5FA2003F80A4 /* vinyl.png in Resources */,
 				C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */,
 				C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */,
+				C2AE5CA1170B26F90068D52F /* pickupDeck@2x.png in Resources */,
+				C2AE5CA2170B26F90068D52F /* pickupDeck.png in Resources */,
+				C2AE5CA8170B2D220068D52F /* pickupBaseFixaDeck@2x.png in Resources */,
+				C2AE5CAA170B2DE60068D52F /* pickupBaseGiratoriaDeck@2x.png in Resources */,
+				C2AE5CAE170B2E710068D52F /* pickupDisco@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

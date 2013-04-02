@@ -162,6 +162,65 @@ struct Info
 #pragma mark Metodos privados
 
 /*!
+ * Anima o brilho do disco LP, dando a impressao de rotacao
+ * @param UIView view View para animar
+ *
+ * @since 1.0.0
+ * @author Logics Software
+ */
+- (void)animaBrilho:(UIView *)view
+{
+    if (_isPlaying) {
+        CGAffineTransform transformBrilho = view.transform;
+        
+        UIViewAnimationOptions optionsBrilho = UIViewAnimationOptionCurveEaseInOut;
+        
+        [UIView animateWithDuration:5.0 delay:0.3 options:optionsBrilho animations:^{
+            view.transform = CGAffineTransformRotate(transformBrilho, (M_PI)/12);
+        } completion:^(BOOL finished) {
+            if (finished && _isPlaying) {
+                [UIView animateWithDuration:5.0 delay:0.3 options:optionsBrilho animations:^{
+                    view.transform = CGAffineTransformRotate(transformBrilho, 0);
+                } completion:^(BOOL finished) {
+                    if (finished && _isPlaying) [self animaBrilho:view];
+                }];
+            }
+        }];
+    }
+}
+
+/*!
+ * Método para pausar a animação quando a música parar ou estiver realizando o scratch
+ * @param CALayer layer Layer da view que deve pausar a animação
+ *
+ * @since 1.0.0
+ * @author Logics Software
+ */
+-(void)pauseLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+/*!
+ * Método para continuar a animação quando a música reiniciar ou ao finalizar o scratch
+ * @param CALayer layer Layer da view que deve resumir a animação
+ *
+ * @since 1.0.0
+ * @author Logics Software
+ */
+-(void)resumeLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
+}
+
+/*!
  * Efetua o setup inicial do VC. Deve ser chamado apenas uma vez.
  * @return void
  *
@@ -292,6 +351,10 @@ void* Unpack(void* arg)
     [self.PlayButton setEnabled:NO];
     [self.StopButton setEnabled:NO];
     [self.volumeSlider setEnabled:NO];
+    
+    // inicialização do timeOffset para identificar
+    // se a animação está sendo executada
+    self.imgBrilho.layer.timeOffset = 0.0;
 
 }
 
@@ -321,6 +384,7 @@ void* Unpack(void* arg)
             [self.delegate pause:self];
             _isPlaying = NO;
             [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
+            [self pauseLayer:self.imgBrilho.layer];
             
             if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
                 [self.delegate playerDidPause:self];
@@ -336,9 +400,17 @@ void* Unpack(void* arg)
         }
         if ([self.delegate respondsToSelector:@selector(play:)]) {
             [self.delegate play:self];
-            
             _isPlaying = YES;
             [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
+
+            // Se o timeOffset for 0.0, inicializa a animação
+            if (self.imgBrilho.layer.timeOffset == 0.0) {
+                [self animaBrilho:self.imgBrilho];
+            }
+            // Se for diferente de 0.0, resume
+            else {
+                [self resumeLayer:self.imgBrilho.layer];
+            }
             
             if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
                 [self.delegate playerDidPlay:self];
@@ -354,11 +426,12 @@ void* Unpack(void* arg)
     }
     if ([self.delegate respondsToSelector:@selector(stop:)]) {
         [self.delegate stop:self];
-        
+    
         [self.scratcher stop];
-
+        
         _isPlaying = NO;
         [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
+        [self pauseLayer:self.imgBrilho.layer];
         
         if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
             [self.delegate playerDidStop:self];
@@ -379,11 +452,15 @@ void* Unpack(void* arg)
 	
     [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
     [self.scratcher beganScratching];
+    [self pauseLayer:self.imgBrilho.layer];
+    _isPlaying = NO;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.scratcher endedScratching];
+    _isPlaying = YES;
+    [self resumeLayer:self.imgBrilho.layer];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
