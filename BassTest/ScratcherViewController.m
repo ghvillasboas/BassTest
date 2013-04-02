@@ -161,6 +161,47 @@ struct Info
 #pragma mark -
 #pragma mark Metodos privados
 
+- (void)spinWithOptions:(UIViewAnimationOptions)options {
+    // this spin completes 360 degrees every 2 seconds
+    [UIView animateWithDuration: 2 //1.65f
+                          delay: 0.0f
+                        options: options
+                     animations: ^{
+                         self.imgDeck.transform = CGAffineTransformRotate(self.imgDeck.transform, M_PI / 2);
+                     }
+                     completion: ^(BOOL finished) {
+                         if (finished) {
+                             if (self.animating) {
+                                 // if flag still set, keep spinning with constant speed
+                                 [self spinWithOptions: UIViewAnimationOptionCurveLinear];
+                             } 
+                         }
+                     }];
+}
+
+- (void) startSpin {
+    if (!self.animating) {
+        self.animating = YES;
+        [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
+    }
+}
+
+- (void) stopSpin {
+    // set the flag to stop spinning after one last 90 degree increment
+    self.animating = NO;
+    [self.imgDeck.layer removeAllAnimations];
+    
+    // Desacelerar
+    [UIView animateWithDuration: 0.5
+                          delay: 0.0f
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations: ^{
+                         self.imgDeck.transform = CGAffineTransformRotate(self.imgDeck.transform, M_PI / 4);
+                     }
+                     completion: ^(BOOL finished) {
+                     }];    
+}
+
 /*!
  * Anima o brilho do disco LP, dando a impressao de rotacao
  * @param UIView view View para animar
@@ -385,6 +426,7 @@ void* Unpack(void* arg)
             _isPlaying = NO;
             [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
             [self pauseLayer:self.imgBrilho.layer];
+            [self startSpin];
             
             if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
                 [self.delegate playerDidPause:self];
@@ -411,6 +453,7 @@ void* Unpack(void* arg)
             else {
                 [self resumeLayer:self.imgBrilho.layer];
             }
+            [self startSpin];
             
             if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
                 [self.delegate playerDidPlay:self];
@@ -432,6 +475,7 @@ void* Unpack(void* arg)
         _isPlaying = NO;
         [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
         [self pauseLayer:self.imgBrilho.layer];
+        [self stopSpin];
         
         if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
             [self.delegate playerDidStop:self];

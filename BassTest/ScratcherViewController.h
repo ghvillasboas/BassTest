@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView* vinyl;
 @property (strong, nonatomic) IBOutlet UIImageView* imgBrilho;
+@property (strong, nonatomic) IBOutlet UIImageView* imgDeck;
+@property (nonatomic) BOOL animating;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *StopButton;
