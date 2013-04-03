@@ -127,10 +127,13 @@ struct Info
     self.updateTimer = nil;
     self.prevAngle = NAN;
     
+    _isLoaded = YES;
+    
+    [self tocar:nil];
+    
     if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
         [self.delegate playerIsReady:self];
         
-        [self.PlayButton setEnabled:YES];
         [self.StopButton setEnabled:YES];
         [self.volumeSlider setEnabled:YES];
     }
@@ -160,6 +163,140 @@ struct Info
 
 #pragma mark -
 #pragma mark Metodos privados
+
+- (void)showMediaPicker
+{
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
+    
+    [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];
+    
+    picker.delegate = self;
+    picker.allowsPickingMultipleItems = NO;
+    picker.prompt = NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
+    
+    [self presentViewController:picker animated:YES completion:^{
+    }];
+}
+
+- (void)obtemInformacoes:(MPMediaItemCollection *)collection
+{
+    if (collection.count == 1) {
+        
+        NSArray *items = collection.items;
+        MPMediaItem *mediaItem =  [items objectAtIndex:0];
+        if ([mediaItem isKindOfClass:[MPMediaItem class]]) {
+            
+            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
+            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
+            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+            
+            NSLog(@"%@", titulo);
+            NSLog(@"%@", capa);
+            NSLog(@"%@", url);
+            
+        }
+    }
+}
+
+- (void)exportAssetAsSourceFormat:(MPMediaItem *)item
+{
+    
+    NSURL *assetURL = [item valueForProperty:MPMediaItemPropertyAssetURL];
+    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
+                                           initWithAsset:songAsset
+                                           presetName:AVAssetExportPresetPassthrough];
+    
+    NSArray *tracks = [songAsset tracksWithMediaType:AVMediaTypeAudio];
+    AVAssetTrack *track = [tracks objectAtIndex:0];
+    
+    id desc = [track.formatDescriptions objectAtIndex:0];
+    const AudioStreamBasicDescription *audioDesc = CMAudioFormatDescriptionGetStreamBasicDescription((__bridge CMAudioFormatDescriptionRef)desc);
+    FourCharCode formatID = audioDesc->mFormatID;
+    
+    NSString *fileType = nil;
+    NSString *extensao = nil;
+    
+    switch (formatID) {
+            
+        case kAudioFormatLinearPCM: {
+            UInt32 flags = audioDesc->mFormatFlags;
+            if (flags & kAudioFormatFlagIsBigEndian) {
+                fileType = @"public.aiff-audio";
+                extensao = @"aif";
+            } else {
+                fileType = @"com.microsoft.waveform-audio";
+                extensao = @"wav";
+            }
+        }
+            break;
+            
+        case kAudioFormatMPEGLayer3:
+            fileType = @"com.apple.quicktime-movie";
+            extensao = @"mov"; //mp3
+            break;
+            
+        case kAudioFormatMPEG4AAC:
+            fileType = @"com.apple.m4a-audio";
+            extensao = @"m4a";
+            break;
+            
+        case kAudioFormatAppleLossless:
+            fileType = @"com.apple.m4a-audio";
+            extensao = @"m4a";
+            break;
+            
+        default:
+            break;
+    }
+    
+    exportSession.outputFileType = fileType;
+    
+    NSString *fileName = [NSString stringWithString:[item valueForProperty:MPMediaItemPropertyTitle]];
+    NSArray *fileNameArray = [fileName componentsSeparatedByString:@" "];
+    fileName = [fileNameArray componentsJoinedByString:@""];
+    
+    NSString *filePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:extensao];
+    
+    NSLog(@"filePath = %@", filePath);
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        [self setPathToAudio:filePath];
+        return;
+    }
+    else {
+        
+        myDeleteFile(filePath);
+        exportSession.outputURL = [NSURL fileURLWithPath:filePath];
+        
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            
+            if (exportSession.status == AVAssetExportSessionStatusCompleted) {
+                NSLog(@"export session completed");
+                
+                [self setPathToAudio:filePath];
+            } else {
+                NSLog(@"export session error");
+                
+                if (exportSession.status == AVAssetExportSessionStatusFailed) {
+                    NSLog(@"%@", exportSession.error.localizedDescription);
+                }
+            }
+        }];
+    }
+}
+
+void myDeleteFile (NSString* path)
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *deleteErr = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&deleteErr];
+        if (deleteErr) {
+            NSLog (@"Can't delete %@: %@", path, deleteErr);
+        }
+    }
+}
 
 - (void)spinWithOptions:(UIViewAnimationOptions)options {
     // this spin completes 360 degrees every 2 seconds
@@ -280,6 +417,7 @@ struct Info
     
     self.scratcher = [[Scratcher alloc] init];
     _isPlaying = NO;
+    _isLoaded = NO;
     
     if (!self.loggerUpdaterTimer) {
         // apenas para evitar que seja chamada multiplas vezes
@@ -389,7 +527,6 @@ void* Unpack(void* arg)
 	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
     [super viewDidLoad];
     
-    [self.PlayButton setEnabled:NO];
     [self.StopButton setEnabled:NO];
     [self.volumeSlider setEnabled:NO];
     
@@ -416,49 +553,54 @@ void* Unpack(void* arg)
 
 -(IBAction)tocar:(id)sender
 {
-    if (_isPlaying) {
-        
-        if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
-            [self.delegate playerWillPause:self];
-        }
-        if ([self.delegate respondsToSelector:@selector(pause:)]) {
-            [self.delegate pause:self];
-            _isPlaying = NO;
-            [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
-            [self pauseLayer:self.imgBrilho.layer];
-            [self startSpin];
+    if (_isLoaded) {
+        if (_isPlaying) {
             
-            if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
-                [self.delegate playerDidPause:self];
+            if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
+                [self.delegate playerWillPause:self];
+            }
+            if ([self.delegate respondsToSelector:@selector(pause:)]) {
+                [self.delegate pause:self];
+                _isPlaying = NO;
+                [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
+                [self pauseLayer:self.imgBrilho.layer];
+                [self startSpin];
+                
+                if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
+                    [self.delegate playerDidPause:self];
+                }
+            }
+        }
+        else {
+            
+            [self setVolume:self.volumeSlider];
+            
+            if ([self.delegate respondsToSelector:@selector(playerWillPlay:)]) {
+                [self.delegate playerWillPlay:self];
+            }
+            if ([self.delegate respondsToSelector:@selector(play:)]) {
+                [self.delegate play:self];
+                _isPlaying = YES;
+                [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
+                
+                // Se o timeOffset for 0.0, inicializa a animação
+                if (self.imgBrilho.layer.timeOffset == 0.0) {
+                    [self animaBrilho:self.imgBrilho];
+                }
+                // Se for diferente de 0.0, resume
+                else {
+                    [self resumeLayer:self.imgBrilho.layer];
+                }
+                [self startSpin];
+                
+                if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
+                    [self.delegate playerDidPlay:self];
+                }
             }
         }
     }
     else {
-        
-        [self setVolume:self.volumeSlider];
-        
-        if ([self.delegate respondsToSelector:@selector(playerWillPlay:)]) {
-            [self.delegate playerWillPlay:self];
-        }
-        if ([self.delegate respondsToSelector:@selector(play:)]) {
-            [self.delegate play:self];
-            _isPlaying = YES;
-            [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
-
-            // Se o timeOffset for 0.0, inicializa a animação
-            if (self.imgBrilho.layer.timeOffset == 0.0) {
-                [self animaBrilho:self.imgBrilho];
-            }
-            // Se for diferente de 0.0, resume
-            else {
-                [self resumeLayer:self.imgBrilho.layer];
-            }
-            [self startSpin];
-            
-            if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
-                [self.delegate playerDidPlay:self];
-            }
-        }
+        [self showMediaPicker];
     }
 }
 
@@ -486,18 +628,36 @@ void* Unpack(void* arg)
 #pragma mark -
 #pragma mark Delegates
 
+#pragma mark MPMediaPickerControllerDelegate
+
+-(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
+        
+        [self obtemInformacoes:mediaItemCollection];
+    }];
+}
+
 #pragma mark - Touch delegates
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	self.prevAngle = NAN;
-	self.initialScratchPosition = [self.scratcher getByteOffset];
-	self.angleAccum = 0.0f;
-	
-    [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
-    [self.scratcher beganScratching];
-    [self pauseLayer:self.imgBrilho.layer];
-    _isPlaying = NO;
+    UITouch* touch = [touches anyObject];
+    CGPoint position = [touch locationInView:self.imgDisco];
+    
+    NSLog(@"point: %@", NSStringFromCGPoint(position));
+    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
+        
+        self.prevAngle = NAN;
+        self.initialScratchPosition = [self.scratcher getByteOffset];
+        self.angleAccum = 0.0f;
+        
+        [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
+        [self.scratcher beganScratching];
+        [self pauseLayer:self.imgBrilho.layer];
+        _isPlaying = NO;
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -509,22 +669,26 @@ void* Unpack(void* arg)
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	UITouch* touch = [touches anyObject];
-	CGPoint position = [touch locationInView:self.view];
-	
-    float offsetX = self.vinyl.bounds.size.width/2;
-    float offsetY = self.vinyl.bounds.size.height/2;
+    UITouch* touch = [touches anyObject];
+    CGPoint position = [touch locationInView:self.imgDisco];
     
-	const float angle = -atan2f(position.x - offsetX, position.y - offsetY);
-	
-	if (isnan(self.prevAngle))
-		self.prevAngle = angle;
-	
-	const float diff = [self getBestAngleDiff:(angle - self.prevAngle)] / BYTE_POSITION_TO_PIXELS;
-	self.angleAccum += diff;
-	self.prevAngle = angle;
-    
-    [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
+    NSLog(@"point: %@", NSStringFromCGPoint(position));
+    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
+     
+        float offsetX = self.vinyl.bounds.size.width/2;
+        float offsetY = self.vinyl.bounds.size.height/2;
+        
+        const float angle = -atan2f(position.x - offsetX, position.y - offsetY);
+        
+        if (isnan(self.prevAngle))
+            self.prevAngle = angle;
+        
+        const float diff = [self getBestAngleDiff:(angle - self.prevAngle)] / BYTE_POSITION_TO_PIXELS;
+        self.angleAccum += diff;
+        self.prevAngle = angle;
+        
+        [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
+    }
 }
 
 #pragma mark -
