@@ -85,6 +85,40 @@ struct Info
 #pragma mark -
 #pragma mark Setters overriders
 
+- (void)setIsPlaying:(BOOL)isPlaying
+{
+    _isPlaying = isPlaying;
+    
+    if (_isPlaying) {
+        [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
+        
+        // Se o timeOffset for 0.0, inicializa a animação
+        if (self.imgBrilho.layer.timeOffset == 0.0) {
+            [self animaBrilho:self.imgBrilho];
+        }
+        // Se for diferente de 0.0, resume
+        else {
+            [self resumeLayer:self.imgBrilho.layer];
+        }
+    }
+    else {
+        [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
+        [self pauseLayer:self.imgBrilho.layer];
+    }
+}
+
+-(void)setIsLoaded:(BOOL)isLoaded
+{
+    _isLoaded = isLoaded;
+    
+    if (_isLoaded) {
+        [self.PickButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-on"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.PickButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-off"] forState:UIControlStateNormal];
+    }
+}
+
 - (void)setPathToAudio:(NSString *)pathToAudio
 {
     _pathToAudio = pathToAudio;
@@ -127,14 +161,13 @@ struct Info
     self.updateTimer = nil;
     self.prevAngle = NAN;
     
-    _isLoaded = YES;
+    self.isLoaded = YES;
     
     [self tocar:nil];
     
     if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
         [self.delegate playerIsReady:self];
         
-        [self.StopButton setEnabled:YES];
         [self.volumeSlider setEnabled:YES];
     }
 }
@@ -348,7 +381,7 @@ void myDeleteFile (NSString* path)
  */
 - (void)animaBrilho:(UIView *)view
 {
-    if (_isPlaying) {
+    if (self.isPlaying) {
         CGAffineTransform transformBrilho = view.transform;
         
         UIViewAnimationOptions optionsBrilho = UIViewAnimationOptionCurveEaseInOut;
@@ -356,11 +389,11 @@ void myDeleteFile (NSString* path)
         [UIView animateWithDuration:5.0 delay:0.3 options:optionsBrilho animations:^{
             view.transform = CGAffineTransformRotate(transformBrilho, (M_PI)/12);
         } completion:^(BOOL finished) {
-            if (finished && _isPlaying) {
+            if (finished && self.isPlaying) {
                 [UIView animateWithDuration:5.0 delay:0.3 options:optionsBrilho animations:^{
                     view.transform = CGAffineTransformRotate(transformBrilho, 0);
                 } completion:^(BOOL finished) {
-                    if (finished && _isPlaying) [self animaBrilho:view];
+                    if (finished && self.isPlaying) [self animaBrilho:view];
                 }];
             }
         }];
@@ -416,9 +449,9 @@ void myDeleteFile (NSString* path)
     BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
     self.scratcher = [[Scratcher alloc] init];
-    _isPlaying = NO;
-    _isLoaded = NO;
-    
+    self.isPlaying = NO;
+    self.isLoaded = NO;
+
     if (!self.loggerUpdaterTimer) {
         // apenas para evitar que seja chamada multiplas vezes
         self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
@@ -515,6 +548,7 @@ void* Unpack(void* arg)
     
     self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u CPU: %.2f",
                             pos, time/60, time%60, BASS_GetCPU()];
+    self.displayLabel.text = [NSString stringWithFormat:@"%u:%02u", time/60, time%60];
 }
 
 #pragma mark -
@@ -527,7 +561,6 @@ void* Unpack(void* arg)
 	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
     [super viewDidLoad];
     
-    [self.StopButton setEnabled:NO];
     [self.volumeSlider setEnabled:NO];
     
     // inicialização do timeOffset para identificar
@@ -551,20 +584,22 @@ void* Unpack(void* arg)
     }
 }
 
+-(IBAction)selecionarMusica:(id)sender
+{
+    [self showMediaPicker];
+}
+
 -(IBAction)tocar:(id)sender
 {
-    if (_isLoaded) {
-        if (_isPlaying) {
+    if (self.isLoaded) {
+        if (self.isPlaying) {
             
             if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
                 [self.delegate playerWillPause:self];
             }
             if ([self.delegate respondsToSelector:@selector(pause:)]) {
                 [self.delegate pause:self];
-                _isPlaying = NO;
-                [self.PlayButton setTitle:@"Resumir" forState:UIControlStateNormal];
-                [self pauseLayer:self.imgBrilho.layer];
-                [self startSpin];
+                self.isPlaying = NO;
                 
                 if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
                     [self.delegate playerDidPause:self];
@@ -580,17 +615,7 @@ void* Unpack(void* arg)
             }
             if ([self.delegate respondsToSelector:@selector(play:)]) {
                 [self.delegate play:self];
-                _isPlaying = YES;
-                [self.PlayButton setTitle:@"Pause" forState:UIControlStateNormal];
-                
-                // Se o timeOffset for 0.0, inicializa a animação
-                if (self.imgBrilho.layer.timeOffset == 0.0) {
-                    [self animaBrilho:self.imgBrilho];
-                }
-                // Se for diferente de 0.0, resume
-                else {
-                    [self resumeLayer:self.imgBrilho.layer];
-                }
+                self.isPlaying = YES;
                 [self startSpin];
                 
                 if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
@@ -614,10 +639,7 @@ void* Unpack(void* arg)
     
         [self.scratcher stop];
         
-        _isPlaying = NO;
-        [self.PlayButton setTitle:@"Play" forState:UIControlStateNormal];
-        [self pauseLayer:self.imgBrilho.layer];
-        [self stopSpin];
+        self.isPlaying = NO;
         
         if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
             [self.delegate playerDidStop:self];
@@ -646,9 +668,10 @@ void* Unpack(void* arg)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.imgDisco];
     
-    NSLog(@"point: %@", NSStringFromCGPoint(position));
-    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
-        
+    if (position.x >= 0 && position.y >= 0
+        && position.x <= self.imgDisco.frame.size.width
+        && position.y <= self.imgDisco.frame.size.height) {
+
         self.prevAngle = NAN;
         self.initialScratchPosition = [self.scratcher getByteOffset];
         self.angleAccum = 0.0f;
@@ -664,7 +687,6 @@ void* Unpack(void* arg)
 {
     [self.scratcher endedScratching];
     _isPlaying = YES;
-    [self resumeLayer:self.imgBrilho.layer];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -672,8 +694,9 @@ void* Unpack(void* arg)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.imgDisco];
     
-    NSLog(@"point: %@", NSStringFromCGPoint(position));
-    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
+    if (position.x >= 0 && position.y >= 0
+        && position.x <= self.imgDisco.frame.size.width
+        && position.y <= self.imgDisco.frame.size.height) {
      
         float offsetX = self.vinyl.bounds.size.width/2;
         float offsetY = self.vinyl.bounds.size.height/2;

@@ -23,8 +23,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView* imgDisco;
 @property (nonatomic) BOOL animating;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
+@property (weak, nonatomic) IBOutlet UIButton *PickButton;
 @property (weak, nonatomic) IBOutlet UIButton *PlayButton;
-@property (weak, nonatomic) IBOutlet UIButton *StopButton;
+@property (weak, nonatomic) IBOutlet UILabel *displayLabel;
 @property (weak, nonatomic) IBOutlet UITextView *loggerTime;
 
 @property (nonatomic, weak) id<PlayerDelegate> delegate;
