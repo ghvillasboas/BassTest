@@ -715,9 +715,9 @@ void* Unpack(void* arg)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.imgDisco];
     
-    if (position.x >= 0 && position.y >= 0
-        && position.x <= self.imgDisco.frame.size.width
-        && position.y <= self.imgDisco.frame.size.height) {
+//    if (position.x >= 0 && position.y >= 0
+//        && position.x <= self.imgDisco.frame.size.width
+//        && position.y <= self.imgDisco.frame.size.height) {
 
         self.prevAngle = NAN;
         self.initialScratchPosition = [self.scratcher getByteOffset];
@@ -727,7 +727,7 @@ void* Unpack(void* arg)
         [self.scratcher beganScratching];
         [self pauseLayer:self.imgBrilho.layer];
         _isPlaying = NO;
-    }
+//    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -741,12 +741,12 @@ void* Unpack(void* arg)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.view];
     
-    if (position.x >= 0 && position.y >= 0
-        && position.x <= self.imgDisco.frame.size.width
-        && position.y <= self.imgDisco.frame.size.height) {
-     
-        float offsetX = self.imgDisco.bounds.size.width/2;//244;
-        float offsetY = self.imgDisco.bounds.size.height/2;//155;
+//    if (position.x >= 0 && position.y >= 0
+//        && position.x <= self.imgDisco.frame.size.width
+//        && position.y <= self.imgDisco.frame.size.height) {
+    
+        float offsetX = self.imgDisco.center.x;
+        float offsetY = self.imgDisco.center.y;
         
         const float angle = -atan2f(position.x - offsetX, position.y - offsetY);
         
@@ -761,7 +761,7 @@ void* Unpack(void* arg)
         // Previne que o disco seja girado em sentido anti-horario alem do inicio da musica
         float offsetByte = (self.initialScratchPosition + self.angleAccum) < 0 ? self.initialScratchPosition : (self.initialScratchPosition + self.angleAccum);
         [self.scratcher setByteOffset:offsetByte];
-    }
+//    }
 }
 
 #pragma mark -
