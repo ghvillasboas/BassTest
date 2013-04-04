@@ -87,10 +87,13 @@ struct Info
 
 - (void)setIsPlaying:(BOOL)isPlaying
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     _isPlaying = isPlaying;
     
     if (_isPlaying) {
         [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
+        [self.imgLaser setHidden:NO];
         
         // Se o timeOffset for 0.0, inicializa a animação
         if (self.imgBrilho.layer.timeOffset == 0.0) {
@@ -103,12 +106,15 @@ struct Info
     }
     else {
         [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
+        [self.imgLaser setHidden:YES];
         [self pauseLayer:self.imgBrilho.layer];
     }
 }
 
 -(void)setIsLoaded:(BOOL)isLoaded
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     _isLoaded = isLoaded;
     
     if (_isLoaded) {
@@ -121,6 +127,8 @@ struct Info
 
 - (void)setPathToAudio:(NSString *)pathToAudio
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     _pathToAudio = pathToAudio;
     
     DWORD flags = 0;
@@ -136,7 +144,7 @@ struct Info
     // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
     self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + kAJUSTE_MEMORIA_ADICIONAL;
     
-     NSLog(@"Play back duration is %lld", self.mappedMemorySize);
+//     NSLog(@"Play back duration is %lld", self.mappedMemorySize);
     
     self.mappedFile = tmpfile();
     int fd = fileno(self.mappedFile);
@@ -157,13 +165,15 @@ struct Info
     
     pthread_t thread;
     pthread_create(&thread, NULL, Unpack, (void*)&info);
-    
+
     self.updateTimer = nil;
     self.prevAngle = NAN;
     
     self.isLoaded = YES;
     
-    [self tocar:nil];
+#warning BUG: às vezes o audio carregado dá cortes. Não foi identificada a causa, mas parece ser concorrencia com a função Unpack que ainda não finalizou a execução
+    // BUG NAO RESOLVIDO: criar um pequeno atraso para que toda a música possa estar no buffer
+    [self performSelector:@selector(tocar:) withObject:nil afterDelay:0.5];
     
     if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
         [self.delegate playerIsReady:self];
@@ -199,6 +209,8 @@ struct Info
 
 - (void)showMediaPicker
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
     
     [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];
@@ -208,6 +220,9 @@ struct Info
     picker.prompt = NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
     
     [self presentViewController:picker animated:YES completion:^{
+        if (self.isLoaded || self.isPlaying) {
+            [self parar:nil];
+        }
     }];
 }
 
@@ -223,9 +238,9 @@ struct Info
             NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
             NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
             
-            NSLog(@"%@", titulo);
-            NSLog(@"%@", capa);
-            NSLog(@"%@", url);
+//            NSLog(@"%@", titulo);
+//            NSLog(@"%@", capa);
+//            NSLog(@"%@", url);
             
         }
     }
@@ -233,7 +248,6 @@ struct Info
 
 - (void)exportAssetAsSourceFormat:(MPMediaItem *)item
 {
-    
     NSURL *assetURL = [item valueForProperty:MPMediaItemPropertyAssetURL];
     AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
     
@@ -292,10 +306,11 @@ struct Info
     
     NSString *filePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:extensao];
     
-    NSLog(@"filePath = %@", filePath);
+//    NSLog(@"filePath = %@", filePath);
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        [self setPathToAudio:filePath];
+        [self performSelectorOnMainThread:@selector(setPathToAudio:) withObject:filePath waitUntilDone:NO];
+//        [self setPathToAudio:filePath];
         return;
     }
     else {
@@ -308,7 +323,8 @@ struct Info
             if (exportSession.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"export session completed");
                 
-                [self setPathToAudio:filePath];
+                [self performSelectorOnMainThread:@selector(setPathToAudio:) withObject:filePath waitUntilDone:NO];
+//                [self setPathToAudio:filePath];
             } else {
                 NSLog(@"export session error");
                 
@@ -333,7 +349,7 @@ void myDeleteFile (NSString* path)
 
 - (void)spinWithOptions:(UIViewAnimationOptions)options {
     // this spin completes 360 degrees every 2 seconds
-    [UIView animateWithDuration: 2 //1.65f
+    [UIView animateWithDuration: 1.8 //1.65f
                           delay: 0.0f
                         options: options
                      animations: ^{
@@ -349,14 +365,20 @@ void myDeleteFile (NSString* path)
                      }];
 }
 
-- (void) startSpin {
+- (void) startSpin
+{
+    NSLog(@"%s", __FUNCTION__);
+    
     if (!self.animating) {
         self.animating = YES;
         [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
     }
 }
 
-- (void) stopSpin {
+- (void) stopSpin
+{
+    NSLog(@"%s", __FUNCTION__);
+    
     // set the flag to stop spinning after one last 90 degree increment
     self.animating = NO;
     [self.imgDeck.layer removeAllAnimations];
@@ -381,6 +403,8 @@ void myDeleteFile (NSString* path)
  */
 - (void)animaBrilho:(UIView *)view
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     if (self.isPlaying) {
         CGAffineTransform transformBrilho = view.transform;
         
@@ -409,6 +433,8 @@ void myDeleteFile (NSString* path)
  */
 -(void)pauseLayer:(CALayer*)layer
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
     layer.speed = 0.0;
     layer.timeOffset = pausedTime;
@@ -423,6 +449,8 @@ void myDeleteFile (NSString* path)
  */
 -(void)resumeLayer:(CALayer*)layer
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
     layer.timeOffset = 0.0;
@@ -451,7 +479,8 @@ void myDeleteFile (NSString* path)
     self.scratcher = [[Scratcher alloc] init];
     self.isPlaying = NO;
     self.isLoaded = NO;
-
+    self.animating = NO;
+    
     if (!self.loggerUpdaterTimer) {
         // apenas para evitar que seja chamada multiplas vezes
         self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
@@ -586,11 +615,15 @@ void* Unpack(void* arg)
 
 -(IBAction)selecionarMusica:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     [self showMediaPicker];
 }
 
 -(IBAction)tocar:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     if (self.isLoaded) {
         if (self.isPlaying) {
             
@@ -600,6 +633,7 @@ void* Unpack(void* arg)
             if ([self.delegate respondsToSelector:@selector(pause:)]) {
                 [self.delegate pause:self];
                 self.isPlaying = NO;
+                [self stopSpin];
                 
                 if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
                     [self.delegate playerDidPause:self];
@@ -631,6 +665,8 @@ void* Unpack(void* arg)
 
 -(IBAction)parar:(id)sender
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     if ([self.delegate respondsToSelector:@selector(playerWillStop:)]) {
         [self.delegate playerWillStop:self];
     }
@@ -640,6 +676,7 @@ void* Unpack(void* arg)
         [self.scratcher stop];
         
         self.isPlaying = NO;
+        [self stopSpin];
         
         if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
             [self.delegate playerDidStop:self];
@@ -654,6 +691,8 @@ void* Unpack(void* arg)
 
 -(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
+    NSLog(@"%s", __FUNCTION__);
+    
     [self dismissViewControllerAnimated:YES completion:^{
         [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
         

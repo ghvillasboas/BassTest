@@ -54,7 +54,7 @@
             // Começa a tocar o stream principal
             if (BASS_ChannelPlay(self.stream,
                                  kRESTART_PLAYBACK)) {
-                NSLog(@"%@", @"Stream principal tocando");
+//                NSLog(@"%@", @"Stream principal tocando");
             }
             else {
                 [self.trataErros ocorreuErro];
@@ -120,7 +120,7 @@
                                   kPOSICAO_INICIAL,
                                   BASS_POS_BYTE);
     if (![self.trataErros ocorreuErro]) {
-        NSLog(@"%@", @"Canal reiniciado");
+//        NSLog(@"%@", @"Canal reiniciado");
         
         [self removerCanal:canal];
     }
@@ -138,7 +138,7 @@
     // Se o mixer estiver gravando, pára a gravação
     if (BASS_Encode_IsActive(self.encode) == BASS_ACTIVE_PLAYING) {
         BASS_Encode_Stop(self.encode);
-        NSLog(@"%@", @"Gravação encerrada");
+//        NSLog(@"%@", @"Gravação encerrada");
     }
     else {
         // Inicia a função de gravação. Pode ser utilizado 'alac' ou 'aac ' para o formato do audio
@@ -149,7 +149,7 @@
                                               kBITRATE_PADRAO_PARA_GRAVACAO,
                                               [caminho cStringUsingEncoding:NSUTF8StringEncoding]);
         if (![self.trataErros ocorreuErro]) {
-            NSLog(@"%@ -> %@", @"Gravação iniciada em", caminho);
+//            NSLog(@"%@ -> %@", @"Gravação iniciada em", caminho);
         }
     }
 }
@@ -174,7 +174,7 @@
     if (![self canalJaAdicionado:canal]) {
         //Adiciona o canal no mixer
         if (BASS_Mixer_StreamAddChannel(self.stream, canal, flags)) {
-            NSLog(@"%@", @"Canal adicionado");
+//            NSLog(@"%@", @"Canal adicionado");
         }
         else {
             [self.trataErros ocorreuErro];
@@ -197,7 +197,7 @@
 {
     //Remove o canal do mixer sem resetar a posição
     if (BASS_Mixer_ChannelRemove(canal)) {
-        NSLog(@"%@", @"Canal pausado (removido)");
+//        NSLog(@"%@", @"Canal pausado (removido)");
     }
     else {
         [self.trataErros ocorreuErro];
