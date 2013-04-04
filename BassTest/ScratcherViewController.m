@@ -144,8 +144,6 @@ struct Info
     // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
     self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + kAJUSTE_MEMORIA_ADICIONAL;
     
-//     NSLog(@"Play back duration is %lld", self.mappedMemorySize);
-    
     self.mappedFile = tmpfile();
     int fd = fileno(self.mappedFile);
     ftruncate(fd, self.mappedMemorySize);
@@ -163,23 +161,30 @@ struct Info
     info.decoder = self.decoder;
     info.data = self.mappedMemory;
     
-    pthread_t thread;
-    pthread_create(&thread, NULL, Unpack, (void*)&info);
-
+    [self.loadingSpin setHidden:NO];
+    [self.loadingSpin startAnimating];
+    
+    dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
+    dispatch_async(unpackQueue, ^{
+        
+        Unpack((void*)&info);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.loadingSpin setHidden:YES];
+            [self.loadingSpin stopAnimating];
+            
+            self.isLoaded = YES;
+            [self tocar:nil];
+            if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
+                [self.delegate playerIsReady:self];
+                [self.volumeSlider setEnabled:YES];
+            }
+        });
+    });
+    
     self.updateTimer = nil;
     self.prevAngle = NAN;
-    
-    self.isLoaded = YES;
-    
-#warning BUG: às vezes o audio carregado dá cortes. Não foi identificada a causa, mas parece ser concorrencia com a função Unpack que ainda não finalizou a execução
-    // BUG NAO RESOLVIDO: criar um pequeno atraso para que toda a música possa estar no buffer
-    [self performSelector:@selector(tocar:) withObject:nil afterDelay:0.5];
-    
-    if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
-        [self.delegate playerIsReady:self];
-        
-        [self.volumeSlider setEnabled:YES];
-    }
 }
 
 #pragma mark -
@@ -521,6 +526,8 @@ void* Unpack(void* arg)
     
     BASS_StreamFree(decoder);
     
+    NSLog(@"Fim Unpack");
+    
     return NULL;
 }
 
@@ -566,7 +573,7 @@ void* Unpack(void* arg)
 	
 	CGAffineTransform t = CGAffineTransformIdentity;
     t = CGAffineTransformRotate(t, offset);
-	self.vinyl.transform = t;
+	self.imgDisco.transform = t;
 }
 
 - (void)updateTimer:(NSTimer *)timer
@@ -591,6 +598,7 @@ void* Unpack(void* arg)
     [super viewDidLoad];
     
     [self.volumeSlider setEnabled:NO];
+    [self.loadingSpin setHidden:YES];
     
     // inicialização do timeOffset para identificar
     // se a animação está sendo executada
@@ -731,14 +739,14 @@ void* Unpack(void* arg)
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
-    CGPoint position = [touch locationInView:self.imgDisco];
+    CGPoint position = [touch locationInView:self.view];
     
     if (position.x >= 0 && position.y >= 0
         && position.x <= self.imgDisco.frame.size.width
         && position.y <= self.imgDisco.frame.size.height) {
      
-        float offsetX = self.vinyl.bounds.size.width/2;
-        float offsetY = self.vinyl.bounds.size.height/2;
+        float offsetX = self.imgDisco.bounds.size.width/2;//244;
+        float offsetY = self.imgDisco.bounds.size.height/2;//155;
         
         const float angle = -atan2f(position.x - offsetX, position.y - offsetY);
         
@@ -749,7 +757,10 @@ void* Unpack(void* arg)
         self.angleAccum += diff;
         self.prevAngle = angle;
         
-        [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
+        // @bugifx
+        // Previne que o disco seja girado em sentido anti-horario alem do inicio da musica
+        float offsetByte = (self.initialScratchPosition + self.angleAccum) < 0 ? self.initialScratchPosition : (self.initialScratchPosition + self.angleAccum);
+        [self.scratcher setByteOffset:offsetByte];
     }
 }
 

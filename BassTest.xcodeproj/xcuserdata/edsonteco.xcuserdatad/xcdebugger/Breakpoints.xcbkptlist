@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386779128.121235"
+         timestampString = "386797489.572321"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "630"
-         endingLineNumber = "630"
+         startingLineNumber = "638"
+         endingLineNumber = "638"
          landmarkName = "-tocar:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -17,11 +17,11 @@
 
 @interface ScratcherViewController : UIViewController <PlayerDelegate, PlayerDataSource, MPMediaPickerControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIImageView* vinyl;
 @property (strong, nonatomic) IBOutlet UIImageView* imgBrilho;
 @property (strong, nonatomic) IBOutlet UIImageView* imgDeck;
 @property (strong, nonatomic) IBOutlet UIImageView* imgDisco;
 @property (strong, nonatomic) IBOutlet UIImageView* imgLaser;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView* loadingSpin;
 @property (nonatomic) BOOL animating;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *PickButton;
