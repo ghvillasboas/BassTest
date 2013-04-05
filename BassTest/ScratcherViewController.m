@@ -167,20 +167,22 @@ struct Info
     dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
     dispatch_async(unpackQueue, ^{
         
-        Unpack((void*)&info);
+//        Unpack((void*)&info);
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self.loadingSpin setHidden:YES];
-            [self.loadingSpin stopAnimating];
-            
-            self.isLoaded = YES;
-            [self tocar:nil];
-            if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
-                [self.delegate playerIsReady:self];
-                [self.volumeSlider setEnabled:YES];
-            }
-        });
+        [self Unpack];
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            [self.loadingSpin setHidden:YES];
+//            [self.loadingSpin stopAnimating];
+//            
+//            self.isLoaded = YES;
+//            [self tocar:nil];
+//            if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
+//                [self.delegate playerIsReady:self];
+//                [self.volumeSlider setEnabled:YES];
+//            }
+//        });
     });
     
     self.updateTimer = nil;
@@ -352,7 +354,8 @@ void myDeleteFile (NSString* path)
     }
 }
 
-- (void)spinWithOptions:(UIViewAnimationOptions)options {
+- (void)spinWithOptions:(UIViewAnimationOptions)options
+{
     // this spin completes 360 degrees every 2 seconds
     [UIView animateWithDuration: 1.8 //1.65f
                           delay: 0.0f
@@ -505,30 +508,58 @@ void myDeleteFile (NSString* path)
  * @since 1.0.0
  * @author Jan Kalis Glow Interactive
  */
-void* Unpack(void* arg)
+//void* Unpack(void* arg)
+- (void)Unpack
 {
-    HSTREAM decoder = info.decoder;
-    char* output = (char*)info.data;
+//    HSTREAM decoder = info.decoder;
+//    char* output = (char*)info.data;
 
+    HSTREAM decoder = self.decoder;
+    char* output = (char*)self.mappedMemory;
+    
     // buffer size per step for normalization
     float buf[10000];
     
     BASS_ChannelSetPosition(decoder, 0, BASS_POS_BYTE);
     
     int pos = 0;
+    float atual = 0;
+    float total = 0;
+    BOOL liberado = NO;
     
     while (BASS_ChannelIsActive(decoder))
     {
         DWORD c = BASS_ChannelGetData(decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
         memcpy(output + pos, buf, c);
         pos += c;
+        
+        atual = pos;
+        total = (float)self.mappedMemorySize;
+        
+        if (!liberado && (atual/total) > 0.4) {
+            
+            liberado = YES;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.loadingSpin setHidden:YES];
+                [self.loadingSpin stopAnimating];
+                
+                self.isLoaded = YES;
+                
+                [self tocar:nil];
+                if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
+                    [self.delegate playerIsReady:self];
+                    [self.volumeSlider setEnabled:YES];
+                }
+            });
+        }
+        
     }
     
     BASS_StreamFree(decoder);
     
     NSLog(@"Fim Unpack");
-    
-    return NULL;
 }
 
 /*!
@@ -713,11 +744,11 @@ void* Unpack(void* arg)
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
-    CGPoint position = [touch locationInView:self.imgDisco];
+    CGPoint position = [touch locationInView:self.view];
+
+    NSLog(@"frame: %@ point: %@ - %@", NSStringFromCGRect(self.imgDisco.frame), NSStringFromCGPoint(position), CGRectContainsPoint(self.imgDisco.frame, position) ? @"dentro" : @"fora");
     
-//    if (position.x >= 0 && position.y >= 0
-//        && position.x <= self.imgDisco.frame.size.width
-//        && position.y <= self.imgDisco.frame.size.height) {
+    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
 
         self.prevAngle = NAN;
         self.initialScratchPosition = [self.scratcher getByteOffset];
@@ -727,7 +758,7 @@ void* Unpack(void* arg)
         [self.scratcher beganScratching];
         [self pauseLayer:self.imgBrilho.layer];
         _isPlaying = NO;
-//    }
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -741,9 +772,7 @@ void* Unpack(void* arg)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.view];
     
-//    if (position.x >= 0 && position.y >= 0
-//        && position.x <= self.imgDisco.frame.size.width
-//        && position.y <= self.imgDisco.frame.size.height) {
+    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
     
         float offsetX = self.imgDisco.center.x;
         float offsetY = self.imgDisco.center.y;
@@ -761,7 +790,7 @@ void* Unpack(void* arg)
         // Previne que o disco seja girado em sentido anti-horario alem do inicio da musica
         float offsetByte = (self.initialScratchPosition + self.angleAccum) < 0 ? self.initialScratchPosition : (self.initialScratchPosition + self.angleAccum);
         [self.scratcher setByteOffset:offsetByte];
-//    }
+    }
 }
 
 #pragma mark -
