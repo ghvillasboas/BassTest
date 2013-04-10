@@ -140,6 +140,11 @@ struct Info
     }
 }
 
+-(void)setArtWork:(UIImage *)artWork
+{
+    [self.imgDisco setImage:artWork];
+}
+
 - (void)setPathToAudio:(NSString *)pathToAudio
 {
     _pathToAudio = pathToAudio;
@@ -359,8 +364,6 @@ struct Info
     char* output = (char*)self.mappedMemory;
     NSString *p = [NSString stringWithString:path];
     
-    debug(@"Inicio Unpack\n - %@", p);
-    
     // buffer size per step for normalization
     float buf[10000];
     
@@ -397,14 +400,11 @@ struct Info
             });
         }
         if (!self.view.window) {
-            debug(@"CANCELADO");
             break;
         }
     }
     
     BASS_StreamFree(self.decoder);
-    
-    debug(@"Fim Unpack\n - %@", p);
 }
 
 /*!
@@ -492,14 +492,18 @@ struct Info
 
 #pragma mark - Touch delegates
 
+
+- (BOOL)circuloContemPonto:(CGPoint)ponto noCentro:(CGPoint)centro comRaio:(float)raio
+{
+    return powf((ponto.x - centro.x), 2) + powf((ponto.y - centro.y), 2) <= powf(raio, 2);    
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.view];
-
-    debug(@"frame: %@ point: %@ - %@", NSStringFromCGRect(self.imgDisco.frame), NSStringFromCGPoint(position), CGRectContainsPoint(self.imgDisco.frame, position) ? @"dentro" : @"fora");
     
-    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
+    if ([self circuloContemPonto:position noCentro:self.imgDisco.center comRaio:self.imgDisco.bounds.size.width/2]) {
 
         self.prevAngle = NAN;
         self.initialScratchPosition = [self.scratcher getByteOffset];
@@ -524,7 +528,7 @@ struct Info
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.view];
     
-    if (CGRectContainsPoint(self.imgDisco.frame, position)) {
+    if ([self circuloContemPonto:position noCentro:self.imgDisco.center comRaio:self.imgDisco.bounds.size.width/2]) {
     
         float offsetX = self.imgDisco.center.x;
         float offsetY = self.imgDisco.center.y;

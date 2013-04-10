@@ -65,13 +65,20 @@
         MPMediaItem *mediaItem =  [items objectAtIndex:0];
         if ([mediaItem isKindOfClass:[MPMediaItem class]]) {
             
-//            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
-//            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
-//            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
+            MPMediaItemArtwork *artwork = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
+            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
             
-            //            NSLog(@"%@", titulo);
-            //            NSLog(@"%@", capa);
-            //            NSLog(@"%@", url);
+            if (artwork) {
+                [self.imgArtwork setImage:[artwork imageWithSize:CGSizeMake(55, 55)]];
+                self.scratcherViewController.artWork = [artwork imageWithSize:CGSizeMake(55, 55)];
+            }
+            else {
+                debug(@"%@", artwork);
+            }
+            
+            NSLog(@"%@", titulo);
+            NSLog(@"%@", url);
             
         }
     }
@@ -215,7 +222,7 @@ void myDeleteFile (NSString* path)
             
             [self play:self.scratcherViewController];
             self.scratcherViewController.isPlaying = YES;
-            self.scratcherViewController.isOn = NO;
+            self.scratcherViewController.isOn = YES;
 
             [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
         }

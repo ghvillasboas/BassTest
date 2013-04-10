@@ -35,6 +35,7 @@
 @property (nonatomic) BOOL isOn;
 @property (nonatomic) float volume;
 @property (nonatomic) int identificador;
+@property (nonatomic, strong) UIImage *artWork;
 
 - (void)stop;
 - (void)free;
