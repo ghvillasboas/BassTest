@@ -225,6 +225,8 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 
 - (void)freeScratch
 {
+    BASS_StreamFree(self.soundTrackScratchStreamHandle);
+    
     self.firstGetSeconds = -1.0;
     
     self.isScratching = false;

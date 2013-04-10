@@ -50,10 +50,13 @@ struct Info
 #pragma mark -
 #pragma mark Memory Management
 
-- (void)dealloc
+- (void)free
 {
-	fclose(self.mappedFile);
+    fclose(self.mappedFile);
 	munmap(self.mappedMemory, self.mappedMemorySize);
+    
+    [self.scratcher freeScratch];
+    self.scratcher = nil;
 }
 
 #pragma mark -
@@ -154,7 +157,6 @@ struct Info
     // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
     self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + kAJUSTE_MEMORIA_ADICIONAL;
     
-    
     //Sample Rate
     float sampleRate;
     BASS_ChannelGetAttribute(self.decoder, BASS_ATTRIB_FREQ, &sampleRate);
@@ -177,10 +179,10 @@ struct Info
     
     [self.loadingSpin setHidden:NO];
     [self.loadingSpin startAnimating];
-    
+
     dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
-    dispatch_async(unpackQueue, ^{        
-        [self Unpack];
+    dispatch_async(unpackQueue, ^{
+        [self Unpack:self.pathToAudio];
     });
     
     self.updateTimer = nil;
@@ -352,9 +354,12 @@ struct Info
  * @since 1.0.0
  * @author Jan Kalis Glow Interactive
  */
-- (void)Unpack
+- (void)Unpack:(NSString*)path
 {
     char* output = (char*)self.mappedMemory;
+    NSString *p = [NSString stringWithString:path];
+    
+    debug(@"Inicio Unpack\n - %@", p);
     
     // buffer size per step for normalization
     float buf[10000];
@@ -391,12 +396,15 @@ struct Info
                 }
             });
         }
-        
+        if (!self.view.window) {
+            debug(@"CANCELADO");
+            break;
+        }
     }
     
     BASS_StreamFree(self.decoder);
     
-    debug(@"Fim Unpack");
+    debug(@"Fim Unpack\n - %@", p);
 }
 
 /*!

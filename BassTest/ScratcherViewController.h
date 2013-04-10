@@ -34,8 +34,10 @@
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL isOn;
 @property (nonatomic) float volume;
+@property (nonatomic) int identificador;
 
 - (void)stop;
+- (void)free;
 
 @end
 

@@ -54,7 +54,7 @@
             // Começa a tocar o stream principal
             if (BASS_ChannelPlay(self.stream,
                                  kRESTART_PLAYBACK)) {
-                debug(@"Stream principal tocando");
+//                debug(@"Stream principal tocando");
                 
             }
             else {
@@ -121,7 +121,7 @@
                                   kPOSICAO_INICIAL,
                                   BASS_POS_BYTE);
     if (![self.trataErros ocorreuErro]) {
-        debug(@"Canal reiniciado");
+//        debug(@"Canal reiniciado");
         
         [self removerCanal:canal];
     }
@@ -175,7 +175,7 @@
     if (![self canalJaAdicionado:canal]) {
         //Adiciona o canal no mixer
         if (BASS_Mixer_StreamAddChannel(self.stream, canal, flags)) {
-            debug(@"%@", @"Canal adicionado");
+//            debug(@"%@", @"Canal adicionado");
         }
         else {
             [self.trataErros ocorreuErro];
@@ -198,7 +198,7 @@
 {
     //Remove o canal do mixer sem resetar a posição
     if (BASS_Mixer_ChannelRemove(canal)) {
-        debug(@"%@", @"Canal pausado (removido)");
+//        debug(@"%@", @"Canal pausado (removido)");
     }
     else {
         [self.trataErros ocorreuErro];

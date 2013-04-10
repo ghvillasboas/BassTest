@@ -35,6 +35,7 @@
         [self parar:nil];
         [self.scratcherViewController.view removeFromSuperview];
         [self.scratcherViewController removeFromParentViewController];
+        [self.scratcherViewController free];
         self.scratcherViewController = nil;
     }
     self.scratcherViewController = [[ScratcherViewController alloc] init];
@@ -53,9 +54,7 @@
     picker.delegate = self;
     picker.allowsPickingMultipleItems = NO;
 
-    [self presentViewController:picker animated:YES completion:^{
-
-    }];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)obtemInformacoes:(MPMediaItemCollection *)collection
@@ -66,9 +65,9 @@
         MPMediaItem *mediaItem =  [items objectAtIndex:0];
         if ([mediaItem isKindOfClass:[MPMediaItem class]]) {
             
-            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
-            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
-            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+//            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
+//            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
+//            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
             
             //            NSLog(@"%@", titulo);
             //            NSLog(@"%@", capa);
@@ -228,8 +227,6 @@ void myDeleteFile (NSString* path)
 
 -(IBAction)parar:(id)sender
 {
-    debug(@"%s", __FUNCTION__);
-
     [self stop:self.scratcherViewController];
 
     [self.scratcherViewController stop];
@@ -249,6 +246,13 @@ void myDeleteFile (NSString* path)
 #pragma mark Delegates
 
 #pragma mark MPMediaPickerControllerDelegate
+
+-(void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        debug(@"Cancelado");
+    }];
+}
 
 -(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
