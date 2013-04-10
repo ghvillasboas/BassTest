@@ -28,9 +28,11 @@
 @property float previousTime;
 @property float positionOffset;
 @property float previousPositionOffset;
+@property (nonatomic) float sampleRate;
 
 @property double firstGetSeconds;
 
+- (id)initWithSampleRate:(float)sampleRate;
 - (void)update;
 - (void)setBuffer:(float *)buffer size:(int)size;
 - (void)setByteOffset:(float)byteOffset;

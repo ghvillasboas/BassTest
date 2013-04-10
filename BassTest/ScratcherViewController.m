@@ -154,17 +154,21 @@ struct Info
     // AJUSTE: adicionamos 400k a mais no tamanho para o caso de arquivos que não são MP3.
     self.mappedMemorySize = BASS_ChannelGetLength(self.decoder, BASS_POS_BYTE) + kAJUSTE_MEMORIA_ADICIONAL;
     
+    
+    //Sample Rate
+    float sampleRate;
+    BASS_ChannelGetAttribute(self.decoder, BASS_ATTRIB_FREQ, &sampleRate);
+    self.scratcher.sampleRate = sampleRate;
+    
     self.mappedFile = tmpfile();
     int fd = fileno(self.mappedFile);
     ftruncate(fd, self.mappedMemorySize);
-    self.mappedMemory = mmap(
-                             NULL,                    /* No preferred address. */
+    self.mappedMemory = mmap(NULL,                    /* No preferred address. */
                              self.mappedMemorySize,   /* Size of mapped space. */
                              PROT_READ | PROT_WRITE,  /* Read/write access. */
                              MAP_FILE | MAP_SHARED,   /* Map from file (default) and map as shared (see above.) */
                              fd,                      /* The file descriptor. */
-                             0                        /* Offset from start of file. */
-                             );
+                             0);                      /* Offset from start of file. */
     
     [self.scratcher setBuffer:(float *)self.mappedMemory size:self.mappedMemorySize];
     
@@ -175,22 +179,8 @@ struct Info
     [self.loadingSpin startAnimating];
     
     dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
-    dispatch_async(unpackQueue, ^{
-        
+    dispatch_async(unpackQueue, ^{        
         [self Unpack];
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [self.loadingSpin setHidden:YES];
-//            [self.loadingSpin stopAnimating];
-//            
-//            self.isLoaded = YES;
-//            [self tocar:nil];
-//            if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
-//                [self.delegate playerIsReady:self];
-//                [self.volumeSlider setEnabled:YES];
-//            }
-//        });
     });
     
     self.updateTimer = nil;
@@ -336,8 +326,6 @@ struct Info
  */
 - (void)setup
 {
-    
-    
     self.scratcher = [[Scratcher alloc] init];
     self.isOn = NO;
     self.volume = 0.5;

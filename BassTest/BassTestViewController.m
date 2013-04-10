@@ -52,33 +52,10 @@
 
     picker.delegate = self;
     picker.allowsPickingMultipleItems = NO;
-    picker.prompt = NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
 
     [self presentViewController:picker animated:YES completion:^{
 
     }];
-    
-    
-//    NSArray *musicas = @[
-//                         [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"],
-//                         [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"],
-//                         [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"],
-//                         [[NSBundle mainBundle] pathForResource:@"audio4" ofType:@"m4a"]
-//                         ];
-//    NSUInteger randomIndex = arc4random() % [musicas count];
-//    
-//    if (self.scratcherViewController) {
-//        [self parar:nil];
-//        [self.scratcherViewController.view removeFromSuperview];
-//        [self.scratcherViewController removeFromParentViewController];
-//        self.scratcherViewController = nil;
-//    }
-//    self.scratcherViewController = [[ScratcherViewController alloc] init];
-//    [self addChildViewController:self.scratcherViewController];
-//    [self.holderPlayer1 addSubview:self.scratcherViewController.view];
-//    self.scratcherViewController.delegate = self;
-//    [self.scratcherViewController setPathToAudio:[musicas objectAtIndex:randomIndex]];
-//    debug(@"%@", [musicas objectAtIndex:randomIndex]);
 }
 
 - (void)obtemInformacoes:(MPMediaItemCollection *)collection

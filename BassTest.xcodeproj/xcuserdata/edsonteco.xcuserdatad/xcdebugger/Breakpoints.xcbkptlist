@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/BassTestViewController.m"
-         timestampString = "387228883.385925"
+         timestampString = "387292771.681903"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "226"
-         endingLineNumber = "226"
+         startingLineNumber = "203"
+         endingLineNumber = "203"
          landmarkName = "-tocar:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,24 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/Scratcher.m"
-         timestampString = "387211551.04863"
+         timestampString = "387292771.681903"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "46"
-         endingLineNumber = "46"
-         landmarkName = "-init"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BassTest/Scratcher.m"
-         timestampString = "387211555.301751"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "63"
-         endingLineNumber = "63"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
          landmarkName = "-stop"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BassTest/BassTestViewController.m"
-         timestampString = "387228883.385925"
+         timestampString = "387292771.681903"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "289"
-         endingLineNumber = "289"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
          landmarkName = "-playerIsReady:"
          landmarkType = "5">
       </FileBreakpoint>

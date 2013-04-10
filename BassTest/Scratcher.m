@@ -25,6 +25,18 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
 #pragma mark -
 #pragma mark Setters overriders
 
+- (float)sampleRate
+{
+    float sampleRate;
+    BASS_ChannelGetAttribute(self.soundTrackScratchStreamHandle,
+                             BASS_ATTRIB_FREQ,
+                             &sampleRate);
+    return sampleRate;
+}
+
+#pragma mark -
+#pragma mark Setters overriders
+
 - (void)setVolume:(float)volume
 {
     BASS_ChannelSetAttribute(self.soundTrackScratchStreamHandle,
@@ -32,10 +44,22 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
                              volume);
 }
 
+- (void)setSampleRate:(float)sampleRate
+{
+    BASS_ChannelSetAttribute(self.soundTrackScratchStreamHandle,
+                             BASS_ATTRIB_FREQ,
+                             sampleRate);
+}
+
 #pragma mark -
 #pragma mark Designated initializers
 
 - (id)init
+{
+    return [self initWithSampleRate:BASE_PLAYBACK_FREQUENCY];
+}
+
+- (id)initWithSampleRate:(float)sampleRate
 {
     self = [super init];
     if (self) {
@@ -43,13 +67,13 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
         [self freeScratch];
         
         // init stream that will be played when scratching
-        self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY,
+        self.soundTrackScratchStreamHandle = BASS_StreamCreate(sampleRate,
                                                                kNUM_CANAIS,
                                                                BASS_SAMPLE_FLOAT|BASS_STREAM_DECODE,
                                                                &WriteScratchStream,
                                                                (__bridge void *)(self));
         // play scratch stream
-//        BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
+        //        BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
     }
     
     return self;
