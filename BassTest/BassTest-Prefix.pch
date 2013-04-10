@@ -12,3 +12,18 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Debug
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#ifdef DEBUG
+#define debug(format, ...) CFShow((__bridge void *)[NSString stringWithFormat:format, ## __VA_ARGS__]);
+#define debugAlert(format, ...)  {UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%s\n line: %d ", __PRETTY_FUNCTION__, __LINE__] message:(__bridge void *)[NSString stringWithFormat:format, ##__VA_ARGS__]  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show]; [alert release];}
+#else
+#define debug(format, ...)
+#define debugAlert(format, ...)
+#endif
+
+#define debugRect(rect) debug(@"%s x:%.4f, y:%.4f, w:%.4f, h%.4f", #rect, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
+#define debugSize(size) debug(@"%s w:%.4f, h:%.4f", #size, size.width, size.height)
+#define debugPoint(point) debug(@"%s x:%.4f, y:%.4f", #point, point.x, point.y)

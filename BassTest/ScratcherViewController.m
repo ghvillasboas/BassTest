@@ -85,50 +85,60 @@ struct Info
 #pragma mark -
 #pragma mark Setters overriders
 
+- (void)setVolume:(float)volume
+{
+    _volume = volume;
+    
+    if (self.scratcher) {
+        [self.scratcher setVolume:_volume];
+    }
+}
+
+- (void)setIsOn:(BOOL)isOn
+{
+    _isOn = isOn;
+    
+    if (_isOn) {
+        [self.imgLaser setHidden:NO];
+        [self startSpin];
+    }
+    else {
+        [self.imgLaser setHidden:YES];
+        [self stopSpin];
+    }
+}
+
 - (void)setIsPlaying:(BOOL)isPlaying
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     _isPlaying = isPlaying;
     
     if (_isPlaying) {
-        [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
-        [self.imgLaser setHidden:NO];
-        
         // Se o timeOffset for 0.0, inicializa a animação
         if (self.imgBrilho.layer.timeOffset == 0.0) {
             [self animaBrilho:self.imgBrilho];
         }
         // Se for diferente de 0.0, resume
         else {
-            [self resumeLayer:self.imgBrilho.layer];
+            [self continuaAnimacaoDoBrilho:self.imgBrilho.layer];
         }
     }
     else {
-        [self.PlayButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
-        [self.imgLaser setHidden:YES];
-        [self pauseLayer:self.imgBrilho.layer];
+        [self pausaAnimacaoDoBrilho:self.imgBrilho.layer];
     }
 }
 
 -(void)setIsLoaded:(BOOL)isLoaded
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     _isLoaded = isLoaded;
     
     if (_isLoaded) {
-        [self.PickButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-on"] forState:UIControlStateNormal];
     }
     else {
-        [self.PickButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-off"] forState:UIControlStateNormal];
     }
 }
 
 - (void)setPathToAudio:(NSString *)pathToAudio
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     _pathToAudio = pathToAudio;
     
     DWORD flags = 0;
@@ -166,8 +176,6 @@ struct Info
     
     dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
     dispatch_async(unpackQueue, ^{
-        
-//        Unpack((void*)&info);
         
         [self Unpack];
         
@@ -211,153 +219,17 @@ struct Info
 #pragma mark -
 #pragma mark Metodos publicos
 
+- (void)stop
+{
+    [self.scratcher stop];
+}
+
 #pragma mark -
 #pragma mark Metodos privados
 
-- (void)showMediaPicker
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
-    
-    [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];
-    
-    picker.delegate = self;
-    picker.allowsPickingMultipleItems = NO;
-    picker.prompt = NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
-    
-    [self presentViewController:picker animated:YES completion:^{
-        if (self.isLoaded || self.isPlaying) {
-            [self parar:nil];
-        }
-    }];
-}
-
-- (void)obtemInformacoes:(MPMediaItemCollection *)collection
-{
-    if (collection.count == 1) {
-        
-        NSArray *items = collection.items;
-        MPMediaItem *mediaItem =  [items objectAtIndex:0];
-        if ([mediaItem isKindOfClass:[MPMediaItem class]]) {
-            
-            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
-            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
-            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
-            
-//            NSLog(@"%@", titulo);
-//            NSLog(@"%@", capa);
-//            NSLog(@"%@", url);
-            
-        }
-    }
-}
-
-- (void)exportAssetAsSourceFormat:(MPMediaItem *)item
-{
-    NSURL *assetURL = [item valueForProperty:MPMediaItemPropertyAssetURL];
-    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
-    
-    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
-                                           initWithAsset:songAsset
-                                           presetName:AVAssetExportPresetPassthrough];
-    
-    NSArray *tracks = [songAsset tracksWithMediaType:AVMediaTypeAudio];
-    AVAssetTrack *track = [tracks objectAtIndex:0];
-    
-    id desc = [track.formatDescriptions objectAtIndex:0];
-    const AudioStreamBasicDescription *audioDesc = CMAudioFormatDescriptionGetStreamBasicDescription((__bridge CMAudioFormatDescriptionRef)desc);
-    FourCharCode formatID = audioDesc->mFormatID;
-    
-    NSString *fileType = nil;
-    NSString *extensao = nil;
-    
-    switch (formatID) {
-            
-        case kAudioFormatLinearPCM: {
-            UInt32 flags = audioDesc->mFormatFlags;
-            if (flags & kAudioFormatFlagIsBigEndian) {
-                fileType = @"public.aiff-audio";
-                extensao = @"aif";
-            } else {
-                fileType = @"com.microsoft.waveform-audio";
-                extensao = @"wav";
-            }
-        }
-            break;
-            
-        case kAudioFormatMPEGLayer3:
-            fileType = @"com.apple.quicktime-movie";
-            extensao = @"mov"; //mp3
-            break;
-            
-        case kAudioFormatMPEG4AAC:
-            fileType = @"com.apple.m4a-audio";
-            extensao = @"m4a";
-            break;
-            
-        case kAudioFormatAppleLossless:
-            fileType = @"com.apple.m4a-audio";
-            extensao = @"m4a";
-            break;
-            
-        default:
-            break;
-    }
-    
-    exportSession.outputFileType = fileType;
-    
-    NSString *fileName = [NSString stringWithString:[item valueForProperty:MPMediaItemPropertyTitle]];
-    NSArray *fileNameArray = [fileName componentsSeparatedByString:@" "];
-    fileName = [fileNameArray componentsJoinedByString:@""];
-    
-    NSString *filePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:extensao];
-    
-//    NSLog(@"filePath = %@", filePath);
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        [self performSelectorOnMainThread:@selector(setPathToAudio:) withObject:filePath waitUntilDone:NO];
-//        [self setPathToAudio:filePath];
-        return;
-    }
-    else {
-        
-        myDeleteFile(filePath);
-        exportSession.outputURL = [NSURL fileURLWithPath:filePath];
-        
-        [exportSession exportAsynchronouslyWithCompletionHandler:^{
-            
-            if (exportSession.status == AVAssetExportSessionStatusCompleted) {
-                NSLog(@"export session completed");
-                
-                [self performSelectorOnMainThread:@selector(setPathToAudio:) withObject:filePath waitUntilDone:NO];
-//                [self setPathToAudio:filePath];
-            } else {
-                NSLog(@"export session error");
-                
-                if (exportSession.status == AVAssetExportSessionStatusFailed) {
-                    NSLog(@"%@", exportSession.error.localizedDescription);
-                }
-            }
-        }];
-    }
-}
-
-void myDeleteFile (NSString* path)
-{
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSError *deleteErr = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:path error:&deleteErr];
-        if (deleteErr) {
-            NSLog (@"Can't delete %@: %@", path, deleteErr);
-        }
-    }
-}
-
 - (void)spinWithOptions:(UIViewAnimationOptions)options
 {
-    // this spin completes 360 degrees every 2 seconds
-    [UIView animateWithDuration: 1.8 //1.65f
+    [UIView animateWithDuration: 1.8
                           delay: 0.0f
                         options: options
                      animations: ^{
@@ -366,7 +238,6 @@ void myDeleteFile (NSString* path)
                      completion: ^(BOOL finished) {
                          if (finished) {
                              if (self.animating) {
-                                 // if flag still set, keep spinning with constant speed
                                  [self spinWithOptions: UIViewAnimationOptionCurveLinear];
                              } 
                          }
@@ -375,8 +246,6 @@ void myDeleteFile (NSString* path)
 
 - (void) startSpin
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     if (!self.animating) {
         self.animating = YES;
         [self spinWithOptions: UIViewAnimationOptionCurveEaseIn];
@@ -385,9 +254,6 @@ void myDeleteFile (NSString* path)
 
 - (void) stopSpin
 {
-    NSLog(@"%s", __FUNCTION__);
-    
-    // set the flag to stop spinning after one last 90 degree increment
     self.animating = NO;
     [self.imgDeck.layer removeAllAnimations];
     
@@ -411,8 +277,6 @@ void myDeleteFile (NSString* path)
  */
 - (void)animaBrilho:(UIView *)view
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     if (self.isPlaying) {
         CGAffineTransform transformBrilho = view.transform;
         
@@ -439,10 +303,8 @@ void myDeleteFile (NSString* path)
  * @since 1.0.0
  * @author Logics Software
  */
--(void)pauseLayer:(CALayer*)layer
+-(void)pausaAnimacaoDoBrilho:(CALayer*)layer
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
     layer.speed = 0.0;
     layer.timeOffset = pausedTime;
@@ -455,10 +317,8 @@ void myDeleteFile (NSString* path)
  * @since 1.0.0
  * @author Logics Software
  */
--(void)resumeLayer:(CALayer*)layer
+-(void)continuaAnimacaoDoBrilho:(CALayer*)layer
 {
-    NSLog(@"%s", __FUNCTION__);
-    
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
     layer.timeOffset = 0.0;
@@ -476,15 +336,11 @@ void myDeleteFile (NSString* path)
  */
 - (void)setup
 {
-    // init bass
-    BASS_Init(-1, 44100, 0, 0, NULL);
     
-    BASS_SetConfig(BASS_CONFIG_BUFFER, 5);
-    BASS_SetConfig(BASS_CONFIG_UPDATETHREADS, 1);
-    BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 5);
-    BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
     
     self.scratcher = [[Scratcher alloc] init];
+    self.isOn = NO;
+    self.volume = 0.5;
     self.isPlaying = NO;
     self.isLoaded = NO;
     self.animating = NO;
@@ -508,35 +364,30 @@ void myDeleteFile (NSString* path)
  * @since 1.0.0
  * @author Jan Kalis Glow Interactive
  */
-//void* Unpack(void* arg)
 - (void)Unpack
 {
-//    HSTREAM decoder = info.decoder;
-//    char* output = (char*)info.data;
-
-    HSTREAM decoder = self.decoder;
     char* output = (char*)self.mappedMemory;
     
     // buffer size per step for normalization
     float buf[10000];
     
-    BASS_ChannelSetPosition(decoder, 0, BASS_POS_BYTE);
+    BASS_ChannelSetPosition(self.decoder, 0, BASS_POS_BYTE);
     
     int pos = 0;
     float atual = 0;
     float total = 0;
     BOOL liberado = NO;
     
-    while (BASS_ChannelIsActive(decoder))
+    while (BASS_ChannelIsActive(self.decoder))
     {
-        DWORD c = BASS_ChannelGetData(decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
+        DWORD c = BASS_ChannelGetData(self.decoder, buf, sizeof(buf)|BASS_DATA_FLOAT);
         memcpy(output + pos, buf, c);
         pos += c;
         
         atual = pos;
         total = (float)self.mappedMemorySize;
         
-        if (!liberado && (atual/total) > 0.4) {
+        if (!liberado && (atual/total) > 0.2) {
             
             liberado = YES;
             
@@ -547,19 +398,17 @@ void myDeleteFile (NSString* path)
                 
                 self.isLoaded = YES;
                 
-                [self tocar:nil];
                 if ([self.delegate respondsToSelector:@selector(playerIsReady:)]) {
                     [self.delegate playerIsReady:self];
-                    [self.volumeSlider setEnabled:YES];
                 }
             });
         }
         
     }
     
-    BASS_StreamFree(decoder);
+    BASS_StreamFree(self.decoder);
     
-    NSLog(@"Fim Unpack");
+    debug(@"Fim Unpack");
 }
 
 /*!
@@ -609,13 +458,13 @@ void myDeleteFile (NSString* path)
 
 - (void)updateTimer:(NSTimer *)timer
 {
-    [self.scratcher update];
-    QWORD pos = [self.scratcher getByteOffset];
-    int time = BASS_ChannelBytes2Seconds(self.channel, pos);
-    
-    self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u CPU: %.2f",
-                            pos, time/60, time%60, BASS_GetCPU()];
-    self.displayLabel.text = [NSString stringWithFormat:@"%u:%02u", time/60, time%60];
+//    [self.scratcher update];
+//    QWORD pos = [self.scratcher getByteOffset];
+//    int time = BASS_ChannelBytes2Seconds(self.channel, pos);
+//    
+//    self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u CPU: %.2f",
+//                            pos, time/60, time%60, BASS_GetCPU()];
+//    self.displayLabel.text = [NSString stringWithFormat:@"%u:%02u", time/60, time%60];
 }
 
 #pragma mark -
@@ -625,16 +474,15 @@ void myDeleteFile (NSString* path)
 {
 	// init timer
 	[self.updateTimer invalidate];
-	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 60.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
+	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 30.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
     [super viewDidLoad];
     
-    [self.volumeSlider setEnabled:NO];
+    [self.loadingSpin stopAnimating];
     [self.loadingSpin setHidden:YES];
     
     // inicialização do timeOffset para identificar
     // se a animação está sendo executada
     self.imgBrilho.layer.timeOffset = 0.0;
-
 }
 
 #pragma mark -
@@ -643,101 +491,8 @@ void myDeleteFile (NSString* path)
 #pragma mark -
 #pragma mark Target/Actions
 
-- (IBAction)setVolume:(UISlider *)sender
-{
-    if (sender == self.volumeSlider) {
-        if (self.scratcher) {
-            [self.scratcher setVolume:sender.value];
-        }
-    }
-}
-
--(IBAction)selecionarMusica:(id)sender
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-    [self showMediaPicker];
-}
-
--(IBAction)tocar:(id)sender
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-    if (self.isLoaded) {
-        if (self.isPlaying) {
-            
-            if ([self.delegate respondsToSelector:@selector(playerWillPause:)]) {
-                [self.delegate playerWillPause:self];
-            }
-            if ([self.delegate respondsToSelector:@selector(pause:)]) {
-                [self.delegate pause:self];
-                self.isPlaying = NO;
-                [self stopSpin];
-                
-                if ([self.delegate respondsToSelector:@selector(playerDidPause:)]) {
-                    [self.delegate playerDidPause:self];
-                }
-            }
-        }
-        else {
-            
-            [self setVolume:self.volumeSlider];
-            
-            if ([self.delegate respondsToSelector:@selector(playerWillPlay:)]) {
-                [self.delegate playerWillPlay:self];
-            }
-            if ([self.delegate respondsToSelector:@selector(play:)]) {
-                [self.delegate play:self];
-                self.isPlaying = YES;
-                [self startSpin];
-                
-                if ([self.delegate respondsToSelector:@selector(playerDidPlay:)]) {
-                    [self.delegate playerDidPlay:self];
-                }
-            }
-        }
-    }
-    else {
-        [self showMediaPicker];
-    }
-}
-
--(IBAction)parar:(id)sender
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-    if ([self.delegate respondsToSelector:@selector(playerWillStop:)]) {
-        [self.delegate playerWillStop:self];
-    }
-    if ([self.delegate respondsToSelector:@selector(stop:)]) {
-        [self.delegate stop:self];
-    
-        [self.scratcher stop];
-        
-        self.isPlaying = NO;
-        [self stopSpin];
-        
-        if ([self.delegate respondsToSelector:@selector(playerDidStop:)]) {
-            [self.delegate playerDidStop:self];
-        }
-    }
-}
-
 #pragma mark -
 #pragma mark Delegates
-
-#pragma mark MPMediaPickerControllerDelegate
-
--(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
-{
-    NSLog(@"%s", __FUNCTION__);
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
-        
-        [self obtemInformacoes:mediaItemCollection];
-    }];
-}
 
 #pragma mark - Touch delegates
 
@@ -746,7 +501,7 @@ void myDeleteFile (NSString* path)
     UITouch* touch = [touches anyObject];
     CGPoint position = [touch locationInView:self.view];
 
-    NSLog(@"frame: %@ point: %@ - %@", NSStringFromCGRect(self.imgDisco.frame), NSStringFromCGPoint(position), CGRectContainsPoint(self.imgDisco.frame, position) ? @"dentro" : @"fora");
+    debug(@"frame: %@ point: %@ - %@", NSStringFromCGRect(self.imgDisco.frame), NSStringFromCGPoint(position), CGRectContainsPoint(self.imgDisco.frame, position) ? @"dentro" : @"fora");
     
     if (CGRectContainsPoint(self.imgDisco.frame, position)) {
 
@@ -756,7 +511,7 @@ void myDeleteFile (NSString* path)
         
         [self.scratcher setByteOffset:(self.initialScratchPosition + self.angleAccum)];
         [self.scratcher beganScratching];
-        [self pauseLayer:self.imgBrilho.layer];
+        [self pausaAnimacaoDoBrilho:self.imgBrilho.layer];
         _isPlaying = NO;
     }
 }
@@ -764,6 +519,7 @@ void myDeleteFile (NSString* path)
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.scratcher endedScratching];
+    [self continuaAnimacaoDoBrilho:self.imgBrilho.layer];
     _isPlaying = YES;
 }
 

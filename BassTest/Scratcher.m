@@ -45,11 +45,11 @@ static DWORD CALLBACK WriteScratchStream(HSTREAM handle, void* writeBuffer, DWOR
         // init stream that will be played when scratching
         self.soundTrackScratchStreamHandle = BASS_StreamCreate(BASE_PLAYBACK_FREQUENCY,
                                                                kNUM_CANAIS,
-                                                               BASS_STREAM_DECODE|BASS_SAMPLE_FLOAT,
+                                                               BASS_SAMPLE_FLOAT|BASS_STREAM_DECODE,
                                                                &WriteScratchStream,
                                                                (__bridge void *)(self));
         // play scratch stream
-        //BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
+//        BASS_ChannelPlay(self.soundTrackScratchStreamHandle, false);
     }
     
     return self;

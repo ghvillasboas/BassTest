@@ -7,12 +7,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386857901.836226"
+         filePath = "BassTest/BassTestViewController.m"
+         timestampString = "387228883.385925"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "669"
-         endingLineNumber = "669"
+         startingLineNumber = "226"
+         endingLineNumber = "226"
          landmarkName = "-tocar:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -20,13 +20,52 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "BassTest/ScratcherViewController.m"
-         timestampString = "386778014.887383"
+         filePath = "BassTest/Scratcher.m"
+         timestampString = "387211551.04863"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "100"
-         endingLineNumber = "100"
+         startingLineNumber = "46"
+         endingLineNumber = "46"
+         landmarkName = "-init"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BassTest/Scratcher.m"
+         timestampString = "387211555.301751"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
+         landmarkName = "-stop"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BassTest/ScratcherViewController.m"
+         timestampString = "387224041.182478"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "115"
+         endingLineNumber = "115"
          landmarkName = "-setIsPlaying:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BassTest/BassTestViewController.m"
+         timestampString = "387228883.385925"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "289"
+         endingLineNumber = "289"
+         landmarkName = "-playerIsReady:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

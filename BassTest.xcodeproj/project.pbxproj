@@ -280,21 +280,21 @@
 				5E89A60416FBB00300EBA1F0 /* MainStoryboard.storyboard */,
 				5E89A5E816FBAE0200EBA1F0 /* BassTestAppDelegate.h */,
 				5E89A5E916FBAE0200EBA1F0 /* BassTestAppDelegate.m */,
-				5E328ED216FC8E70003F80A4 /* PlayerViewController.h */,
-				5E328ED316FC8E70003F80A4 /* PlayerViewController.m */,
-				5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */,
 				5E89A60616FBB04000EBA1F0 /* BassTestViewController.h */,
 				5E89A60716FBB04000EBA1F0 /* BassTestViewController.m */,
-				C20C3E7E16FCBEF600CF4AF9 /* Mixer.h */,
-				C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */,
-				C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */,
-				C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */,
 				5E328EF016FD5F7A003F80A4 /* ScratcherViewController.h */,
 				5E328EF116FD5F7A003F80A4 /* ScratcherViewController.m */,
 				5E328EEF16FD5F7A003F80A4 /* ScratcherViewController.xib */,
 				5E328EF216FD5F7A003F80A4 /* Scratcher.h */,
 				5E328EF316FD5F7B003F80A4 /* Scratcher.m */,
+				C20C3E7E16FCBEF600CF4AF9 /* Mixer.h */,
+				C20C3E7F16FCBEF600CF4AF9 /* Mixer.m */,
+				C20C3E8116FCC9BF00CF4AF9 /* TrataErros.h */,
+				C20C3E8216FCC9C000CF4AF9 /* TrataErros.m */,
 				C20C3E9116FDEAD800CF4AF9 /* PlayerProtocol.h */,
+				5E328ED216FC8E70003F80A4 /* PlayerViewController.h */,
+				5E328ED316FC8E70003F80A4 /* PlayerViewController.m */,
+				5E328ED416FC8E70003F80A4 /* PlayerViewController.xib */,
 			);
 			path = BassTest;
 			sourceTree = "<group>";
@@ -506,6 +506,8 @@
 		5E89A5F416FBAE0200EBA1F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BassTest/BassTest-Prefix.pch";
@@ -517,6 +519,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -524,6 +528,8 @@
 		5E89A5F516FBAE0200EBA1F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BassTest/BassTest-Prefix.pch";
@@ -535,6 +541,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

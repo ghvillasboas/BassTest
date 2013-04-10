@@ -7,12 +7,21 @@
 //
 
 #import "BassTestAppDelegate.h"
+#import "bass.h"
 
 @implementation BassTestAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+    // init bass
+    BASS_Init(-1, 44100, 0, 0, NULL);
+    
+    BASS_SetConfig(BASS_CONFIG_BUFFER, 250);//5
+    BASS_SetConfig(BASS_CONFIG_UPDATETHREADS, 1);
+    BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 5);//5
+    BASS_SetConfig(BASS_CONFIG_IOS_MIXAUDIO, 0);
+    
     return YES;
 }
 

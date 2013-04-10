@@ -29,30 +29,185 @@
 #pragma mark -
 #pragma mark Metodos privados
 
+- (void)adicionaMusicaComPath:(NSString*)path
+{
+    if (self.scratcherViewController) {
+        [self parar:nil];
+        [self.scratcherViewController.view removeFromSuperview];
+        [self.scratcherViewController removeFromParentViewController];
+        self.scratcherViewController = nil;
+    }
+    self.scratcherViewController = [[ScratcherViewController alloc] init];
+    [self addChildViewController:self.scratcherViewController];
+    [self.holderPlayer1 addSubview:self.scratcherViewController.view];
+    self.scratcherViewController.delegate = self;
+    [self.scratcherViewController setPathToAudio:path];
+}
+
+- (void)showMediaPicker
+{
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
+
+    [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];
+
+    picker.delegate = self;
+    picker.allowsPickingMultipleItems = NO;
+    picker.prompt = NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
+
+    [self presentViewController:picker animated:YES completion:^{
+
+    }];
+    
+    
+//    NSArray *musicas = @[
+//                         [[NSBundle mainBundle] pathForResource:@"audio1" ofType:@"mp3"],
+//                         [[NSBundle mainBundle] pathForResource:@"audio2" ofType:@"mp3"],
+//                         [[NSBundle mainBundle] pathForResource:@"audio3" ofType:@"m4a"],
+//                         [[NSBundle mainBundle] pathForResource:@"audio4" ofType:@"m4a"]
+//                         ];
+//    NSUInteger randomIndex = arc4random() % [musicas count];
+//    
+//    if (self.scratcherViewController) {
+//        [self parar:nil];
+//        [self.scratcherViewController.view removeFromSuperview];
+//        [self.scratcherViewController removeFromParentViewController];
+//        self.scratcherViewController = nil;
+//    }
+//    self.scratcherViewController = [[ScratcherViewController alloc] init];
+//    [self addChildViewController:self.scratcherViewController];
+//    [self.holderPlayer1 addSubview:self.scratcherViewController.view];
+//    self.scratcherViewController.delegate = self;
+//    [self.scratcherViewController setPathToAudio:[musicas objectAtIndex:randomIndex]];
+//    debug(@"%@", [musicas objectAtIndex:randomIndex]);
+}
+
+- (void)obtemInformacoes:(MPMediaItemCollection *)collection
+{
+    if (collection.count == 1) {
+        
+        NSArray *items = collection.items;
+        MPMediaItem *mediaItem =  [items objectAtIndex:0];
+        if ([mediaItem isKindOfClass:[MPMediaItem class]]) {
+            
+            NSString *titulo = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
+            NSString *capa = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
+            NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+            
+            //            NSLog(@"%@", titulo);
+            //            NSLog(@"%@", capa);
+            //            NSLog(@"%@", url);
+            
+        }
+    }
+}
+
+- (void)exportAssetAsSourceFormat:(MPMediaItem *)item
+{
+    NSURL *assetURL = [item valueForProperty:MPMediaItemPropertyAssetURL];
+    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:assetURL options:nil];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
+                                           initWithAsset:songAsset
+                                           presetName:AVAssetExportPresetPassthrough];
+    
+    NSArray *tracks = [songAsset tracksWithMediaType:AVMediaTypeAudio];
+    AVAssetTrack *track = [tracks objectAtIndex:0];
+    
+    id desc = [track.formatDescriptions objectAtIndex:0];
+    const AudioStreamBasicDescription *audioDesc = CMAudioFormatDescriptionGetStreamBasicDescription((__bridge CMAudioFormatDescriptionRef)desc);
+    FourCharCode formatID = audioDesc->mFormatID;
+    
+    NSString *fileType = nil;
+    NSString *extensao = nil;
+    
+    switch (formatID) {
+            
+        case kAudioFormatLinearPCM: {
+            UInt32 flags = audioDesc->mFormatFlags;
+            if (flags & kAudioFormatFlagIsBigEndian) {
+                fileType = @"public.aiff-audio";
+                extensao = @"aif";
+            } else {
+                fileType = @"com.microsoft.waveform-audio";
+                extensao = @"wav";
+            }
+        }
+            break;
+            
+        case kAudioFormatMPEGLayer3:
+            fileType = @"com.apple.quicktime-movie";
+            extensao = @"mov"; //mp3
+            break;
+            
+        case kAudioFormatMPEG4AAC:
+            fileType = @"com.apple.m4a-audio";
+            extensao = @"m4a";
+            break;
+            
+        case kAudioFormatAppleLossless:
+            fileType = @"com.apple.m4a-audio";
+            extensao = @"m4a";
+            break;
+            
+        default:
+            break;
+    }
+    
+    exportSession.outputFileType = fileType;
+    
+    NSString *fileName = [NSString stringWithString:[item valueForProperty:MPMediaItemPropertyTitle]];
+    NSArray *fileNameArray = [fileName componentsSeparatedByString:@" "];
+    fileName = [fileNameArray componentsJoinedByString:@""];
+    
+    NSString *filePath = [[NSTemporaryDirectory() stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:extensao];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        [self performSelectorOnMainThread:@selector(adicionaMusicaComPath:) withObject:filePath waitUntilDone:NO];
+        return;
+    }
+    else {
+        
+        myDeleteFile(filePath);
+        exportSession.outputURL = [NSURL fileURLWithPath:filePath];
+        
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            
+            if (exportSession.status == AVAssetExportSessionStatusCompleted) {
+                debug(@"export ok");
+                
+                [self performSelectorOnMainThread:@selector(adicionaMusicaComPath:) withObject:filePath waitUntilDone:NO];
+            } else {
+                debug(@"export session error");
+                
+                if (exportSession.status == AVAssetExportSessionStatusFailed) {
+                    debug(@"%@", exportSession.error.localizedDescription);
+                }
+            }
+        }];
+    }
+}
+
+void myDeleteFile (NSString* path)
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *deleteErr = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&deleteErr];
+        if (deleteErr) {
+            debug(@"Can't delete %@: %@", path, deleteErr);
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark ViewController life cycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
+	
     [self.recGeralButton setEnabled:NO];
-    
-//    self.player1 = [[PlayerViewController alloc] init];
-//    self.player1.delegate = self;
-//    
-//    [self addChildViewController:self.player1];
-//    [self.holderPlayer1 addSubview:self.player1.view];
-    
-    self.vinil = [[ScratcherViewController alloc] init];
-    [self addChildViewController:self.vinil];
-    [self.holderPlayer1 addSubview:self.vinil.view];
-    
-    self.vinil.delegate = self;
-    
+
     self.mixer = [[Mixer alloc] init];
-    
 }
 
 #pragma mark -
@@ -60,6 +215,50 @@
 
 #pragma mark -
 #pragma mark Target/Actions
+
+-(IBAction)selecionarMusica:(id)sender
+{
+    [self showMediaPicker];
+}
+
+-(IBAction)tocar:(id)sender
+{
+    if (self.scratcherViewController.isLoaded) {
+        if (self.scratcherViewController.isPlaying) {
+
+            [self pause:self.scratcherViewController];
+            self.scratcherViewController.isPlaying = NO;
+            self.scratcherViewController.isOn = NO;
+            
+            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
+
+        }
+        else {
+            
+//            [self.scratcherViewController.volume = volumeSlider];
+            
+            [self play:self.scratcherViewController];
+            self.scratcherViewController.isPlaying = YES;
+            self.scratcherViewController.isOn = NO;
+
+            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
+        }
+    }
+    else {
+        [self showMediaPicker];
+    }
+}
+
+-(IBAction)parar:(id)sender
+{
+    debug(@"%s", __FUNCTION__);
+
+    [self stop:self.scratcherViewController];
+
+    [self.scratcherViewController stop];
+    self.scratcherViewController.isPlaying = NO;
+    self.scratcherViewController.isOn = NO;
+}
 
 - (IBAction)recGeral:(id)sender
 {
@@ -72,11 +271,23 @@
 #pragma mark -
 #pragma mark Delegates
 
+#pragma mark MPMediaPickerControllerDelegate
+
+-(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
+        
+        [self obtemInformacoes:mediaItemCollection];
+    }];
+}
+
 #pragma mark PlayerProtocol
 
 -(void)playerIsReady:(id<PlayerDataSource>)player
 {
     [self.recGeralButton setEnabled:YES];
+    [self tocar:nil];
 }
 
 -(void)play:(id<PlayerDataSource>)player
