@@ -10,6 +10,8 @@
 
 @interface BassTestViewController ()
 
+@property (nonatomic, strong) UIImage* rotulo;
+
 @end
 
 @implementation BassTestViewController
@@ -43,6 +45,7 @@
     [self.holderPlayer1 addSubview:self.scratcherViewController.view];
     self.scratcherViewController.delegate = self;
     [self.scratcherViewController setPathToAudio:path];
+    [self.scratcherViewController setArtWork:self.rotulo];
 }
 
 - (void)showMediaPicker
@@ -70,8 +73,11 @@
             NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
             
             if (artwork) {
-                [self.imgArtwork setImage:[artwork imageWithSize:CGSizeMake(55, 55)]];
-                self.scratcherViewController.artWork = [artwork imageWithSize:CGSizeMake(55, 55)];
+                self.rotulo = [artwork imageWithSize:CGSizeMake(75, 75)];
+                UIImage *mascara = [UIImage imageNamed:@"discoLabelMask"];
+                UIImage *rotuloRecortado = [self.scratcherViewController maskImage:self.rotulo withMask:mascara];
+
+//                self.rotulo = rotuloRecortado;
             }
             else {
                 debug(@"%@", artwork);
@@ -264,9 +270,8 @@ void myDeleteFile (NSString* path)
 -(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
-        
         [self obtemInformacoes:mediaItemCollection];
+        [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
     }];
 }
 

@@ -42,6 +42,9 @@
 		C27E65E81700F21900CEB57D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65E71700F21900CEB57D /* CoreMedia.framework */; };
 		C27E65EA1700F6CA00CEB57D /* audio4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C27E65E91700F6CA00CEB57D /* audio4.m4a */; };
 		C27E65ED1701C98700CEB57D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E65EC1701C98700CEB57D /* CoreAudio.framework */; };
+		C2A55A211716D7FB00A0C690 /* pickupMascaraRotulo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */; };
+		C2A55A231716E83400A0C690 /* discoLabelMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A221716E83400A0C690 /* discoLabelMask@2x.png */; };
+		C2A55A251716E8C100A0C690 /* discoLabelMask.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A241716E8C100A0C690 /* discoLabelMask.png */; };
 		C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE5C98170324890068D52F /* libbass_fx.a */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 		C2DB4352170CA77D000C0CF3 /* pickupRotuloDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DB433A170CA77D000C0CF3 /* pickupRotuloDeck@2x.png */; };
@@ -121,6 +124,9 @@
 		C27E65E91700F6CA00CEB57D /* audio4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio4.m4a; sourceTree = "<group>"; };
 		C27E65EB1700FBF600CEB57D /* bassaac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bassaac.h; sourceTree = "<group>"; };
 		C27E65EC1701C98700CEB57D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupMascaraRotulo@2x.png"; sourceTree = "<group>"; };
+		C2A55A221716E83400A0C690 /* discoLabelMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discoLabelMask@2x.png"; sourceTree = "<group>"; };
+		C2A55A241716E8C100A0C690 /* discoLabelMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discoLabelMask.png; sourceTree = "<group>"; };
 		C2AE5C9517031F2E0068D52F /* bass_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass_fx.h; sourceTree = "<group>"; };
 		C2AE5C98170324890068D52F /* libbass_fx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass_fx.a; path = BassTest/libbass_fx.a; sourceTree = "<group>"; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
@@ -181,6 +187,9 @@
 		5E328EF716FD5F99003F80A4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2A55A241716E8C100A0C690 /* discoLabelMask.png */,
+				C2A55A221716E83400A0C690 /* discoLabelMask@2x.png */,
+				C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */,
 				C2DB433A170CA77D000C0CF3 /* pickupRotuloDeck@2x.png */,
 				C2DB433B170CA77D000C0CF3 /* pickupPortraitiPhone@2x.png */,
 				C2DB433C170CA77D000C0CF3 /* pickupPortraitiPhone.png */,
@@ -407,6 +416,9 @@
 				C2DB4367170CA77D000C0CF3 /* pickupAgulhaRetrato@2x.png in Resources */,
 				C2DB4368170CA77D000C0CF3 /* pickupAgulha@2x.png in Resources */,
 				C2DB4369170CA77D000C0CF3 /* pickup@2x.png in Resources */,
+				C2A55A211716D7FB00A0C690 /* pickupMascaraRotulo@2x.png in Resources */,
+				C2A55A231716E83400A0C690 /* discoLabelMask@2x.png in Resources */,
+				C2A55A251716E8C100A0C690 /* discoLabelMask.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

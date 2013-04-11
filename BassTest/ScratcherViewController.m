@@ -142,7 +142,13 @@ struct Info
 
 -(void)setArtWork:(UIImage *)artWork
 {
-    [self.imgDisco setImage:artWork];
+    _artWork = artWork;
+    
+    [self.imgDisco setImage:_artWork];
+    
+//    [self.imgDisco setImage:[UIImage imageNamed:@"vinyl.png"]];
+    
+//    [self.imgDisco setImage:[self maskImage:_artWork withMask:[UIImage imageNamed:@"pickupMascaraRotulo"]]];
 }
 
 - (void)setPathToAudio:(NSString *)pathToAudio
@@ -223,6 +229,32 @@ struct Info
 
 #pragma mark -
 #pragma mark Metodos privados
+
+/*!
+ * Aplica uma mascara a uma imagem
+ * A mascara deve ser preta e branca exclusivamente, sem transparencia.
+ * A area preta sera usada no recorte. A branca sera descartada.
+ * @param UIImage image Imagem original
+ * @param UIImage maskImage Imagem da mascara
+ * @return UIImage Imagem mascarada
+ *
+ * @since 1.0.0
+ * @author Logics Software
+ */
+- (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)maskImage
+{
+	CGImageRef maskRef = maskImage.CGImage;
+    
+	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+	CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
+    
+	return [UIImage imageWithCGImage:masked];
+}
 
 - (void)spinWithOptions:(UIViewAnimationOptions)options
 {
@@ -362,7 +394,6 @@ struct Info
 - (void)Unpack:(NSString*)path
 {
     char* output = (char*)self.mappedMemory;
-    NSString *p = [NSString stringWithString:path];
     
     // buffer size per step for normalization
     float buf[10000];
