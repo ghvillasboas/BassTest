@@ -22,10 +22,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
+@property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 
 @property (strong, nonatomic) ScratcherViewController *scratcherViewController;
 
 @property (strong, nonatomic) Mixer *mixer;
 @property (strong, nonatomic) NSTimer *updateProgress;
+
+-(IBAction)defineVolume:(id)sender;
 
 @end

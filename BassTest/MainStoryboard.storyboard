@@ -88,32 +88,51 @@
                                 <color key="textColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="pickupFundoFader@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="FU3-Yy-OS2">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="EIp-QI-pN0"/>
+                                </constraints>
+                            </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gNA-N1-4lm">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="206" id="cSZ-OP-ue9"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="defineVolume:" destination="T4B-B6-nHV" eventType="valueChanged" id="N2f-te-bGO"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="default" id="7xj-SI-vCa"/>
                             <constraint firstItem="SPW-6D-qid" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="93c-br-FpH"/>
+                            <constraint firstAttribute="bottom" secondItem="FU3-Yy-OS2" secondAttribute="bottom" constant="7" id="9vU-RO-ZOx"/>
                             <constraint firstItem="ryE-Yy-as8" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="362" type="user" id="Bxv-v9-wAG"/>
                             <constraint firstItem="Tef-SL-XPZ" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="360" type="user" id="E4C-Kr-oau"/>
                             <constraint firstItem="XXK-GI-Guu" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="142" id="G5l-hc-w9l"/>
-                            <constraint firstAttribute="trailing" secondItem="ryE-Yy-as8" secondAttribute="trailing" constant="50" id="GJ0-FG-DCs"/>
-                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="30" id="HC6-t0-L6a"/>
-                            <constraint firstItem="8lG-5f-oH6" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="122" id="VEr-tm-iby"/>
+                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="default" id="HQ2-x9-x5l"/>
+                            <constraint firstItem="gNA-N1-4lm" firstAttribute="centerY" secondItem="FU3-Yy-OS2" secondAttribute="centerY" type="default" id="OUJ-xI-4yc"/>
                             <constraint firstItem="8lG-5f-oH6" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="63" id="YWa-bw-tqG"/>
+                            <constraint firstAttribute="trailing" secondItem="ryE-Yy-as8" secondAttribute="trailing" constant="50" id="ahP-b5-ySM"/>
                             <constraint firstAttribute="trailing" secondItem="XXK-GI-Guu" secondAttribute="trailing" constant="17" id="ceF-ME-ggo"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="124" id="dP7-fQ-2OO"/>
+                            <constraint firstItem="gNA-N1-4lm" firstAttribute="centerX" secondItem="FU3-Yy-OS2" secondAttribute="centerX" type="default" id="fqO-DQ-m3N"/>
                             <constraint firstItem="SPW-6D-qid" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="91" id="g9V-cJ-DYM"/>
                             <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iTa-iZ-So1"/>
                             <constraint firstItem="Tef-SL-XPZ" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="19" id="jtB-v9-hLB"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="default" id="kIK-wv-3qx"/>
                             <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="66" id="l37-HO-ILB"/>
+                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="default" id="l4S-Nx-cjd"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="-70" id="nfI-Db-KcL"/>
+                            <constraint firstItem="8lG-5f-oH6" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="122" id="oEh-O0-Nv6"/>
+                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="30" id="ubG-p0-vxk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="holderPlayer1" destination="X6S-Ui-hGs" id="6a7-6Z-Dsz"/>
                         <outlet property="progressLabel" destination="8lG-5f-oH6" id="tel-A9-Dqo"/>
                         <outlet property="recGeralButton" destination="XXK-GI-Guu" id="2ig-su-UOv"/>
+                        <outlet property="volumeSlider" destination="gNA-N1-4lm" id="hpe-Gf-Tkj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMP-jb-hoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -128,20 +147,19 @@
         <image name="pickupBotaoLigar-off@2x.png" width="38" height="38"/>
         <image name="pickupBotaoRec-on@2x.png" width="29" height="29"/>
         <image name="pickupDireita@2x.png" width="640" height="1136"/>
+        <image name="pickupFundoFader@2x.png" width="1136" height="87"/>
     </resources>
     <classes>
         <class className="BassTestViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BassTestViewController.h"/>
             <relationships>
-                <relationship kind="action" name="parar:"/>
-                <relationship kind="action" name="recGeral:"/>
-                <relationship kind="action" name="selecionarMusica:"/>
-                <relationship kind="action" name="tocar:"/>
+                <relationship kind="action" name="defineVolume:"/>
                 <relationship kind="outlet" name="holderPlayer1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="powerButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="progressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="recGeralButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="volumeSlider" candidateClass="UISlider"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

@@ -208,6 +208,14 @@ void myDeleteFile (NSString* path)
                                                          selector:@selector(updateDisplay:)
                                                          userInfo:nil
                                                           repeats:YES];
+    
+    UIImage *minImage = [UIImage imageNamed:@"empty"];
+    UIImage *maxImage = [UIImage imageNamed:@"empty"];
+    UIImage *tumbImage= [UIImage imageNamed:@"pickupFader"];
+    [self.volumeSlider setMinimumTrackImage:minImage forState:UIControlStateNormal];
+    [self.volumeSlider setMaximumTrackImage:maxImage forState:UIControlStateNormal];
+    [self.volumeSlider setThumbImage:tumbImage forState:UIControlStateNormal];
+    
 }
 
 #pragma mark -
@@ -215,6 +223,11 @@ void myDeleteFile (NSString* path)
 
 #pragma mark -
 #pragma mark Target/Actions
+
+-(IBAction)defineVolume:(id)sender
+{
+    self.scratcherViewController.volume = self.volumeSlider.value;
+}
 
 -(IBAction)selecionarMusica:(id)sender
 {
@@ -235,7 +248,7 @@ void myDeleteFile (NSString* path)
         }
         else {
             
-//            [self.scratcherViewController.volume = volumeSlider];
+            self.scratcherViewController.volume = self.volumeSlider.value;
             
             [self play:self.scratcherViewController];
             self.scratcherViewController.isPlaying = YES;

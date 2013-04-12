@@ -45,6 +45,7 @@
 		C2A55A211716D7FB00A0C690 /* pickupMascaraRotulo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */; };
 		C2A55A2717170AB800A0C690 /* pickupMascaraRotulo.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */; };
 		C2A55A291717126600A0C690 /* pickupRotuloDeck.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A281717126600A0C690 /* pickupRotuloDeck.png */; };
+		C2A55A301718292A00A0C690 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A2F1718292A00A0C690 /* empty.png */; };
 		C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE5C98170324890068D52F /* libbass_fx.a */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 		C2DB4352170CA77D000C0CF3 /* pickupRotuloDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DB433A170CA77D000C0CF3 /* pickupRotuloDeck@2x.png */; };
@@ -127,6 +128,7 @@
 		C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupMascaraRotulo@2x.png"; sourceTree = "<group>"; };
 		C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupMascaraRotulo.png; sourceTree = "<group>"; };
 		C2A55A281717126600A0C690 /* pickupRotuloDeck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupRotuloDeck.png; sourceTree = "<group>"; };
+		C2A55A2F1718292A00A0C690 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		C2AE5C9517031F2E0068D52F /* bass_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass_fx.h; sourceTree = "<group>"; };
 		C2AE5C98170324890068D52F /* libbass_fx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass_fx.a; path = BassTest/libbass_fx.a; sourceTree = "<group>"; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		5E328EF716FD5F99003F80A4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2A55A2F1718292A00A0C690 /* empty.png */,
 				C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */,
 				C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */,
 				C2A55A281717126600A0C690 /* pickupRotuloDeck.png */,
@@ -419,6 +422,7 @@
 				C2A55A211716D7FB00A0C690 /* pickupMascaraRotulo@2x.png in Resources */,
 				C2A55A2717170AB800A0C690 /* pickupMascaraRotulo.png in Resources */,
 				C2A55A291717126600A0C690 /* pickupRotuloDeck.png in Resources */,
+				C2A55A301718292A00A0C690 /* empty.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
