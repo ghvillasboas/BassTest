@@ -37,6 +37,7 @@
 @property (nonatomic) float volume;
 @property (nonatomic) int identificador;
 @property (nonatomic, strong) UIImage *artWork;
+@property (nonatomic) int progress;
 
 - (void)stop;
 - (void)free;

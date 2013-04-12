@@ -77,7 +77,7 @@
 						<string key="NSFrameSize">{270, 270}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="522597148"/>
+						<reference key="NSNextKeyView" ref="626135391"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -87,7 +87,7 @@
 							<string key="NSResourceName">pickupDisco@2x.png</string>
 						</object>
 					</object>
-					<object class="IBUIView" id="522597148">
+					<object class="IBUIView" id="626135391">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
 						<object class="NSMutableArray" key="NSSubviews">
@@ -98,7 +98,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="948580225"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="553746662">
+						<object class="NSColor" key="IBUIBackgroundColor" id="841184903">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -116,7 +116,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">pickupMascaraRotulo.png</string>
+							<string key="NSResourceName">pickupRotuloDeck.png</string>
 						</object>
 					</object>
 					<object class="IBUIActivityIndicatorView" id="534164319">
@@ -138,6 +138,7 @@
 						<string key="NSFrame">{{207, 212}, {28, 28}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -152,7 +153,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="925869835"/>
-				<reference key="IBUIBackgroundColor" ref="553746662"/>
+				<reference key="IBUIBackgroundColor" ref="841184903"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
@@ -216,7 +217,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">imgDisco</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="522597148"/>
+						<reference key="destination" ref="626135391"/>
 					</object>
 					<int key="connectionID">72</int>
 				</object>
@@ -253,7 +254,7 @@
 							<reference ref="571737887"/>
 							<reference ref="925869835"/>
 							<reference ref="747528530"/>
-							<reference ref="522597148"/>
+							<reference ref="626135391"/>
 							<reference ref="948580225"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -285,7 +286,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">70</int>
-						<reference key="object" ref="522597148"/>
+						<reference key="object" ref="626135391"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 						</object>
@@ -434,7 +435,7 @@
 				<string>pickupBaseGiratoriaDeck@2x.png</string>
 				<string>pickupDisco@2x.png</string>
 				<string>pickupLuzDireita@2x.png</string>
-				<string>pickupMascaraRotulo.png</string>
+				<string>pickupRotuloDeck.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

@@ -72,11 +72,15 @@
             MPMediaItemArtwork *artwork = [mediaItem valueForProperty:MPMediaItemPropertyArtwork];
             NSURL *url = [mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
             
-            if (artwork) {
+            if (artwork != nil) {
                 self.rotulo = [artwork imageWithSize:CGSizeMake(75, 75)];
+                
+                if (!self.rotulo) {
+                    self.rotulo = [UIImage imageNamed:@"pickupRotuloDeck"];
+                }
             }
             else {
-                debug(@"%@", artwork);
+                self.rotulo = [UIImage imageNamed:@"pickupRotuloDeck"];
             }
             
             NSLog(@"%@", titulo);
@@ -183,6 +187,11 @@ void myDeleteFile (NSString* path)
     }
 }
 
+-(void)updateDisplay:(NSTimer*)timer
+{
+    self.progressLabel.text = [NSString stringWithFormat:@"%u:%02u", self.scratcherViewController.progress/60, self.scratcherViewController.progress%60];
+}
+
 #pragma mark -
 #pragma mark ViewController life cycle
 
@@ -193,6 +202,12 @@ void myDeleteFile (NSString* path)
     [self.recGeralButton setEnabled:NO];
 
     self.mixer = [[Mixer alloc] init];
+    
+    self.updateProgress = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                           target:self
+                                                         selector:@selector(updateDisplay:)
+                                                         userInfo:nil
+                                                          repeats:YES];
 }
 
 #pragma mark -

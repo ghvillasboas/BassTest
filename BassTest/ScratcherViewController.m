@@ -31,6 +31,7 @@ struct Info
 } info;
 
 @interface ScratcherViewController()
+
 @property (strong, nonatomic) Scratcher* scratcher;
 @property HSTREAM handle;
 @property (strong, nonatomic) NSTimer* updateTimer;
@@ -42,7 +43,7 @@ struct Info
 @property void* mappedMemory;
 @property QWORD mappedMemorySize;
 @property double firstGetSeconds;
-@property (strong, nonatomic) NSTimer *loggerUpdaterTimer;
+
 @end
 
 @implementation ScratcherViewController
@@ -83,6 +84,13 @@ struct Info
         return BpmValue;
     }
     return 0;
+}
+
+- (int)progress
+{
+    [self.scratcher update];
+    QWORD pos = [self.scratcher getByteOffset];
+    return BASS_ChannelBytes2Seconds(self.channel, pos);
 }
 
 #pragma mark -
@@ -130,7 +138,7 @@ struct Info
     }
 }
 
--(void)setIsLoaded:(BOOL)isLoaded
+- (void)setIsLoaded:(BOOL)isLoaded
 {
     _isLoaded = isLoaded;
     
@@ -140,15 +148,10 @@ struct Info
     }
 }
 
--(void)setArtWork:(UIImage *)artWork
+- (void)setArtWork:(UIImage *)artWork
 {
     _artWork = artWork;
-    
-    [self.imgDisco setImage:_artWork];
-    
-//    [self.imgDisco setImage:[UIImage imageNamed:@"vinyl.png"]];
-    
-//    [self.imgDisco setImage:[self maskImage:_artWork withMask:[UIImage imageNamed:@"pickupMascaraRotulo"]]];
+    [self.imgRotulo setImage:[self maskImage:_artWork withMask:[UIImage imageNamed:@"pickupMascaraRotulo"]]];
 }
 
 - (void)setPathToAudio:(NSString *)pathToAudio
@@ -190,7 +193,7 @@ struct Info
     
     [self.loadingSpin setHidden:NO];
     [self.loadingSpin startAnimating];
-
+    
     dispatch_queue_t unpackQueue = dispatch_queue_create("FILA UNPACK", NULL);
     dispatch_async(unpackQueue, ^{
         [self Unpack:self.pathToAudio];
@@ -268,7 +271,7 @@ struct Info
                          if (finished) {
                              if (self.animating) {
                                  [self spinWithOptions: UIViewAnimationOptionCurveLinear];
-                             } 
+                             }
                          }
                      }];
 }
@@ -294,7 +297,7 @@ struct Info
                          self.imgDeck.transform = CGAffineTransformRotate(self.imgDeck.transform, M_PI / 4);
                      }
                      completion: ^(BOOL finished) {
-                     }];    
+                     }];
 }
 
 /*!
@@ -371,15 +374,6 @@ struct Info
     self.isPlaying = NO;
     self.isLoaded = NO;
     self.animating = NO;
-    
-    if (!self.loggerUpdaterTimer) {
-        // apenas para evitar que seja chamada multiplas vezes
-        self.loggerUpdaterTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                                                   target:self
-                                                                 selector:@selector(updateTimer:)
-                                                                 userInfo:nil
-                                                                  repeats:YES];
-    }
 }
 
 /*!
@@ -480,18 +474,7 @@ struct Info
 	
 	CGAffineTransform t = CGAffineTransformIdentity;
     t = CGAffineTransformRotate(t, offset);
-	self.imgDisco.transform = t;
-}
-
-- (void)updateTimer:(NSTimer *)timer
-{
-//    [self.scratcher update];
-//    QWORD pos = [self.scratcher getByteOffset];
-//    int time = BASS_ChannelBytes2Seconds(self.channel, pos);
-//    
-//    self.loggerTime.text = [NSString stringWithFormat:@"Lido: %llu bytes\nTempo total: %u:%02u CPU: %.2f",
-//                            pos, time/60, time%60, BASS_GetCPU()];
-//    self.displayLabel.text = [NSString stringWithFormat:@"%u:%02u", time/60, time%60];
+	self.imgRotulo.transform = t;
 }
 
 #pragma mark -
@@ -499,10 +482,11 @@ struct Info
 
 - (void)viewDidLoad
 {
-	// init timer
+    [super viewDidLoad];
+    
+    // init timer
 	[self.updateTimer invalidate];
 	self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 30.0f target:self selector:@selector(update:) userInfo:nil repeats:YES];
-    [super viewDidLoad];
     
     [self.loadingSpin stopAnimating];
     [self.loadingSpin setHidden:YES];
@@ -526,7 +510,7 @@ struct Info
 
 - (BOOL)circuloContemPonto:(CGPoint)ponto noCentro:(CGPoint)centro comRaio:(float)raio
 {
-    return powf((ponto.x - centro.x), 2) + powf((ponto.y - centro.y), 2) <= powf(raio, 2);    
+    return powf((ponto.x - centro.x), 2) + powf((ponto.y - centro.y), 2) <= powf(raio, 2);
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -535,7 +519,7 @@ struct Info
     CGPoint position = [touch locationInView:self.view];
     
     if ([self circuloContemPonto:position noCentro:self.imgDisco.center comRaio:self.imgDisco.bounds.size.width/2]) {
-
+        
         self.prevAngle = NAN;
         self.initialScratchPosition = [self.scratcher getByteOffset];
         self.angleAccum = 0.0f;
@@ -560,7 +544,7 @@ struct Info
     CGPoint position = [touch locationInView:self.view];
     
     if ([self circuloContemPonto:position noCentro:self.imgDisco.center comRaio:self.imgDisco.bounds.size.width/2]) {
-    
+        
         float offsetX = self.imgDisco.center.x;
         float offsetY = self.imgDisco.center.y;
         

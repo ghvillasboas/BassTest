@@ -79,28 +79,40 @@
                                     <action selector="selecionarMusica:" destination="T4B-B6-nHV" eventType="touchUpInside" id="BFp-jW-QT6"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lG-5f-oH6">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="bch-gs-gBM"/>
+                                    <constraint firstAttribute="width" constant="85" id="xYp-vD-0L9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="default" id="7xj-SI-vCa"/>
                             <constraint firstItem="SPW-6D-qid" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="93c-br-FpH"/>
-                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="29" id="9Jd-gM-WAK"/>
                             <constraint firstItem="ryE-Yy-as8" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="362" type="user" id="Bxv-v9-wAG"/>
                             <constraint firstItem="Tef-SL-XPZ" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="360" type="user" id="E4C-Kr-oau"/>
                             <constraint firstItem="XXK-GI-Guu" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="142" id="G5l-hc-w9l"/>
                             <constraint firstAttribute="trailing" secondItem="ryE-Yy-as8" secondAttribute="trailing" constant="50" id="GJ0-FG-DCs"/>
-                            <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="67" id="RLL-xx-QoI"/>
+                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="30" id="HC6-t0-L6a"/>
+                            <constraint firstItem="8lG-5f-oH6" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="122" id="VEr-tm-iby"/>
+                            <constraint firstItem="8lG-5f-oH6" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="63" id="YWa-bw-tqG"/>
                             <constraint firstAttribute="trailing" secondItem="XXK-GI-Guu" secondAttribute="trailing" constant="17" id="ceF-ME-ggo"/>
-                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="123" id="epJ-Mc-hQO"/>
+                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="124" id="dP7-fQ-2OO"/>
+                            <constraint firstItem="SPW-6D-qid" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="91" id="g9V-cJ-DYM"/>
+                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iTa-iZ-So1"/>
                             <constraint firstItem="Tef-SL-XPZ" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="19" id="jtB-v9-hLB"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="default" id="kIK-wv-3qx"/>
+                            <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="66" id="l37-HO-ILB"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="-70" id="nfI-Db-KcL"/>
-                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="21" id="sQ5-CA-zaf"/>
-                            <constraint firstItem="SPW-6D-qid" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="91" id="sSq-Ob-ta1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="holderPlayer1" destination="X6S-Ui-hGs" id="6a7-6Z-Dsz"/>
+                        <outlet property="progressLabel" destination="8lG-5f-oH6" id="tel-A9-Dqo"/>
                         <outlet property="recGeralButton" destination="XXK-GI-Guu" id="2ig-su-UOv"/>
                     </connections>
                 </viewController>
@@ -127,6 +139,7 @@
                 <relationship kind="action" name="tocar:"/>
                 <relationship kind="outlet" name="holderPlayer1" candidateClass="UIView"/>
                 <relationship kind="outlet" name="powerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="progressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="recGeralButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectButton" candidateClass="UIButton"/>
             </relationships>

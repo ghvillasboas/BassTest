@@ -21,9 +21,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *recGeralButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @property (strong, nonatomic) ScratcherViewController *scratcherViewController;
 
 @property (strong, nonatomic) Mixer *mixer;
+@property (strong, nonatomic) NSTimer *updateProgress;
 
 @end
