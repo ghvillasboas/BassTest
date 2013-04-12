@@ -9,52 +9,44 @@
             <objects>
                 <viewController id="T4B-B6-nHV" customClass="BassTestViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PEs-h9-oNV">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="pickupDireita@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="OLU-9i-iYl">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="568" id="Rtn-B8-8tG"/>
-                                </constraints>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="pickupDireita.png" translatesAutoresizingMaskIntoConstraints="NO" id="OLU-9i-iYl"/>
                             <button opaque="NO" alpha="0.20000000298023224" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXK-GI-Guu">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="Lir-73-3wx"/>
-                                    <constraint firstAttribute="width" constant="16" id="Sni-GE-6Vr"/>
+                                    <constraint firstAttribute="width" constant="32" id="296-MD-Zu9"/>
+                                    <constraint firstAttribute="height" constant="32" id="INP-Vc-Jvo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="pickupBotaoRec-on@2x.png">
+                                <state key="normal" title="Button" image="pickupBotaoRec-off.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="pickupBotaoAdicionarMusica-on@2x.png"/>
-                                <state key="highlighted" image="pickupBotaoAdicionarMusica-on@2x.png">
+                                <state key="selected" image="pickupBotaoRec-on.png"/>
+                                <state key="highlighted" image="pickupBotaoRec-on.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="recGeral:" destination="T4B-B6-nHV" eventType="touchUpInside" id="FoZ-Rp-nBq"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6S-Ui-hGs">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6S-Ui-hGs">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pickupAgulhaRetrato@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="SPW-6D-qid">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="137" id="doh-EA-U8j"/>
-                                    <constraint firstAttribute="width" constant="192" id="lpv-w7-njw"/>
-                                </constraints>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pickupAgulhaRetrato.png" translatesAutoresizingMaskIntoConstraints="NO" id="SPW-6D-qid"/>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryE-Yy-as8">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" type="user" id="4m9-EZ-34T"/>
-                                    <constraint firstAttribute="width" constant="18" id="V4q-iw-iyg"/>
+                                    <constraint firstAttribute="height" constant="32" type="user" id="0dm-Ir-dAr"/>
+                                    <constraint firstAttribute="width" constant="32" type="user" id="fRJ-UY-qjI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="pickupBotaoLigar-off@2x.png">
+                                <state key="normal" title="Button" image="pickupBotaoLigar-off.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="selected" image="pickupBotaoLigar-on.png"/>
+                                <state key="highlighted" image="pickupBotaoLigar-on.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -63,39 +55,35 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tef-SL-XPZ">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="185-cj-KGN"/>
                                     <constraint firstAttribute="height" constant="32" type="user" id="Frq-bb-pu9"/>
+                                    <constraint firstAttribute="width" constant="32" type="user" id="Su0-kb-MbP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="pickupBotaoAdicionarMusica-off@2x.png">
+                                <state key="normal" title="Button" image="pickupBotaoAdicionarMusica-off.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="pickupBotaoAdicionarMusica-on@2x.png"/>
-                                <state key="highlighted" image="pickupBotaoAdicionarMusica-on@2x.png">
+                                <state key="selected" image="pickupBotaoAdicionarMusica-on.png"/>
+                                <state key="highlighted" image="pickupBotaoAdicionarMusica-on.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="selecionarMusica:" destination="T4B-B6-nHV" eventType="touchUpInside" id="BFp-jW-QT6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lG-5f-oH6">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="05:27" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lG-5f-oH6">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="bch-gs-gBM"/>
                                     <constraint firstAttribute="width" constant="85" id="xYp-vD-0L9"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="pickupFundoFader@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="FU3-Yy-OS2">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="EIp-QI-pN0"/>
-                                </constraints>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="pickupFundoFader.png" translatesAutoresizingMaskIntoConstraints="NO" id="FU3-Yy-OS2"/>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gNA-N1-4lm">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="206" id="cSZ-OP-ue9"/>
+                                    <constraint firstAttribute="width" constant="206" type="user" id="cSZ-OP-ue9"/>
                                 </constraints>
                                 <connections>
                                     <action selector="defineVolume:" destination="T4B-B6-nHV" eventType="valueChanged" id="N2f-te-bGO"/>
@@ -104,34 +92,38 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Tef-SL-XPZ" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="364" type="user" id="0QC-FR-A46"/>
+                            <constraint firstAttribute="trailing" secondItem="ryE-Yy-as8" secondAttribute="trailing" constant="38" id="7MG-2S-aRe"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="default" id="7xj-SI-vCa"/>
                             <constraint firstItem="SPW-6D-qid" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="93c-br-FpH"/>
+                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="34" id="9Qk-iR-DW2"/>
                             <constraint firstAttribute="bottom" secondItem="FU3-Yy-OS2" secondAttribute="bottom" constant="7" id="9vU-RO-ZOx"/>
-                            <constraint firstItem="ryE-Yy-as8" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="362" type="user" id="Bxv-v9-wAG"/>
-                            <constraint firstItem="Tef-SL-XPZ" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="360" type="user" id="E4C-Kr-oau"/>
-                            <constraint firstItem="XXK-GI-Guu" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="142" id="G5l-hc-w9l"/>
-                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="default" id="HQ2-x9-x5l"/>
+                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="22" id="Ewe-Dd-XKp"/>
+                            <constraint firstItem="XXK-GI-Guu" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="134" id="G23-On-LKZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Tef-SL-XPZ" secondAttribute="bottom" constant="152" type="user" id="Gf7-wF-bXJ"/>
+                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="user" id="HQ2-x9-x5l"/>
+                            <constraint firstItem="Tef-SL-XPZ" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="21" id="OBg-Ld-j0O"/>
                             <constraint firstItem="gNA-N1-4lm" firstAttribute="centerY" secondItem="FU3-Yy-OS2" secondAttribute="centerY" type="default" id="OUJ-xI-4yc"/>
+                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="130" id="UcR-HM-x6g"/>
+                            <constraint firstAttribute="trailing" secondItem="XXK-GI-Guu" secondAttribute="trailing" constant="8" id="V2M-7w-50p"/>
+                            <constraint firstItem="ryE-Yy-as8" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="360" type="user" id="Xlj-mE-A0c"/>
                             <constraint firstItem="8lG-5f-oH6" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="63" id="YWa-bw-tqG"/>
-                            <constraint firstAttribute="trailing" secondItem="ryE-Yy-as8" secondAttribute="trailing" constant="50" id="ahP-b5-ySM"/>
-                            <constraint firstAttribute="trailing" secondItem="XXK-GI-Guu" secondAttribute="trailing" constant="17" id="ceF-ME-ggo"/>
-                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="124" id="dP7-fQ-2OO"/>
-                            <constraint firstItem="gNA-N1-4lm" firstAttribute="centerX" secondItem="FU3-Yy-OS2" secondAttribute="centerX" type="default" id="fqO-DQ-m3N"/>
+                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="centerX" secondItem="gNA-N1-4lm" secondAttribute="centerX" type="default" id="dr1-dv-yuj"/>
+                            <constraint firstAttribute="bottom" secondItem="ryE-Yy-as8" secondAttribute="bottom" constant="156" type="user" id="ehc-ti-L7V"/>
                             <constraint firstItem="SPW-6D-qid" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="91" id="g9V-cJ-DYM"/>
-                            <constraint firstItem="X6S-Ui-hGs" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iTa-iZ-So1"/>
-                            <constraint firstItem="Tef-SL-XPZ" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="19" id="jtB-v9-hLB"/>
-                            <constraint firstItem="OLU-9i-iYl" firstAttribute="trailing" secondItem="PEs-h9-oNV" secondAttribute="trailing" type="default" id="kIK-wv-3qx"/>
-                            <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="66" id="l37-HO-ILB"/>
-                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="default" id="l4S-Nx-cjd"/>
+                            <constraint firstItem="ryE-Yy-as8" firstAttribute="baseline" secondItem="Tef-SL-XPZ" secondAttribute="baseline" type="default" id="k5l-2E-9Km"/>
+                            <constraint firstItem="FU3-Yy-OS2" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" type="user" id="l4S-Nx-cjd"/>
                             <constraint firstItem="OLU-9i-iYl" firstAttribute="top" secondItem="PEs-h9-oNV" secondAttribute="top" constant="-70" id="nfI-Db-KcL"/>
                             <constraint firstItem="8lG-5f-oH6" firstAttribute="leading" secondItem="PEs-h9-oNV" secondAttribute="leading" constant="122" id="oEh-O0-Nv6"/>
-                            <constraint firstAttribute="trailing" secondItem="X6S-Ui-hGs" secondAttribute="trailing" constant="30" id="ubG-p0-vxk"/>
+                            <constraint firstAttribute="bottom" secondItem="X6S-Ui-hGs" secondAttribute="bottom" constant="154" id="rfx-8s-O1s"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="holderPlayer1" destination="X6S-Ui-hGs" id="6a7-6Z-Dsz"/>
+                        <outlet property="powerButton" destination="ryE-Yy-as8" id="B9y-Jj-IXH"/>
                         <outlet property="progressLabel" destination="8lG-5f-oH6" id="tel-A9-Dqo"/>
                         <outlet property="recGeralButton" destination="XXK-GI-Guu" id="2ig-su-UOv"/>
+                        <outlet property="selectButton" destination="Tef-SL-XPZ" id="7uL-ge-FmL"/>
                         <outlet property="volumeSlider" destination="gNA-N1-4lm" id="hpe-Gf-Tkj"/>
                     </connections>
                 </viewController>
@@ -141,13 +133,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pickupAgulhaRetrato@2x.png" width="384" height="274"/>
-        <image name="pickupBotaoAdicionarMusica-off@2x.png" width="64" height="64"/>
-        <image name="pickupBotaoAdicionarMusica-on@2x.png" width="64" height="64"/>
-        <image name="pickupBotaoLigar-off@2x.png" width="38" height="38"/>
-        <image name="pickupBotaoRec-on@2x.png" width="29" height="29"/>
-        <image name="pickupDireita@2x.png" width="640" height="1136"/>
-        <image name="pickupFundoFader@2x.png" width="1136" height="87"/>
+        <image name="pickupAgulhaRetrato.png" width="192" height="137"/>
+        <image name="pickupBotaoAdicionarMusica-off.png" width="32" height="32"/>
+        <image name="pickupBotaoAdicionarMusica-on.png" width="32" height="32"/>
+        <image name="pickupBotaoLigar-off.png" width="32" height="32"/>
+        <image name="pickupBotaoLigar-on.png" width="32" height="32"/>
+        <image name="pickupBotaoRec-off.png" width="64" height="64"/>
+        <image name="pickupBotaoRec-on.png" width="32" height="32"/>
+        <image name="pickupDireita.png" width="320" height="568"/>
+        <image name="pickupFundoFader.png" width="568" height="44"/>
     </resources>
     <classes>
         <class className="BassTestViewController" superclassName="UIViewController">
@@ -169,6 +163,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>

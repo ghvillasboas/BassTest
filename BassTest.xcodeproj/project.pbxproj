@@ -46,6 +46,25 @@
 		C2A55A2717170AB800A0C690 /* pickupMascaraRotulo.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */; };
 		C2A55A291717126600A0C690 /* pickupRotuloDeck.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A281717126600A0C690 /* pickupRotuloDeck.png */; };
 		C2A55A301718292A00A0C690 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A2F1718292A00A0C690 /* empty.png */; };
+		C2A55A3617182D1B00A0C690 /* pickupBotaoRec-off.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3117182D1B00A0C690 /* pickupBotaoRec-off.png */; };
+		C2A55A3717182D1B00A0C690 /* pickupBotaoRec-on.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3217182D1B00A0C690 /* pickupBotaoRec-on.png */; };
+		C2A55A3817182D1B00A0C690 /* pickupBotaoRec-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3317182D1B00A0C690 /* pickupBotaoRec-off@2x.png */; };
+		C2A55A3917182D1B00A0C690 /* pickupBotaoLigar-on.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3417182D1B00A0C690 /* pickupBotaoLigar-on.png */; };
+		C2A55A3A17182D1B00A0C690 /* pickupBotaoLigar-off.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3517182D1B00A0C690 /* pickupBotaoLigar-off.png */; };
+		C2A55A491718377F00A0C690 /* pickupAgulhaRetrato.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3B1718377F00A0C690 /* pickupAgulhaRetrato.png */; };
+		C2A55A4A1718377F00A0C690 /* pickupEsquerda.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3C1718377F00A0C690 /* pickupEsquerda.png */; };
+		C2A55A4B1718377F00A0C690 /* pickupDireita.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3D1718377F00A0C690 /* pickupDireita.png */; };
+		C2A55A4C1718377F00A0C690 /* pickupFundoFader.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3E1718377F00A0C690 /* pickupFundoFader.png */; };
+		C2A55A4D1718377F00A0C690 /* pickupBotaoAdicionarMusica-on.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A3F1718377F00A0C690 /* pickupBotaoAdicionarMusica-on.png */; };
+		C2A55A4E1718377F00A0C690 /* pickup.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A401718377F00A0C690 /* pickup.png */; };
+		C2A55A4F1718377F00A0C690 /* pickupLuzEsquerda.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A411718377F00A0C690 /* pickupLuzEsquerda.png */; };
+		C2A55A501718377F00A0C690 /* pickupLuzDireita.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A421718377F00A0C690 /* pickupLuzDireita.png */; };
+		C2A55A511718377F00A0C690 /* pickupAgulha.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A431718377F00A0C690 /* pickupAgulha.png */; };
+		C2A55A521718377F00A0C690 /* pickupFader.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A441718377F00A0C690 /* pickupFader.png */; };
+		C2A55A531718377F00A0C690 /* pickupBotaoAdicionarMusica-off.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A451718377F00A0C690 /* pickupBotaoAdicionarMusica-off.png */; };
+		C2A55A541718377F00A0C690 /* pickupBaseGiratoriaDeck.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A461718377F00A0C690 /* pickupBaseGiratoriaDeck.png */; };
+		C2A55A551718377F00A0C690 /* pickupDisco.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A471718377F00A0C690 /* pickupDisco.png */; };
+		C2A55A561718377F00A0C690 /* pickupBaseFixaDeck.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A55A481718377F00A0C690 /* pickupBaseFixaDeck.png */; };
 		C2AE5C99170324890068D52F /* libbass_fx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AE5C98170324890068D52F /* libbass_fx.a */; };
 		C2CD169B1702214E00B68B0F /* audio3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C2CD169A1702214E00B68B0F /* audio3.m4a */; };
 		C2DB4352170CA77D000C0CF3 /* pickupRotuloDeck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DB433A170CA77D000C0CF3 /* pickupRotuloDeck@2x.png */; };
@@ -129,6 +148,25 @@
 		C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupMascaraRotulo.png; sourceTree = "<group>"; };
 		C2A55A281717126600A0C690 /* pickupRotuloDeck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupRotuloDeck.png; sourceTree = "<group>"; };
 		C2A55A2F1718292A00A0C690 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		C2A55A3117182D1B00A0C690 /* pickupBotaoRec-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoRec-off.png"; sourceTree = "<group>"; };
+		C2A55A3217182D1B00A0C690 /* pickupBotaoRec-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoRec-on.png"; sourceTree = "<group>"; };
+		C2A55A3317182D1B00A0C690 /* pickupBotaoRec-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoRec-off@2x.png"; sourceTree = "<group>"; };
+		C2A55A3417182D1B00A0C690 /* pickupBotaoLigar-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoLigar-on.png"; sourceTree = "<group>"; };
+		C2A55A3517182D1B00A0C690 /* pickupBotaoLigar-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoLigar-off.png"; sourceTree = "<group>"; };
+		C2A55A3B1718377F00A0C690 /* pickupAgulhaRetrato.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupAgulhaRetrato.png; sourceTree = "<group>"; };
+		C2A55A3C1718377F00A0C690 /* pickupEsquerda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupEsquerda.png; sourceTree = "<group>"; };
+		C2A55A3D1718377F00A0C690 /* pickupDireita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupDireita.png; sourceTree = "<group>"; };
+		C2A55A3E1718377F00A0C690 /* pickupFundoFader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupFundoFader.png; sourceTree = "<group>"; };
+		C2A55A3F1718377F00A0C690 /* pickupBotaoAdicionarMusica-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoAdicionarMusica-on.png"; sourceTree = "<group>"; };
+		C2A55A401718377F00A0C690 /* pickup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickup.png; sourceTree = "<group>"; };
+		C2A55A411718377F00A0C690 /* pickupLuzEsquerda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupLuzEsquerda.png; sourceTree = "<group>"; };
+		C2A55A421718377F00A0C690 /* pickupLuzDireita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupLuzDireita.png; sourceTree = "<group>"; };
+		C2A55A431718377F00A0C690 /* pickupAgulha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupAgulha.png; sourceTree = "<group>"; };
+		C2A55A441718377F00A0C690 /* pickupFader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupFader.png; sourceTree = "<group>"; };
+		C2A55A451718377F00A0C690 /* pickupBotaoAdicionarMusica-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pickupBotaoAdicionarMusica-off.png"; sourceTree = "<group>"; };
+		C2A55A461718377F00A0C690 /* pickupBaseGiratoriaDeck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupBaseGiratoriaDeck.png; sourceTree = "<group>"; };
+		C2A55A471718377F00A0C690 /* pickupDisco.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupDisco.png; sourceTree = "<group>"; };
+		C2A55A481718377F00A0C690 /* pickupBaseFixaDeck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pickupBaseFixaDeck.png; sourceTree = "<group>"; };
 		C2AE5C9517031F2E0068D52F /* bass_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bass_fx.h; sourceTree = "<group>"; };
 		C2AE5C98170324890068D52F /* libbass_fx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbass_fx.a; path = BassTest/libbass_fx.a; sourceTree = "<group>"; };
 		C2CD169A1702214E00B68B0F /* audio3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = audio3.m4a; sourceTree = "<group>"; };
@@ -190,33 +228,52 @@
 			isa = PBXGroup;
 			children = (
 				C2A55A2F1718292A00A0C690 /* empty.png */,
+				C2A55A401718377F00A0C690 /* pickup.png */,
+				C2DB4351170CA77D000C0CF3 /* pickup@2x.png */,
+				C2A55A431718377F00A0C690 /* pickupAgulha.png */,
+				C2DB4350170CA77D000C0CF3 /* pickupAgulha@2x.png */,
+				C2A55A3B1718377F00A0C690 /* pickupAgulhaRetrato.png */,
+				C2DB434F170CA77D000C0CF3 /* pickupAgulhaRetrato@2x.png */,
+				C2A55A481718377F00A0C690 /* pickupBaseFixaDeck.png */,
+				C2DB434E170CA77D000C0CF3 /* pickupBaseFixaDeck@2x.png */,
+				C2A55A461718377F00A0C690 /* pickupBaseGiratoriaDeck.png */,
+				C2DB434D170CA77D000C0CF3 /* pickupBaseGiratoriaDeck@2x.png */,
+				C2A55A451718377F00A0C690 /* pickupBotaoAdicionarMusica-off.png */,
+				C2DB434C170CA77D000C0CF3 /* pickupBotaoAdicionarMusica-off@2x.png */,
+				C2A55A3F1718377F00A0C690 /* pickupBotaoAdicionarMusica-on.png */,
+				C2DB434B170CA77D000C0CF3 /* pickupBotaoAdicionarMusica-on@2x.png */,
+				C2A55A3517182D1B00A0C690 /* pickupBotaoLigar-off.png */,
+				C2DB434A170CA77D000C0CF3 /* pickupBotaoLigar-off@2x.png */,
+				C2A55A3417182D1B00A0C690 /* pickupBotaoLigar-on.png */,
+				C2DB4349170CA77D000C0CF3 /* pickupBotaoLigar-on@2x.png */,
+				C2A55A3117182D1B00A0C690 /* pickupBotaoRec-off.png */,
+				C2A55A3317182D1B00A0C690 /* pickupBotaoRec-off@2x.png */,
+				C2A55A3217182D1B00A0C690 /* pickupBotaoRec-on.png */,
+				C2DB4348170CA77D000C0CF3 /* pickupBotaoRec-on@2x.png */,
+				C2DB4347170CA77D000C0CF3 /* pickupDeck.png */,
+				C2DB4346170CA77D000C0CF3 /* pickupDeck@2x.png */,
+				C2A55A3D1718377F00A0C690 /* pickupDireita.png */,
+				C2DB4345170CA77D000C0CF3 /* pickupDireita@2x.png */,
+				C2A55A471718377F00A0C690 /* pickupDisco.png */,
+				C2DB4344170CA77D000C0CF3 /* pickupDisco@2x.png */,
+				C2A55A3C1718377F00A0C690 /* pickupEsquerda.png */,
+				C2DB4343170CA77D000C0CF3 /* pickupEsquerda@2x.png */,
+				C2A55A441718377F00A0C690 /* pickupFader.png */,
+				C2DB4342170CA77D000C0CF3 /* pickupFader@2x.png */,
+				C2A55A3E1718377F00A0C690 /* pickupFundoFader.png */,
+				C2DB4341170CA77D000C0CF3 /* pickupFundoFader@2x.png */,
+				C2DB4340170CA77D000C0CF3 /* pickupLandscapeiPhone.png */,
+				C2DB433F170CA77D000C0CF3 /* pickupLandscapeiPhone@2x.png */,
+				C2A55A421718377F00A0C690 /* pickupLuzDireita.png */,
+				C2DB433E170CA77D000C0CF3 /* pickupLuzDireita@2x.png */,
+				C2A55A411718377F00A0C690 /* pickupLuzEsquerda.png */,
+				C2DB433D170CA77D000C0CF3 /* pickupLuzEsquerda@2x.png */,
 				C2A55A2617170AB800A0C690 /* pickupMascaraRotulo.png */,
 				C2A55A201716D7FB00A0C690 /* pickupMascaraRotulo@2x.png */,
+				C2DB433C170CA77D000C0CF3 /* pickupPortraitiPhone.png */,
+				C2DB433B170CA77D000C0CF3 /* pickupPortraitiPhone@2x.png */,
 				C2A55A281717126600A0C690 /* pickupRotuloDeck.png */,
 				C2DB433A170CA77D000C0CF3 /* pickupRotuloDeck@2x.png */,
-				C2DB433B170CA77D000C0CF3 /* pickupPortraitiPhone@2x.png */,
-				C2DB433C170CA77D000C0CF3 /* pickupPortraitiPhone.png */,
-				C2DB433D170CA77D000C0CF3 /* pickupLuzEsquerda@2x.png */,
-				C2DB433E170CA77D000C0CF3 /* pickupLuzDireita@2x.png */,
-				C2DB433F170CA77D000C0CF3 /* pickupLandscapeiPhone@2x.png */,
-				C2DB4340170CA77D000C0CF3 /* pickupLandscapeiPhone.png */,
-				C2DB4341170CA77D000C0CF3 /* pickupFundoFader@2x.png */,
-				C2DB4342170CA77D000C0CF3 /* pickupFader@2x.png */,
-				C2DB4343170CA77D000C0CF3 /* pickupEsquerda@2x.png */,
-				C2DB4344170CA77D000C0CF3 /* pickupDisco@2x.png */,
-				C2DB4345170CA77D000C0CF3 /* pickupDireita@2x.png */,
-				C2DB4346170CA77D000C0CF3 /* pickupDeck@2x.png */,
-				C2DB4347170CA77D000C0CF3 /* pickupDeck.png */,
-				C2DB4348170CA77D000C0CF3 /* pickupBotaoRec-on@2x.png */,
-				C2DB4349170CA77D000C0CF3 /* pickupBotaoLigar-on@2x.png */,
-				C2DB434A170CA77D000C0CF3 /* pickupBotaoLigar-off@2x.png */,
-				C2DB434B170CA77D000C0CF3 /* pickupBotaoAdicionarMusica-on@2x.png */,
-				C2DB434C170CA77D000C0CF3 /* pickupBotaoAdicionarMusica-off@2x.png */,
-				C2DB434D170CA77D000C0CF3 /* pickupBaseGiratoriaDeck@2x.png */,
-				C2DB434E170CA77D000C0CF3 /* pickupBaseFixaDeck@2x.png */,
-				C2DB434F170CA77D000C0CF3 /* pickupAgulhaRetrato@2x.png */,
-				C2DB4350170CA77D000C0CF3 /* pickupAgulha@2x.png */,
-				C2DB4351170CA77D000C0CF3 /* pickup@2x.png */,
 				5E328EF816FD5FA2003F80A4 /* vinyl.png */,
 			);
 			name = Images;
@@ -423,6 +480,25 @@
 				C2A55A2717170AB800A0C690 /* pickupMascaraRotulo.png in Resources */,
 				C2A55A291717126600A0C690 /* pickupRotuloDeck.png in Resources */,
 				C2A55A301718292A00A0C690 /* empty.png in Resources */,
+				C2A55A3617182D1B00A0C690 /* pickupBotaoRec-off.png in Resources */,
+				C2A55A3717182D1B00A0C690 /* pickupBotaoRec-on.png in Resources */,
+				C2A55A3817182D1B00A0C690 /* pickupBotaoRec-off@2x.png in Resources */,
+				C2A55A3917182D1B00A0C690 /* pickupBotaoLigar-on.png in Resources */,
+				C2A55A3A17182D1B00A0C690 /* pickupBotaoLigar-off.png in Resources */,
+				C2A55A491718377F00A0C690 /* pickupAgulhaRetrato.png in Resources */,
+				C2A55A4A1718377F00A0C690 /* pickupEsquerda.png in Resources */,
+				C2A55A4B1718377F00A0C690 /* pickupDireita.png in Resources */,
+				C2A55A4C1718377F00A0C690 /* pickupFundoFader.png in Resources */,
+				C2A55A4D1718377F00A0C690 /* pickupBotaoAdicionarMusica-on.png in Resources */,
+				C2A55A4E1718377F00A0C690 /* pickup.png in Resources */,
+				C2A55A4F1718377F00A0C690 /* pickupLuzEsquerda.png in Resources */,
+				C2A55A501718377F00A0C690 /* pickupLuzDireita.png in Resources */,
+				C2A55A511718377F00A0C690 /* pickupAgulha.png in Resources */,
+				C2A55A521718377F00A0C690 /* pickupFader.png in Resources */,
+				C2A55A531718377F00A0C690 /* pickupBotaoAdicionarMusica-off.png in Resources */,
+				C2A55A541718377F00A0C690 /* pickupBaseGiratoriaDeck.png in Resources */,
+				C2A55A551718377F00A0C690 /* pickupDisco.png in Resources */,
+				C2A55A561718377F00A0C690 /* pickupBaseFixaDeck.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

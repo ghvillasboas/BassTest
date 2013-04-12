@@ -40,19 +40,21 @@
         [self.scratcherViewController free];
         self.scratcherViewController = nil;
     }
-    self.scratcherViewController = [[ScratcherViewController alloc] init];
+    self.scratcherViewController = [[ScratcherViewController alloc] initWithFrame:self.holderPlayer1.frame];
     [self addChildViewController:self.scratcherViewController];
     [self.holderPlayer1 addSubview:self.scratcherViewController.view];
     self.scratcherViewController.delegate = self;
     [self.scratcherViewController setPathToAudio:path];
     [self.scratcherViewController setArtWork:self.rotulo];
+    
+    [self.selectButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-on"] forState:UIControlStateNormal];
 }
 
 - (void)showMediaPicker
 {
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
 
-    [[picker view] setFrame:CGRectMake(0, 0, 320, 480)];
+    [[picker view] setFrame:self.view.frame];
 
     picker.delegate = self;
     picker.allowsPickingMultipleItems = NO;
@@ -189,7 +191,7 @@ void myDeleteFile (NSString* path)
 
 -(void)updateDisplay:(NSTimer*)timer
 {
-    self.progressLabel.text = [NSString stringWithFormat:@"%u:%02u", self.scratcherViewController.progress/60, self.scratcherViewController.progress%60];
+    self.progressLabel.text = [NSString stringWithFormat:@"%02u:%02u", self.scratcherViewController.progress/60, self.scratcherViewController.progress%60];
 }
 
 #pragma mark -
@@ -215,6 +217,9 @@ void myDeleteFile (NSString* path)
     [self.volumeSlider setMinimumTrackImage:minImage forState:UIControlStateNormal];
     [self.volumeSlider setMaximumTrackImage:maxImage forState:UIControlStateNormal];
     [self.volumeSlider setThumbImage:tumbImage forState:UIControlStateNormal];
+    
+    [self.selectButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-off"] forState:UIControlStateNormal];
+    [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
     
 }
 
@@ -243,7 +248,7 @@ void myDeleteFile (NSString* path)
             self.scratcherViewController.isPlaying = NO;
             self.scratcherViewController.isOn = NO;
             
-            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
+            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
 
         }
         else {
@@ -254,7 +259,7 @@ void myDeleteFile (NSString* path)
             self.scratcherViewController.isPlaying = YES;
             self.scratcherViewController.isOn = YES;
 
-            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-off"] forState:UIControlStateNormal];
+            [self.powerButton setImage:[UIImage imageNamed:@"pickupBotaoLigar-on"] forState:UIControlStateNormal];
         }
     }
     else {
@@ -296,6 +301,8 @@ void myDeleteFile (NSString* path)
     [self dismissViewControllerAnimated:YES completion:^{
         [self obtemInformacoes:mediaItemCollection];
         [self exportAssetAsSourceFormat:[[mediaItemCollection items] objectAtIndex:0]];
+        
+        [self.selectButton setImage:[UIImage imageNamed:@"pickupBotaoAdicionarMusica-on"] forState:UIControlStateNormal];
     }];
 }
 

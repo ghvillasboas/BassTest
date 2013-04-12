@@ -206,6 +206,16 @@ struct Info
 #pragma mark -
 #pragma mark Designated initializers
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super init];
+    if (self) {
+        self.view.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self setup];
+    }
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder])) {

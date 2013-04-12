@@ -42,6 +42,7 @@
 - (void)stop;
 - (void)free;
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)maskImage;
+- (id)initWithFrame:(CGRect)frame;
 
 @end
 
