@@ -74,10 +74,6 @@
             
             if (artwork) {
                 self.rotulo = [artwork imageWithSize:CGSizeMake(75, 75)];
-                UIImage *mascara = [UIImage imageNamed:@"discoLabelMask"];
-                UIImage *rotuloRecortado = [self.scratcherViewController maskImage:self.rotulo withMask:mascara];
-
-//                self.rotulo = rotuloRecortado;
             }
             else {
                 debug(@"%@", artwork);

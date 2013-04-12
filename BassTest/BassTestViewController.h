@@ -22,8 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imgArtwork;
-
 @property (strong, nonatomic) ScratcherViewController *scratcherViewController;
 
 @property (strong, nonatomic) Mixer *mixer;

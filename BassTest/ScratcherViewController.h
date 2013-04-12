@@ -19,7 +19,8 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView* imgBrilho;
 @property (strong, nonatomic) IBOutlet UIImageView* imgDeck;
-@property (strong, nonatomic) IBOutlet UIImageView* imgDisco;
+@property (strong, nonatomic) IBOutlet UIView* imgDisco;
+@property (strong, nonatomic) IBOutlet UIImageView* imgRotulo;
 @property (strong, nonatomic) IBOutlet UIImageView* imgLaser;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView* loadingSpin;
 @property (nonatomic) BOOL animating;
